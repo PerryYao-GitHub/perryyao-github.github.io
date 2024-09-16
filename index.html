@@ -83,7 +83,7 @@
         
   
     <h1 itemprop="name">
-      <a class="p-name article-title" href="/2024/09/16/use-hexo-step-by-step/">use hexo step by step</a>
+      <a class="p-name article-title" href="/2024/09/16/use-hexo-step-by-step/">Use Hexo Step by Step</a>
     </h1>
   
 
@@ -99,11 +99,25 @@
 <h2 id="新建完成后"><a href="#新建完成后" class="headerlink" title="新建完成后"></a>新建完成后</h2><p><code>hexo clean</code></p>
 <p><code>hexo g</code></p>
 <p>再重新启动检验</p>
+<h2 id="部署导-GitHub"><a href="#部署导-GitHub" class="headerlink" title="部署导 GitHub"></a>部署导 GitHub</h2><ol>
+<li>新建一个git项目, 注意项目名必须是 <code>your_git_hub_name.github.io</code>; 例如 <code>perryyao-github.github.io</code></li>
+<li> <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">git remote add origin git@github.com:PerryYao-GitHub/perryyao-github.github.io.git</span><br><span class="line">git branch -M main</span><br><span class="line">git push -u origin main</span><br></pre></td></tr></table></figure></li>
+<li>安装 <code>npm install --save hexo-deployer-git</code></li>
+<li>在 <code>_config.yml</code>中做配置<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Deployment</span></span><br><span class="line"><span class="comment">## Docs: https://hexo.io/docs/one-command-deployment</span></span><br><span class="line"><span class="attr">deploy:</span></span><br><span class="line">  <span class="attr">type:</span> <span class="string">&#x27;git&#x27;</span></span><br><span class="line">  <span class="attr">repo:</span> <span class="string">https://github.com/PerryYao-GitHub/perryyao-github.github.io</span></span><br><span class="line">  <span class="attr">branch:</span> <span class="string">main</span></span><br></pre></td></tr></table></figure></li>
+<li>执行 <code>hexo d</code>, 输入git账户密码</li>
+</ol>
+<h2 id="至此以后写博客就是几个步骤"><a href="#至此以后写博客就是几个步骤" class="headerlink" title="至此以后写博客就是几个步骤:"></a>至此以后写博客就是几个步骤:</h2><ol>
+<li><code>hexo n &quot;blog-name&quot;</code></li>
+<li><code>hexo clean</code></li>
+<li><code>hexo g</code></li>
+<li><code>hexo s</code> (查看效果)</li>
+<li><code>hexo d</code></li>
+</ol>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2024/09/16/use-hexo-step-by-step/" data-id="cm154lh8k0001ssvd1ao2gsk4" data-title="use hexo step by step" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="http://example.com/2024/09/16/use-hexo-step-by-step/" data-id="cm155d2xp0001rcvd1xntfd9y" data-title="Use Hexo Step by Step" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
@@ -154,7 +168,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2024/09/16/hello-world/" data-id="cm154lh8c0000ssvdbugc5k55" data-title="Hello World" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="http://example.com/2024/09/16/hello-world/" data-id="cm155d2xg0000rcvdhft8eoje" data-title="Hello World" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
@@ -197,7 +211,7 @@
       <ul>
         
           <li>
-            <a href="/2024/09/16/use-hexo-step-by-step/">use hexo step by step</a>
+            <a href="/2024/09/16/use-hexo-step-by-step/">Use Hexo Step by Step</a>
           </li>
         
           <li>
