@@ -20,30 +20,33 @@
     var CONFIG = {"hostname":"example.com","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
   </script>
 
-  <meta name="description" content="...">
-<meta property="og:type" content="website">
-<meta property="og:title" content="Perry&#39;s Blog">
-<meta property="og:url" content="http://example.com/index.html">
+  <meta name="description" content="LeetCode 77. Combinations12345678910111213141516171819202122class Solution &#123;    private List&lt;List&lt;Integer&gt;&gt; res &#x3D; new LinkedList&lt;&gt;();    private List&lt;Integer&gt; path &#x3D; new L">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Backtrack">
+<meta property="og:url" content="http://example.com/2024/10/04/Backtrack/index.html">
 <meta property="og:site_name" content="Perry&#39;s Blog">
-<meta property="og:description" content="...">
+<meta property="og:description" content="LeetCode 77. Combinations12345678910111213141516171819202122class Solution &#123;    private List&lt;List&lt;Integer&gt;&gt; res &#x3D; new LinkedList&lt;&gt;();    private List&lt;Integer&gt; path &#x3D; new L">
 <meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2024-10-04T08:09:57.000Z">
+<meta property="article:modified_time" content="2024-10-04T08:10:52.248Z">
 <meta property="article:author" content="Perry Yao">
+<meta property="article:tag" content="algorithm">
 <meta name="twitter:card" content="summary">
 
-<link rel="canonical" href="http://example.com/">
+<link rel="canonical" href="http://example.com/2024/10/04/Backtrack/">
 
 
 <script id="page-configurations">
   // https://hexo.io/docs/variables.html
   CONFIG.page = {
     sidebar: "",
-    isHome : true,
-    isPost : false,
+    isHome : false,
+    isPost : true,
     lang   : 'en'
   };
 </script>
 
-  <title>Perry's Blog</title>
+  <title>Backtrack | Perry's Blog</title>
   
 
 
@@ -152,9 +155,10 @@
         <div class="content-wrap">
           
 
-          <div class="content index posts-expand">
+          <div class="content post posts-expand">
             
-      
+
+    
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
@@ -170,10 +174,9 @@
       <meta itemprop="name" content="Perry's Blog">
     </span>
       <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2024/10/04/Backtrack/" class="post-title-link" itemprop="url">Backtrack</a>
-        </h2>
+        <h1 class="post-title" itemprop="name headline">
+          Backtrack
+        </h1>
 
         <div class="post-meta">
             <span class="post-meta-item">
@@ -197,7 +200,7 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h2 id="LeetCode-77-Combinations"><a href="#LeetCode-77-Combinations" class="headerlink" title="LeetCode 77. Combinations"></a>LeetCode <a target="_blank" rel="noopener" href="https://leetcode.com/problems/combinations/">77. Combinations</a></h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line">    <span class="keyword">private</span> List&lt;List&lt;Integer&gt;&gt; res = <span class="keyword">new</span> <span class="title class_">LinkedList</span>&lt;&gt;();</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> List&lt;Integer&gt; path = <span class="keyword">new</span> <span class="title class_">LinkedList</span>&lt;&gt;();</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">void</span> <span class="title function_">backtrack</span><span class="params">(<span class="type">int</span> start, <span class="type">int</span> n, <span class="type">int</span> k)</span> &#123;</span><br><span class="line">        <span class="keyword">if</span> (path.size() == k) &#123;</span><br><span class="line">            res.add(<span class="keyword">new</span> <span class="title class_">LinkedList</span>&lt;&gt;(path));</span><br><span class="line">            <span class="keyword">return</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> start; i &lt;= n - (k - path.size()) + <span class="number">1</span> <span class="comment">/* i 太大就没意义了, 剪枝优化 */</span> ; i ++) &#123;</span><br><span class="line">            path.addLast(i);</span><br><span class="line">            backtrack(i + <span class="number">1</span>, n, k);</span><br><span class="line">            path.removeLast();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> List&lt;List&lt;Integer&gt;&gt; <span class="title function_">combine</span><span class="params">(<span class="type">int</span> n, <span class="type">int</span> k)</span> &#123;</span><br><span class="line">        backtrack(<span class="number">1</span>, n, k);</span><br><span class="line">        <span class="keyword">return</span> res;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+        <h2 id="LeetCode-77-Combinations"><a href="#LeetCode-77-Combinations" class="headerlink" title="LeetCode 77. Combinations"></a>LeetCode <a target="_blank" rel="noopener" href="https://leetcode.com/problems/combinations/">77. Combinations</a></h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line">    <span class="keyword">private</span> List&lt;List&lt;Integer&gt;&gt; res = <span class="keyword">new</span> <span class="title class_">LinkedList</span>&lt;&gt;();</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> List&lt;Integer&gt; path = <span class="keyword">new</span> <span class="title class_">LinkedList</span>&lt;&gt;();</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">void</span> <span class="title function_">backtrack</span><span class="params">(<span class="type">int</span> start, <span class="type">int</span> n, <span class="type">int</span> k)</span> &#123;</span><br><span class="line">        <span class="keyword">if</span> (path.size() == k) &#123;</span><br><span class="line">            res.add(<span class="keyword">new</span> <span class="title class_">LinkedList</span>&lt;&gt;(path));</span><br><span class="line">            <span class="keyword">return</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> start; i &lt;= n - (k - path.size()) + <span class="number">1</span> <span class="comment">/* i 太大就没意义了, 剪枝优化 */</span> ; i ++) &#123;</span><br><span class="line">            path.addLast(i);</span><br><span class="line">            backtrack(i + <span class="number">1</span>, n, k);</span><br><span class="line">            path.removeLast();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> List&lt;List&lt;Integer&gt;&gt; <span class="title function_">combine</span><span class="params">(<span class="type">int</span> n, <span class="type">int</span> k)</span> &#123;</span><br><span class="line">        backtrack(<span class="number">1</span>, n, k);</span><br><span class="line">        <span class="keyword">return</span> res;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 
 
@@ -327,289 +330,33 @@
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line">    <span class="type">boolean</span>[] used;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> List&lt;<span class="type">int</span>[]&gt; res = <span class="keyword">new</span> <span class="title class_">LinkedList</span>&lt;&gt;();</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">void</span> <span class="title function_">backtrack</span><span class="params">(<span class="type">int</span>[] nums, <span class="type">int</span> ind)</span> &#123;</span><br><span class="line">        <span class="keyword">if</span> (ind == nums.length) &#123;</span><br><span class="line">            res.add(Arrays.copyOfRange(nums, <span class="number">0</span>, nums.length));</span><br><span class="line">            <span class="keyword">return</span>;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (nums[ind] != <span class="number">0</span>) &#123;</span><br><span class="line">            backtrack(nums, ind + <span class="number">1</span>);</span><br><span class="line">            <span class="keyword">return</span>;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">num</span> <span class="operator">=</span> <span class="number">1</span>; num &lt; used.length; num++) &#123;</span><br><span class="line">            <span class="keyword">if</span> (used[num]) <span class="keyword">continue</span>;</span><br><span class="line">            used[num] = <span class="literal">true</span>;</span><br><span class="line">            nums[ind] = num;</span><br><span class="line">            backtrack(nums, ind + <span class="number">1</span>);</span><br><span class="line">            used[num] = <span class="literal">false</span>;</span><br><span class="line">            nums[ind] = <span class="number">0</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> nums = [0, 0, 2, 1, 0] 将 1, 3, 5 补充在 0 处</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span></span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">public</span> List&lt;<span class="type">int</span>[]&gt; completePermute(<span class="type">int</span>[] nums) &#123;</span><br><span class="line">        used = <span class="keyword">new</span> <span class="title class_">boolean</span>[nums.length + <span class="number">1</span>];</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> num : nums) &#123;</span><br><span class="line">            <span class="keyword">if</span> (num == <span class="number">0</span>) <span class="keyword">continue</span>;</span><br><span class="line">            used[num] = <span class="literal">true</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        backtrack(nums, <span class="number">0</span>);</span><br><span class="line">        <span class="keyword">return</span> res;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 
-      
     </div>
 
     
     
     
+
       <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
+          <div class="post-tags">
+              <a href="/tags/algorithm/" rel="tag"># algorithm</a>
+          </div>
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2024/10/04/Use-Hexo/">
+        
 
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="https://avatars.githubusercontent.com/u/126999663?v=4">
-      <meta itemprop="name" content="Perry Yao">
-      <meta itemprop="description" content="...">
-    </span>
 
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Perry's Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2024/10/04/Use-Hexo/" class="post-title-link" itemprop="url">Use Hexo</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-              
-
-              <time title="Created: 2024-10-04 16:08:56 / Modified: 16:09:26" itemprop="dateCreated datePublished" datetime="2024-10-04T16:08:56+08:00">2024-10-04</time>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="全局安装-hexo-cli"><a href="#全局安装-hexo-cli" class="headerlink" title="全局安装 hexo-cli"></a>全局安装 hexo-cli</h2><p><code>cnpm install -g hexo-cli</code></p>
-<h2 id="初始化博客"><a href="#初始化博客" class="headerlink" title="初始化博客"></a>初始化博客</h2><p><code>hexo init</code></p>
-<p>默认主题 landscape</p>
-<h2 id="启动"><a href="#启动" class="headerlink" title="启动"></a>启动</h2><p><code>hexo s</code></p>
-<h2 id="新建一篇文章"><a href="#新建一篇文章" class="headerlink" title="新建一篇文章"></a>新建一篇文章</h2><p><code>hexo n &quot;use hexo step by step&quot;</code></p>
-<h2 id="新建完成后"><a href="#新建完成后" class="headerlink" title="新建完成后"></a>新建完成后</h2><p><code>hexo clean</code></p>
-<p><code>hexo g</code></p>
-<p>再重新启动检验</p>
-<h2 id="部署到-GitHub"><a href="#部署到-GitHub" class="headerlink" title="部署到 GitHub"></a>部署到 GitHub</h2><ol>
-<li>新建一个git项目, 注意项目名必须是 <code>your_git_hub_name.github.io</code>; 例如 <code>perryyao-github.github.io</code></li>
-<li>在本地创建 git 仓库, 但是不太需要 push, 因为 <code>hexo d</code> 本质上就是 push <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">git remote add origin git@github.com:PerryYao-GitHub/perryyao-github.github.io.git</span><br><span class="line">git branch -M main</span><br><span class="line">git push -u origin main</span><br></pre></td></tr></table></figure></li>
-<li>安装 <code>npm install --save hexo-deployer-git</code></li>
-<li>在 <code>_config.yml</code>中做配置<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Deployment</span></span><br><span class="line"><span class="comment">## Docs: https://hexo.io/docs/one-command-deployment</span></span><br><span class="line"><span class="attr">deploy:</span></span><br><span class="line">  <span class="attr">type:</span> <span class="string">&#x27;git&#x27;</span></span><br><span class="line">  <span class="attr">repo:</span> <span class="string">https://github.com/PerryYao-GitHub/perryyao-github.github.io</span></span><br><span class="line">  <span class="attr">branch:</span> <span class="string">main</span></span><br></pre></td></tr></table></figure></li>
-<li>执行 <code>hexo d</code>, 输入git账户密码</li>
-</ol>
-<h2 id="至此以后写博客就是几个步骤"><a href="#至此以后写博客就是几个步骤" class="headerlink" title="至此以后写博客就是几个步骤:"></a>至此以后写博客就是几个步骤:</h2><ol>
-<li><code>hexo n &quot;blog-name&quot;</code></li>
-<li><code>hexo clean</code></li>
-<li><code>hexo g</code></li>
-<li><code>hexo s</code> (查看效果)</li>
-<li><code>hexo d</code></li>
-</ol>
-<p>其中 2, 3 是修改了hexo项目后, 想要部署之前必做</p>
-<h2 id="部署-NexT-theme"><a href="#部署-NexT-theme" class="headerlink" title="部署 NexT theme"></a>部署 NexT theme</h2><h3 id="下载-Next-主题："><a href="#下载-Next-主题：" class="headerlink" title="下载 Next 主题："></a>下载 Next 主题：</h3><p>使用 Git 下载 Next 主题到 themes&#x2F; 目录中 (一定要位于项目的根路径下执行)</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git <span class="built_in">clone</span> https://github.com/theme-next/hexo-theme-next themes/next</span><br></pre></td></tr></table></figure>
-
-<h3 id="切换主题"><a href="#切换主题" class="headerlink" title="切换主题"></a>切换主题</h3><p><code>-config.yml</code> 中, <code>theme: next</code></p>
-<h3 id="配置主题"><a href="#配置主题" class="headerlink" title="配置主题"></a>配置主题</h3><p>打开 themes&#x2F;next&#x2F;_config.yml 文件，修改以下基本配置:</p>
-<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">title:</span> <span class="string">My</span> <span class="string">Blog</span></span><br><span class="line"><span class="attr">author:</span> <span class="string">Your</span> <span class="string">Name</span></span><br><span class="line"><span class="attr">description:</span> <span class="string">A</span> <span class="string">place</span> <span class="string">to</span> <span class="string">share</span> <span class="string">knowledge.</span></span><br></pre></td></tr></table></figure>
-
-<h3 id="安装必要依赖"><a href="#安装必要依赖" class="headerlink" title="安装必要依赖"></a>安装必要依赖</h3><p><code>npm install hexo-renderer-pug hexo-renderer-stylus --save</code></p>
-
-      
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2024/10/04/Use-Hexo/" rel="prev" title="Use Hexo">
+      <i class="fa fa-chevron-left"></i> Use Hexo
+    </a></div>
+      <div class="post-nav-item"></div>
     </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
       </footer>
+    
   </article>
   
   
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2024/10/03/Java-Practical-Operations/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="https://avatars.githubusercontent.com/u/126999663?v=4">
-      <meta itemprop="name" content="Perry Yao">
-      <meta itemprop="description" content="...">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Perry's Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2024/10/03/Java-Practical-Operations/" class="post-title-link" itemprop="url">Java Practical Operations</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-              
-
-              <time title="Created: 2024-10-03 00:34:36 / Modified: 00:39:28" itemprop="dateCreated datePublished" datetime="2024-10-03T00:34:36+08:00">2024-10-03</time>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h3 id="字符串操作"><a href="#字符串操作" class="headerlink" title="字符串操作"></a>字符串操作</h3><ol>
-<li><p><strong>将<code>int</code>转换为字符串</strong>：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">String</span> <span class="variable">str</span> <span class="operator">=</span> String.valueOf(<span class="number">123</span>);</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>**将字符串转换为<code>Integer</code>**：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">Integer</span> <span class="variable">num</span> <span class="operator">=</span> Integer.valueOf(<span class="string">&quot;123&quot;</span>);</span><br></pre></td></tr></table></figure>
-</li>
-<li><p><strong>拼接字符串</strong>：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">String</span> <span class="variable">result</span> <span class="operator">=</span> <span class="string">&quot;Hello, &quot;</span> + <span class="string">&quot;World!&quot;</span>;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p><strong>字符串分割</strong>：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">String[] parts = <span class="string">&quot;a,b,c&quot;</span>.split(<span class="string">&quot;,&quot;</span>);</span><br></pre></td></tr></table></figure>
-</li>
-<li><p><strong>字符串反转</strong>：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">String</span> <span class="variable">reversed</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">StringBuilder</span>(<span class="string">&quot;hello&quot;</span>).reverse().toString();</span><br></pre></td></tr></table></figure></li>
-</ol>
-<h3 id="数组操作"><a href="#数组操作" class="headerlink" title="数组操作"></a>数组操作</h3><ol>
-<li><p><strong>输出一维数组为字符串</strong>：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">String</span> <span class="variable">arrayStr</span> <span class="operator">=</span> Arrays.toString(<span class="keyword">new</span> <span class="title class_">int</span>[]&#123;<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>&#125;);</span><br></pre></td></tr></table></figure>
-</li>
-<li><p><strong>输出二维数组为字符串</strong>：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">String</span> <span class="variable">arrayStr</span> <span class="operator">=</span> Arrays.deepToString(<span class="keyword">new</span> <span class="title class_">int</span>[][]&#123;&#123;<span class="number">1</span>, <span class="number">2</span>&#125;, &#123;<span class="number">3</span>, <span class="number">4</span>&#125;&#125;);</span><br></pre></td></tr></table></figure>
-</li>
-<li><p><strong>将<code>List</code>转换为数组</strong>：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">List&lt;Integer&gt; list = Arrays.asList(<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>);</span><br><span class="line">Integer[] array = list.toArray(<span class="keyword">new</span> <span class="title class_">Integer</span>[<span class="number">0</span>]);</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>**将数组转换为<code>List</code>**：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">List&lt;Integer&gt; list = Arrays.asList(<span class="keyword">new</span> <span class="title class_">Integer</span>[]&#123;<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>&#125;);</span><br></pre></td></tr></table></figure>
-</li>
-<li><p><strong>数组深拷贝</strong>：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span>[] original = &#123;<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>&#125;;</span><br><span class="line"><span class="type">int</span>[] copy = original.clone();</span><br></pre></td></tr></table></figure>
-</li>
-<li><p><strong>二维数组深拷贝</strong>：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span>[][] original = &#123;&#123;<span class="number">1</span>, <span class="number">2</span>&#125;, &#123;<span class="number">3</span>, <span class="number">4</span>&#125;&#125;;</span><br><span class="line"><span class="type">int</span>[][] copy = Arrays.stream(original)</span><br><span class="line">                     .map(<span class="type">int</span>[]::clone)</span><br><span class="line">                     .toArray(<span class="type">int</span>[][]::<span class="keyword">new</span>);</span><br></pre></td></tr></table></figure></li>
-</ol>
-<h3 id="集合操作"><a href="#集合操作" class="headerlink" title="集合操作"></a>集合操作</h3><ol>
-<li><p><strong><code>List</code>深拷贝</strong>：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">List&lt;Integer&gt; original = <span class="keyword">new</span> <span class="title class_">ArrayList</span>&lt;&gt;(Arrays.asList(<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>));</span><br><span class="line">List&lt;Integer&gt; copy = <span class="keyword">new</span> <span class="title class_">ArrayList</span>&lt;&gt;(original);</span><br></pre></td></tr></table></figure>
-</li>
-<li><p><strong><code>Set</code>与<code>List</code>之间的转换</strong>：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Set&lt;Integer&gt; set = <span class="keyword">new</span> <span class="title class_">HashSet</span>&lt;&gt;(list);</span><br><span class="line">List&lt;Integer&gt; listFromSet = <span class="keyword">new</span> <span class="title class_">ArrayList</span>&lt;&gt;(set);</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>**排序<code>List</code>**：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Collections.sort(list);</span><br></pre></td></tr></table></figure>
-</li>
-<li><p><strong>查找元素</strong>：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">boolean</span> <span class="variable">contains</span> <span class="operator">=</span> list.contains(<span class="number">2</span>);</span><br></pre></td></tr></table></figure>
-</li>
-<li><p><strong>移除元素</strong>：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">list.remove(Integer.valueOf(<span class="number">2</span>));</span><br></pre></td></tr></table></figure></li>
-</ol>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2024/09/16/hello-world/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="https://avatars.githubusercontent.com/u/126999663?v=4">
-      <meta itemprop="name" content="Perry Yao">
-      <meta itemprop="description" content="...">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Perry's Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2024/09/16/hello-world/" class="post-title-link" itemprop="url">Hello World</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2024-09-16 22:16:47" itemprop="dateCreated datePublished" datetime="2024-09-16T22:16:47+08:00">2024-09-16</time>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>Welcome to <a target="_blank" rel="noopener" href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a target="_blank" rel="noopener" href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a target="_blank" rel="noopener" href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a target="_blank" rel="noopener" href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br></pre></td></tr></table></figure>
-
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/writing.html">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/server.html">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/generating.html">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-
   
 
 
@@ -662,6 +409,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#LeetCode-77-Combinations"><span class="nav-number">1.</span> <span class="nav-text">LeetCode 77. Combinations</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#LeetCode-216-Combination-Sum-III"><span class="nav-number">2.</span> <span class="nav-text">LeetCode 216. Combination Sum III</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#LeetCode-17-Letter-Combinations-of-a-Phone-Number"><span class="nav-number">3.</span> <span class="nav-text">LeetCode 17. Letter Combinations of a Phone Number</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#LeetCode-39-Combination-Sum"><span class="nav-number">4.</span> <span class="nav-text">LeetCode 39. Combination Sum</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#leecode-40-Combination-Sum-II"><span class="nav-number">5.</span> <span class="nav-text">leecode 40. Combination Sum II</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#LeetCode-131-Palindrome-Partitioning"><span class="nav-number">6.</span> <span class="nav-text">LeetCode 131. Palindrome Partitioning</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#LeetCode-93-Restore-IP-Addresses"><span class="nav-number">7.</span> <span class="nav-text">LeetCode 93. Restore IP Addresses</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#LeetCode-78-Subsets"><span class="nav-number">8.</span> <span class="nav-text">LeetCode 78. Subsets</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#LeetCode-90-Subsets-II"><span class="nav-number">9.</span> <span class="nav-text">LeetCode 90. Subsets II</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#LeetCode-491-Non-decreasing-Subsequences"><span class="nav-number">10.</span> <span class="nav-text">LeetCode 491. Non-decreasing Subsequences</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#LeetCode-46-Permutations"><span class="nav-number">11.</span> <span class="nav-text">LeetCode 46. Permutations</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#LeetCode-47-Permutations-II"><span class="nav-number">12.</span> <span class="nav-text">LeetCode 47. Permutations II</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#LeetCode-332-Reconstruct-Itinerary"><span class="nav-number">13.</span> <span class="nav-text">LeetCode 332. Reconstruct Itinerary</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#LeetCode-51-N-Queens"><span class="nav-number">14.</span> <span class="nav-text">LeetCode 51. N-Queens</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#LeetCode-37-Sudoku-Solver"><span class="nav-number">15.</span> <span class="nav-text">LeetCode 37. Sudoku Solver</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#DIY-%E5%B9%BB%E6%96%B9"><span class="nav-number">16.</span> <span class="nav-text">DIY 幻方</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#DIY-%E8%A1%A5%E5%AE%8C%E6%8E%92%E5%88%97"><span class="nav-number">17.</span> <span class="nav-text">DIY 补完排列</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
