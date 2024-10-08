@@ -168,6 +168,99 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2024/10/08/Java-Bugs/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="https://avatars.githubusercontent.com/u/126999663?v=4">
+      <meta itemprop="name" content="Perry Yao">
+      <meta itemprop="description" content="...">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Perry's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2024/10/08/Java-Bugs/" class="post-title-link" itemprop="url">Java Bugs</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2024-10-08 22:16:19 / Modified: 22:19:11" itemprop="dateCreated datePublished" datetime="2024-10-08T22:16:19+08:00">2024-10-08</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <blockquote>
+<p>这是一篇 Java 刷题, 开发过程中, 常常容易产生的 bug 汇总.</p>
+<p>This is a summary of bugs that are often prone to occur during the development process in Java.</p>
+</blockquote>
+<h2 id="数组引用"><a href="#数组引用" class="headerlink" title="数组引用"></a>数组引用</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">test0</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="type">int</span>[][] arr = &#123;&#123;<span class="number">0</span>, <span class="number">1</span>&#125;, &#123;<span class="number">1</span>, <span class="number">2</span>&#125;, &#123;<span class="number">2</span>, <span class="number">3</span>&#125;, &#123;<span class="number">3</span>, <span class="number">4</span>&#125;, &#123;<span class="number">4</span>, <span class="number">5</span>&#125;, &#123;<span class="number">5</span>, <span class="number">6</span>&#125;&#125;;</span><br><span class="line">        <span class="type">int</span>[] a0 = arr[<span class="number">0</span>];</span><br><span class="line">        <span class="type">int</span>[] a1 = arr[<span class="number">1</span>];</span><br><span class="line"></span><br><span class="line">        a0 = a1;</span><br><span class="line">        System.out.println(Arrays.deepToString(arr));</span><br><span class="line">        <span class="comment">// [[0, 1], [1, 2], [2, 3], [3, 4], [4, 5], [5, 6]]</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">test1</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="type">int</span>[][] arr = &#123;&#123;<span class="number">0</span>, <span class="number">1</span>&#125;, &#123;<span class="number">1</span>, <span class="number">2</span>&#125;, &#123;<span class="number">2</span>, <span class="number">3</span>&#125;, &#123;<span class="number">3</span>, <span class="number">4</span>&#125;, &#123;<span class="number">4</span>, <span class="number">5</span>&#125;, &#123;<span class="number">5</span>, <span class="number">6</span>&#125;&#125;;</span><br><span class="line">        <span class="type">int</span>[] a0 = arr[<span class="number">0</span>];</span><br><span class="line">        <span class="type">int</span>[] a1 = arr[<span class="number">1</span>];</span><br><span class="line"></span><br><span class="line">        a0[<span class="number">0</span>] = a1[<span class="number">0</span>];</span><br><span class="line">        a0[<span class="number">1</span>] = a1[<span class="number">1</span>];</span><br><span class="line">        System.out.println(Arrays.deepToString(arr));</span><br><span class="line">        <span class="comment">// [[1, 2], [1, 2], [2, 3], [3, 4], [4, 5], [5, 6]]</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>在 <code>test0</code> 方法中</strong>：</p>
+<ol>
+<li><code>a0</code> 和 <code>a1</code> 分别引用了 <code>arr[0]</code> 和 <code>arr[1]</code>。</li>
+<li>执行 <code>a0 = a1;</code> 后，<code>a0</code> 被赋予了 <code>a1</code> 的引用，指向与 <code>a1</code> 相同的数组对象，即 <code>arr[1]</code>。</li>
+<li>由于 <code>a0</code> 原本指向的 <code>arr[0]</code> 没有被修改，<code>arr</code> 数组的内容保持不变。</li>
+<li>最终输出为 <code>[[0, 1], [1, 2], [2, 3], [3, 4], [4, 5], [5, 6]]</code>。</li>
+</ol>
+<p>这里的关键是 <code>a0 = a1;</code> 只是改变了 <code>a0</code> 的引用指向，但没有改变 <code>arr[0]</code> 的内容。</p>
+<p><strong>在 <code>test1</code> 方法中</strong>：</p>
+<ol>
+<li><code>a0</code> 和 <code>a1</code> 同样分别引用了 <code>arr[0]</code> 和 <code>arr[1]</code>。</li>
+<li>然而，这里执行了 <code>a0[0] = a1[0];</code> 和 <code>a0[1] = a1[1];</code>。这些操作实际上修改了 <code>a0</code> 指向的数组内容，即修改了 <code>arr[0]</code> 的值。</li>
+<li>因为 <code>a0</code> 指向 <code>arr[0]</code>，修改 <code>a0</code> 的内容等同于直接修改 <code>arr[0]</code>。</li>
+<li>最终输出为 <code>[[1, 2], [1, 2], [2, 3], [3, 4], [4, 5], [5, 6]]</code>，因为 <code>arr[0]</code> 的内容已被更新为与 <code>arr[1]</code> 相同。</li>
+</ol>
+<p><strong>注</strong>: <code>aObj = bObj</code> 相当于把 aObj 的引用指向了 bObj. 如果它们是 <strong>“不可变对象”</strong> (例如, String 和 一系列装箱类 Integer), 那么, 就起到了等价于 把 bObj 的值 赋给 aObj 的效果 (因为当修改 aObj 时, 只能重新 new 对象, 这样, bObj 相当于没有受影响). </p>
+<h2 id="toArray-方法"><a href="#toArray-方法" class="headerlink" title="toArray() 方法"></a><code>toArray()</code> 方法</h2><p>错误代码</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">LinkedList&lt;<span class="type">int</span>[]&gt; lst = <span class="keyword">new</span> <span class="title class_">LinkedList</span>&lt;&gt;();</span><br><span class="line">lst.add(<span class="keyword">new</span> <span class="title class_">int</span>[] &#123;<span class="number">0</span>, <span class="number">1</span>&#125;);</span><br><span class="line">lst.add(<span class="keyword">new</span> <span class="title class_">int</span>[] &#123;<span class="number">2</span>, <span class="number">3</span>&#125;);</span><br><span class="line">lst.toArray();  <span class="comment">// error</span></span><br></pre></td></tr></table></figure>
+
+<p><code>lst.toArray();</code> 这一句出现报错是因为 <code>toArray()</code> 方法返回的是一个 <code>Object[]</code> 类型的数组，而不是 <code>int[][]</code> 类型。</p>
+<p>为了返回 <code>int[][]</code> 类型的数组，你需要使用 <code>toArray(T[] a)</code> 的重载方法 (这里, 相当于泛型 T 为 <code>int[]</code>)，将结果转换成 <code>int[][]</code>。具体可以如下修改：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">lst.toArray(new int[lst.size()][]);</span><br></pre></td></tr></table></figure>
+
+<p>这样会确保 <code>lst</code> 转换成 <code>int[][]</code> 类型的数组。</p>
+<ul>
+<li><code>lst.toArray(new int[lst.size()][])</code> 的作用是创建一个与 <code>lst</code> 相同大小的 <code>int[][]</code> 数组，并将 <code>res</code> 中的元素复制到这个数组中。</li>
+<li>这种用法是标准的 <code>ArrayList</code> 和 <code>LinkedList</code> 转换为数组的方式，当需要指定返回数组的类型时非常常用。</li>
+</ul>
+<p><strong>注</strong>: <code>int[]</code> 是类型 (对象), <code>int[n]</code> 是实例, 故上面的泛型 T 为 <code>int[]</code></p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
     <link itemprop="mainEntityOfPage" href="http://example.com/2024/10/08/Dynamic-Programming/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -381,7 +474,7 @@
               <span class="post-meta-item-text">Posted on</span>
               
 
-              <time title="Created: 2024-10-08 00:46:53 / Modified: 00:47:36" itemprop="dateCreated datePublished" datetime="2024-10-08T00:46:53+08:00">2024-10-08</time>
+              <time title="Created: 2024-10-08 00:46:53 / Modified: 22:15:50" itemprop="dateCreated datePublished" datetime="2024-10-08T00:46:53+08:00">2024-10-08</time>
             </span>
 
           
@@ -458,6 +551,54 @@
 <h2 id="LeetCode-406-Queue-Reconstruction-by-Height"><a href="#LeetCode-406-Queue-Reconstruction-by-Height" class="headerlink" title="LeetCode 406. Queue Reconstruction by Height"></a>LeetCode <a target="_blank" rel="noopener" href="https://leetcode.com/problems/queue-reconstruction-by-height/">406. Queue Reconstruction by Height</a></h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="type">int</span>[][] reconstructQueue(<span class="type">int</span>[][] people) &#123;</span><br><span class="line">        <span class="comment">// 先按身高排序</span></span><br><span class="line">        Arrays.sort(people, (p1, p2) -&gt; &#123;</span><br><span class="line">            <span class="keyword">if</span> (p1[<span class="number">0</span>] == p2[<span class="number">0</span>]) <span class="keyword">return</span> p1[<span class="number">1</span>] - p2[<span class="number">1</span>];</span><br><span class="line">            <span class="keyword">return</span> - (p1[<span class="number">0</span>] - p2[<span class="number">0</span>]);</span><br><span class="line">        &#125;);</span><br><span class="line">        LinkedList&lt;<span class="type">int</span>[]&gt; queue = <span class="keyword">new</span> <span class="title class_">LinkedList</span>&lt;&gt;();</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span>[] p : people) queue.add(p[<span class="number">1</span>], p);  <span class="comment">// add(index, value)</span></span><br><span class="line">        <span class="keyword">return</span> queue.toArray(<span class="keyword">new</span> <span class="title class_">int</span>[people.length][<span class="number">2</span>]);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p>贪心思路: 先按照从高到矮排 (身高一样就按照k从小到大排), 在此基础上, 每次从插入的元素, 队伍中已有的元素都比它高, 这样, 就只要考虑它的 k 值即可</p>
+<h2 id="LeetCode-452-Minimum-Number-of-Arrows-to-Burst-Balloons"><a href="#LeetCode-452-Minimum-Number-of-Arrows-to-Burst-Balloons" class="headerlink" title="LeetCode 452. Minimum Number of Arrows to Burst Balloons"></a>LeetCode <a target="_blank" rel="noopener" href="https://leetcode.com/problems/minimum-number-of-arrows-to-burst-balloons/">452. Minimum Number of Arrows to Burst Balloons</a></h2><p><em><strong>求最小连通交集</strong></em></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="type">int</span> <span class="title function_">findMinArrowShots</span><span class="params">(<span class="type">int</span>[][] points)</span> &#123;</span><br><span class="line">        Arrays.sort(points, (p1, p2) -&gt; Integer.compare(p1[<span class="number">0</span>], p2[<span class="number">0</span>]));</span><br><span class="line">        LinkedList&lt;<span class="type">int</span>[]&gt; stk = <span class="keyword">new</span> <span class="title class_">LinkedList</span>&lt;&gt;();</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span>[] p : points) &#123;</span><br><span class="line">            <span class="keyword">if</span> (stk.isEmpty()) stk.addLast(p);</span><br><span class="line">            <span class="keyword">else</span> &#123;</span><br><span class="line">                <span class="type">int</span>[] prev = stk.removeLast();</span><br><span class="line">                <span class="comment">// 看看有没有交集</span></span><br><span class="line">                <span class="keyword">if</span> (p[<span class="number">0</span>] &lt;= prev[<span class="number">1</span>]) &#123;</span><br><span class="line">                    <span class="type">int</span> <span class="variable">start</span> <span class="operator">=</span> p[<span class="number">0</span>], end = Math.min(p[<span class="number">1</span>], prev[<span class="number">1</span>]);  <span class="comment">// end 的确定很重要, 求并集 取 min</span></span><br><span class="line">                    stk.addLast(<span class="keyword">new</span> <span class="title class_">int</span>[] &#123;start, end&#125;);</span><br><span class="line">                &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                    stk.addLast(prev);</span><br><span class="line">                    stk.addLast(p);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> stk.size();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>end处有可能出现以下情况:</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">prev = [1, 10]; p = [2, 3] -&gt; add_p = [2, 3];</span><br><span class="line">prev = [1, 3];  p = [2, 4] -&gt; add_p = [2, 3];</span><br></pre></td></tr></table></figure>
+
+<p>更简单的写法</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="type">int</span> <span class="title function_">findMinArrowShots</span><span class="params">(<span class="type">int</span>[][] points)</span> &#123;</span><br><span class="line">        <span class="type">int</span> <span class="variable">len</span> <span class="operator">=</span> points.length;</span><br><span class="line">        <span class="keyword">if</span> (len &lt;= <span class="number">1</span>) <span class="keyword">return</span> len;</span><br><span class="line">        <span class="type">int</span> <span class="variable">res</span> <span class="operator">=</span> <span class="number">1</span>;</span><br><span class="line">        Arrays.sort(points, (p1, p2) -&gt; Integer.compare(p1[<span class="number">0</span>], p2[<span class="number">0</span>]));</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">1</span>; i &lt; len; i ++) &#123;</span><br><span class="line">            <span class="type">int</span>[] pre = points[i - <span class="number">1</span>], cur = points[i];  <span class="comment">// 使用 [] 从数组中取对象, 是传引用的, 没有new 新的对象</span></span><br><span class="line">            <span class="keyword">if</span> (pre[<span class="number">1</span>] &lt; cur[<span class="number">0</span>]) &#123;  <span class="comment">// 没有挨着, res ++</span></span><br><span class="line">                res ++;</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                cur[<span class="number">1</span>] = Math.min(pre[<span class="number">1</span>], cur[<span class="number">1</span>]);  <span class="comment">// 因此可以直接在 cur 上修改</span></span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> res;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="LeetCode-435-Non-overlapping-Intervals"><a href="#LeetCode-435-Non-overlapping-Intervals" class="headerlink" title="LeetCode 435. Non-overlapping Intervals"></a>LeetCode <a target="_blank" rel="noopener" href="https://leetcode.com/problems/non-overlapping-intervals/">435. Non-overlapping Intervals</a></h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="type">int</span> <span class="title function_">eraseOverlapIntervals</span><span class="params">(<span class="type">int</span>[][] intervals)</span> &#123;</span><br><span class="line">        Arrays.sort(intervals, (ia, ib) -&gt; Integer.compare(ia[<span class="number">0</span>], ib[<span class="number">0</span>]));</span><br><span class="line">        <span class="type">int</span> <span class="variable">res</span> <span class="operator">=</span> <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">1</span>; i &lt; intervals.length; i ++) &#123;</span><br><span class="line">            <span class="type">int</span>[] cur = intervals[i], pre = intervals[i - <span class="number">1</span>];</span><br><span class="line">            <span class="keyword">if</span> (cur[<span class="number">0</span>] &lt; pre[<span class="number">1</span>]) &#123;  <span class="comment">// 重合了</span></span><br><span class="line">                <span class="comment">// 移除更长的那个</span></span><br><span class="line">                <span class="keyword">if</span> (pre[<span class="number">1</span>] &lt;= cur[<span class="number">1</span>]) &#123;  <span class="comment">// 只有当 pre 的右端点 未超过 cur 的右端点 -&gt; 去掉 cur; 把 cur 变成 pre</span></span><br><span class="line">                    cur[<span class="number">0</span>] = pre[<span class="number">0</span>];</span><br><span class="line">                    cur[<span class="number">1</span>] = pre[<span class="number">1</span>];</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="comment">// 当 pre 的右端点 超过 cur 的右端点 -&gt; 去掉 pre; 同时 cur 保持不变</span></span><br><span class="line">                res ++;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> res;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>同上, 也要注意两种情况:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">pre = [1, 10]; cur = [2, 4]; -&gt; remove pre</span><br><span class="line">pre = [1,  4]; cur = [2, 5]; -&gt; remove cur </span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="LeetCode-56-Merge-Intervals"><a href="#LeetCode-56-Merge-Intervals" class="headerlink" title="LeetCode 56. Merge Intervals"></a>LeetCode <a target="_blank" rel="noopener" href="https://leetcode.com/problems/merge-intervals/">56. Merge Intervals</a></h2><p><em><strong>求最大连通并集</strong></em></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="type">int</span>[][] merge(<span class="type">int</span>[][] intervals) &#123;</span><br><span class="line">        Arrays.sort(intervals, (ia, ib) -&gt; Integer.compare(ia[<span class="number">0</span>], ib[<span class="number">0</span>]));</span><br><span class="line">        LinkedList&lt;<span class="type">int</span>[]&gt; res = <span class="keyword">new</span> <span class="title class_">LinkedList</span>&lt;&gt;();</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span>[] cur : intervals) &#123;</span><br><span class="line">            <span class="keyword">if</span> (res.isEmpty()) res.add(cur);</span><br><span class="line">            <span class="keyword">else</span> &#123;</span><br><span class="line">                <span class="type">int</span>[] pre = res.getLast();</span><br><span class="line">                <span class="keyword">if</span> (pre[<span class="number">1</span>] &lt; cur[<span class="number">0</span>]) res.addLast(cur);  <span class="comment">// 不重合</span></span><br><span class="line">                <span class="keyword">else</span> pre[<span class="number">1</span>] = Math.max(cur[<span class="number">1</span>], pre[<span class="number">1</span>]);  <span class="comment">// 求并集, 取 max</span></span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> res.toArray(<span class="keyword">new</span> <span class="title class_">int</span>[res.size()][]);  <span class="comment">// 使用带参数的 toArray 方法</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+<h2 id="LeetCode-763-Partition-Labels"><a href="#LeetCode-763-Partition-Labels" class="headerlink" title="LeetCode 763. Partition Labels"></a>LeetCode <a target="_blank" rel="noopener" href="https://leetcode.com/problems/partition-labels/">763. Partition Labels</a></h2><p><em><strong>求最大连通并集</strong></em></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> List&lt;Integer&gt; <span class="title function_">partitionLabels</span><span class="params">(String s)</span> &#123;</span><br><span class="line">        <span class="type">int</span>[][] record = <span class="keyword">new</span> <span class="title class_">int</span>[<span class="number">26</span>][<span class="number">2</span>];</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span>[] line : record) Arrays.fill(line, -<span class="number">1</span>);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; s.length(); i ++) &#123;</span><br><span class="line">            <span class="type">char</span> <span class="variable">ch</span> <span class="operator">=</span> s.charAt(i);</span><br><span class="line">            <span class="type">int</span> <span class="variable">charInd</span> <span class="operator">=</span> ch - <span class="string">&#x27;a&#x27;</span>;</span><br><span class="line">            <span class="keyword">if</span> (record[charInd][<span class="number">0</span>] == -<span class="number">1</span>) record[charInd][<span class="number">0</span>] = i;</span><br><span class="line">            record[charInd][<span class="number">1</span>] = i;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">// 接下来就是对 有效小区间 求并集</span></span><br><span class="line">        Arrays.sort(record, (ra, rb) -&gt; Integer.compare(ra[<span class="number">0</span>], rb[<span class="number">0</span>]));</span><br><span class="line">        LinkedList&lt;<span class="type">int</span>[]&gt; stk = <span class="keyword">new</span> <span class="title class_">LinkedList</span>&lt;&gt;();</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span>[] cur : record) &#123;</span><br><span class="line">            <span class="keyword">if</span> (cur[<span class="number">0</span>] == -<span class="number">1</span>) <span class="keyword">continue</span>;</span><br><span class="line">            <span class="keyword">if</span> (stk.isEmpty()) stk.add(cur);</span><br><span class="line">            <span class="keyword">else</span> &#123;</span><br><span class="line">                <span class="type">int</span>[] pre = stk.getLast();</span><br><span class="line">                <span class="keyword">if</span> (pre[<span class="number">1</span>] &lt; cur[<span class="number">0</span>]) stk.addLast(cur);  <span class="comment">// 不相交</span></span><br><span class="line">                <span class="keyword">else</span> &#123;</span><br><span class="line">                    pre[<span class="number">1</span>] = Math.max(cur[<span class="number">1</span>], pre[<span class="number">1</span>]);  <span class="comment">// 求并集, 取 max</span></span><br><span class="line">                &#125; </span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        List&lt;Integer&gt; res = <span class="keyword">new</span> <span class="title class_">LinkedList</span>&lt;&gt;();</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span>[] interval : stk) res.add(interval[<span class="number">1</span>] - interval[<span class="number">0</span>] + <span class="number">1</span>);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> res;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>本质上与前两题类似, 只不过是求最大连通并集</p>
+<p>使用 stream api</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> List&lt;Integer&gt; <span class="title function_">partitionLabels</span><span class="params">(String s)</span> &#123;</span><br><span class="line">        <span class="type">int</span>[][] record = <span class="keyword">new</span> <span class="title class_">int</span>[<span class="number">26</span>][<span class="number">2</span>];</span><br><span class="line">        Arrays.stream(record).forEach(line -&gt; Arrays.fill(line, -<span class="number">1</span>)); <span class="comment">// 使用 Stream 填充数组</span></span><br><span class="line"></span><br><span class="line">        <span class="comment">// 使用 Stream API 填充记录</span></span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; s.length(); i++) &#123;</span><br><span class="line">            <span class="type">char</span> <span class="variable">ch</span> <span class="operator">=</span> s.charAt(i);</span><br><span class="line">            <span class="type">int</span> <span class="variable">charInd</span> <span class="operator">=</span> ch - <span class="string">&#x27;a&#x27;</span>;</span><br><span class="line">            <span class="keyword">if</span> (record[charInd][<span class="number">0</span>] == -<span class="number">1</span>) record[charInd][<span class="number">0</span>] = i;</span><br><span class="line">            record[charInd][<span class="number">1</span>] = i;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 对有效小区间求交集</span></span><br><span class="line">        List&lt;<span class="type">int</span>[]&gt; intervals = Arrays.stream(record)</span><br><span class="line">            .filter(interval -&gt; interval[<span class="number">0</span>] != -<span class="number">1</span>) <span class="comment">// 过滤掉无效的区间</span></span><br><span class="line">            .sorted(Comparator.comparingInt(a -&gt; a[<span class="number">0</span>])) <span class="comment">// 按区间的起点排序</span></span><br><span class="line">            .collect(Collectors.toCollection(LinkedList::<span class="keyword">new</span>));</span><br><span class="line"></span><br><span class="line">        LinkedList&lt;<span class="type">int</span>[]&gt; merged = <span class="keyword">new</span> <span class="title class_">LinkedList</span>&lt;&gt;();</span><br><span class="line">        intervals.forEach(cur -&gt; &#123;</span><br><span class="line">            <span class="keyword">if</span> (merged.isEmpty() || merged.getLast()[<span class="number">1</span>] &lt; cur[<span class="number">0</span>]) &#123;</span><br><span class="line">                merged.add(cur); <span class="comment">// 无交集，直接加入</span></span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                merged.getLast()[<span class="number">1</span>] = Math.max(merged.getLast()[<span class="number">1</span>], cur[<span class="number">1</span>]); <span class="comment">// 合并区间</span></span><br><span class="line">            &#125;</span><br><span class="line">        &#125;);</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 生成结果列表</span></span><br><span class="line">        <span class="keyword">return</span> merged.stream()</span><br><span class="line">            .map(interval -&gt; interval[<span class="number">1</span>] - interval[<span class="number">0</span>] + <span class="number">1</span>)</span><br><span class="line">            .collect(Collectors.toList());</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="LeetCode-738-Monotone-Increasing-Digits"><a href="#LeetCode-738-Monotone-Increasing-Digits" class="headerlink" title="LeetCode 738. Monotone Increasing Digits"></a>LeetCode <a target="_blank" rel="noopener" href="https://leetcode.com/problems/monotone-increasing-digits/">738. Monotone Increasing Digits</a></h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="type">int</span> <span class="title function_">monotoneIncreasingDigits</span><span class="params">(<span class="type">int</span> n)</span> &#123;</span><br><span class="line">        <span class="type">StringBuilder</span> <span class="variable">sb</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">StringBuilder</span>(String.valueOf(n));</span><br><span class="line">        <span class="type">int</span> <span class="variable">start</span> <span class="operator">=</span> sb.length();  <span class="comment">// start 之后 全部置为 9</span></span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> sb.length() - <span class="number">2</span>; i &gt; -<span class="number">1</span>; i --) &#123;  <span class="comment">// 从后向前是关键</span></span><br><span class="line">            <span class="keyword">if</span> (sb.charAt(i) &gt; sb.charAt(i + <span class="number">1</span>)) &#123;</span><br><span class="line">                start = i + <span class="number">1</span>;</span><br><span class="line">                sb.setCharAt(i, (<span class="type">char</span>)(sb.charAt(i) - <span class="number">1</span>));</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> start; i &lt; sb.length(); i ++) sb.setCharAt(i, <span class="string">&#x27;9&#x27;</span>);</span><br><span class="line">        <span class="keyword">return</span> Integer.valueOf(sb.toString());</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="LeetCode-968-Binary-Tree-Cameras"><a href="#LeetCode-968-Binary-Tree-Cameras" class="headerlink" title="LeetCode 968. Binary Tree Cameras"></a>LeetCode <a target="_blank" rel="noopener" href="https://leetcode.com/problems/binary-tree-cameras/">968. Binary Tree Cameras</a></h2><p><strong>原始写法</strong></p>
+<p>对每个节点的val赋值, <strong>0 - 未被照亮, 1 - 放了红太阳, 2 - 被照亮</strong></p>
+<p>使用后续遍历, 从底部向上收集结果</p>
+<p>贪心思路: 叶子节点<strong>一定不</strong>装红太阳</p>
+<p>注意: 题目中的 root 各个节点的初始值是 0, 可以认为一开始所有节点都没有被照亮 (0 个 红太阳)</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="type">int</span> <span class="variable">res</span> <span class="operator">=</span> <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">void</span> <span class="title function_">traversal</span><span class="params">(TreeNode root)</span> &#123;</span><br><span class="line">        <span class="keyword">if</span> (root == <span class="literal">null</span>) <span class="keyword">return</span>;</span><br><span class="line">        traversal(root.left);</span><br><span class="line">        traversal(root.right);</span><br><span class="line">        <span class="keyword">if</span> (root.left == <span class="literal">null</span> &amp;&amp; root.right == <span class="literal">null</span>) <span class="keyword">return</span>; <span class="comment">// 叶子节点, 叶子节点不能装红太阳, 返回时刻也没有被照亮</span></span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">if</span> (root.left != <span class="literal">null</span> &amp;&amp; root.right == <span class="literal">null</span>) &#123;</span><br><span class="line">            <span class="keyword">if</span> (root.left.val == <span class="number">0</span>) &#123;  <span class="comment">// 如果该节点的子节点没被照亮, 那么当前节点必须装红太阳</span></span><br><span class="line">                res ++;</span><br><span class="line">                root.val = <span class="number">1</span>;  <span class="comment">// 1 代表给当前节点装红太阳</span></span><br><span class="line">                root.left.val = <span class="number">2</span>;  <span class="comment">// 2 代表它的子节点可以被照到</span></span><br><span class="line">                <span class="keyword">return</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">if</span> (root.left.val == <span class="number">1</span>) &#123;  <span class="comment">// 如果该节点的子节点已经装了红太阳, 那么当前节点就可以被照亮</span></span><br><span class="line">                root.val = <span class="number">2</span>;  <span class="comment">// 把当前节点照亮</span></span><br><span class="line">                <span class="keyword">return</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">if</span> (root.left.val == <span class="number">2</span>) &#123;  <span class="comment">// 如果该节点的子节点仅仅是被照亮, 那么当前节点依然是黑暗的, 直接 return</span></span><br><span class="line">                <span class="keyword">return</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">if</span> (root.left == <span class="literal">null</span> &amp;&amp; root.right != <span class="literal">null</span>) &#123;  <span class="comment">// 处理 仅有右子树的情况同上</span></span><br><span class="line">            <span class="keyword">if</span> (root.right.val == <span class="number">0</span>) &#123;</span><br><span class="line">                res ++;</span><br><span class="line">                root.val = <span class="number">1</span>;</span><br><span class="line">                root.right.val = <span class="number">2</span>;</span><br><span class="line">                <span class="keyword">return</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">if</span> (root.right.val == <span class="number">1</span>) &#123;</span><br><span class="line">                root.val = <span class="number">2</span>;</span><br><span class="line">                <span class="keyword">return</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">if</span> (root.right.val == <span class="number">2</span>) &#123;</span><br><span class="line">                <span class="keyword">return</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;  <span class="comment">// 左右子树都不为 null</span></span><br><span class="line">            <span class="keyword">if</span> (root.left.val == <span class="number">0</span> || root.right.val == <span class="number">0</span>) &#123;  <span class="comment">// 如果当前节点的孩子, 有一个没有被照亮, 则当前节点要安装红太阳; 注意这一段逻辑要先行判断, 因为要消除 &quot;一个安装了红太阳, 另一个未被照亮&quot; 的情况, 要优先确保所有节点至少被照亮</span></span><br><span class="line">                res ++;</span><br><span class="line">                root.val = <span class="number">1</span>;  <span class="comment">// 给当前节点装红太阳</span></span><br><span class="line">                root.left.val = (root.left.val == <span class="number">0</span>) ? <span class="number">2</span> : <span class="number">0</span>;  <span class="comment">// 修改没有被照亮的子节点</span></span><br><span class="line">                root.right.val = (root.right.val == <span class="number">0</span>) ? <span class="number">2</span> : <span class="number">0</span>;  <span class="comment">// 子节点有可能是一个安装了红太阳, 另一个未被照亮, 所以要用三目运算符</span></span><br><span class="line">                <span class="keyword">return</span>;</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            <span class="keyword">if</span> (root.left.val == <span class="number">1</span> || root.right.val == <span class="number">1</span>) &#123;  <span class="comment">// 如果左右节点中, 有一个是红太阳, 那么改变当前节点的状态 (2 被照亮); 注意, 在这里不可能出现 &quot;一个安装了红太阳, 另一个未被照亮&quot; 的情况, 因为上面的if 会消除这种可能</span></span><br><span class="line">                root.val = <span class="number">2</span>;</span><br><span class="line">                <span class="keyword">return</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="comment">// 当左右节点都是 2 (被照亮), 当前节点无法被照亮, 直接 return</span></span><br><span class="line">            <span class="keyword">return</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="type">int</span> <span class="title function_">minCameraCover</span><span class="params">(TreeNode root)</span> &#123;</span><br><span class="line">        <span class="keyword">if</span> (root == <span class="literal">null</span>) <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">        traversal(root);</span><br><span class="line">        <span class="keyword">if</span> (root.val == <span class="number">0</span>) res ++;  <span class="comment">// 确保root 节点不能是 0 (未被照亮的状态)</span></span><br><span class="line">        <span class="keyword">return</span> res;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>简化代码</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="type">int</span> <span class="variable">res</span> <span class="operator">=</span> <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="type">int</span> <span class="title function_">traversal</span><span class="params">(TreeNode root)</span> &#123;</span><br><span class="line">        <span class="keyword">if</span> (root == <span class="literal">null</span>) <span class="keyword">return</span> <span class="number">2</span>; <span class="comment">// 空节点视为已照亮，不需处理</span></span><br><span class="line"></span><br><span class="line">        <span class="type">int</span> <span class="variable">left</span> <span class="operator">=</span> traversal(root.left);</span><br><span class="line">        <span class="type">int</span> <span class="variable">right</span> <span class="operator">=</span> traversal(root.right);</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 如果左右子节点有一个未被照亮（为0），则当前节点需要安装红太阳</span></span><br><span class="line">        <span class="keyword">if</span> (left == <span class="number">0</span> || right == <span class="number">0</span>) &#123;</span><br><span class="line">            res++;</span><br><span class="line">            <span class="keyword">return</span> <span class="number">1</span>; <span class="comment">// 当前节点安装了红太阳</span></span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 如果左右子节点有一个安装了红太阳（为1），则当前节点被照亮</span></span><br><span class="line">        <span class="keyword">if</span> (left == <span class="number">1</span> || right == <span class="number">1</span>) <span class="keyword">return</span> <span class="number">2</span>;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 左右子节点均被照亮，当前节点未被照亮，返回 0 表示该节点未被照亮</span></span><br><span class="line">        <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="type">int</span> <span class="title function_">minCameraCover</span><span class="params">(TreeNode root)</span> &#123;</span><br><span class="line">        <span class="comment">// 如果根节点返回0，意味着根节点未被照亮，需要安装一个红太阳</span></span><br><span class="line">        <span class="keyword">if</span> (traversal(root) == <span class="number">0</span>) res++;</span><br><span class="line">        <span class="keyword">return</span> res;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
 
       
     </div>
@@ -764,7 +905,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2024/10/03/Java-Practical-Operations/">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2024/10/03/Java-Skills/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="https://avatars.githubusercontent.com/u/126999663?v=4">
@@ -778,7 +919,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/2024/10/03/Java-Practical-Operations/" class="post-title-link" itemprop="url">Java Practical Operations</a>
+            <a href="/2024/10/03/Java-Skills/" class="post-title-link" itemprop="url">Java Skills</a>
         </h2>
 
         <div class="post-meta">
@@ -795,7 +936,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2024-10-08 00:45:56" itemprop="dateModified" datetime="2024-10-08T00:45:56+08:00">2024-10-08</time>
+                <time title="Modified: 2024-10-08 22:55:30" itemprop="dateModified" datetime="2024-10-08T22:55:30+08:00">2024-10-08</time>
               </span>
 
           
@@ -809,80 +950,165 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h3 id="字符串操作"><a href="#字符串操作" class="headerlink" title="字符串操作"></a>字符串操作</h3><ol>
-<li><p><strong>将<code>int</code>转换为字符串</strong>：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">String</span> <span class="variable">str</span> <span class="operator">=</span> String.valueOf(<span class="number">123</span>);</span><br></pre></td></tr></table></figure>
+          <blockquote>
+<p>在 Java 开发, 刷题中常用的 API 和小技巧</p>
+<p>Commonly used APIs and tips in Java development and problem-solving</p>
+</blockquote>
+<h2 id="数组-Array"><a href="#数组-Array" class="headerlink" title="数组 Array"></a>数组 Array</h2><ul>
+<li><p>求长度 <code>nums.length</code></p>
 </li>
-<li><p>**将字符串转换为<code>Integer</code>**：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">Integer</span> <span class="variable">num</span> <span class="operator">=</span> Integer.valueOf(<span class="string">&quot;123&quot;</span>);</span><br></pre></td></tr></table></figure>
+<li><p>升序重排 <code>Arrays.sort(nums)</code></p>
 </li>
-<li><p><strong>拼接字符串</strong>：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">String</span> <span class="variable">result</span> <span class="operator">=</span> <span class="string">&quot;Hello, &quot;</span> + <span class="string">&quot;World!&quot;</span>;</span><br></pre></td></tr></table></figure>
+<li><p>填充数组 <code>Arrays.fill(nums, val)</code></p>
 </li>
-<li><p><strong>字符串分割</strong>：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">String[] parts = <span class="string">&quot;a,b,c&quot;</span>.split(<span class="string">&quot;,&quot;</span>);</span><br></pre></td></tr></table></figure>
+<li><p>转化为字符串 <code>Arrays.toString(nums)</code></p>
 </li>
-<li><p><strong>字符串反转</strong>：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">String</span> <span class="variable">reversed</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">StringBuilder</span>(<span class="string">&quot;hello&quot;</span>).reverse().toString();</span><br></pre></td></tr></table></figure></li>
-</ol>
-<h3 id="数组操作"><a href="#数组操作" class="headerlink" title="数组操作"></a>数组操作</h3><ol>
-<li><p><strong>输出一维数组为字符串</strong>：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">String</span> <span class="variable">arrayStr</span> <span class="operator">=</span> Arrays.toString(<span class="keyword">new</span> <span class="title class_">int</span>[]&#123;<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>&#125;);</span><br></pre></td></tr></table></figure>
+<li><p>将多维数组转化为字符串 <code>Arrays.deepToString(nums)</code></p>
 </li>
-<li><p><strong>输出二维数组为字符串</strong>：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">String</span> <span class="variable">arrayStr</span> <span class="operator">=</span> Arrays.deepToString(<span class="keyword">new</span> <span class="title class_">int</span>[][]&#123;&#123;<span class="number">1</span>, <span class="number">2</span>&#125;, &#123;<span class="number">3</span>, <span class="number">4</span>&#125;&#125;);</span><br></pre></td></tr></table></figure>
+<li><p>Array -&gt; List <code>new LinkedList(Arrays.asList(nums))</code></p>
 </li>
-<li><p><strong>将<code>List</code>转换为数组</strong>：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">List&lt;Integer&gt; list = Arrays.asList(<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>);</span><br><span class="line">Integer[] array = list.toArray(<span class="keyword">new</span> <span class="title class_">Integer</span>[<span class="number">0</span>]);</span><br></pre></td></tr></table></figure>
+<li><p>List -&gt; Array <code>Integer[] array = list.toArray(new Integer[0]);</code></p>
 </li>
-<li><p>**将数组转换为<code>List</code>**：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">List&lt;Integer&gt; list = Arrays.asList(<span class="keyword">new</span> <span class="title class_">Integer</span>[]&#123;<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>&#125;);</span><br></pre></td></tr></table></figure>
+<li><p>字符串数组转化为字符串 <code>new String(chars)</code></p>
 </li>
-<li><p><strong>数组深拷贝</strong>：</p>
+<li><p>判断数组元素相同 <code>Arrays.equals(nums1, nums2)</code></p>
+</li>
+<li><p>深拷贝数组</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span>[] original = &#123;<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>&#125;;</span><br><span class="line"><span class="type">int</span>[] copy = original.clone();</span><br></pre></td></tr></table></figure>
 </li>
-<li><p><strong>二维数组深拷贝</strong>：</p>
+<li><p>二维数组深拷贝</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span>[][] original = &#123;&#123;<span class="number">1</span>, <span class="number">2</span>&#125;, &#123;<span class="number">3</span>, <span class="number">4</span>&#125;&#125;;</span><br><span class="line"><span class="type">int</span>[][] copy = Arrays.stream(original)</span><br><span class="line">                     .map(<span class="type">int</span>[]::clone)</span><br><span class="line">                     .toArray(<span class="type">int</span>[][]::<span class="keyword">new</span>);</span><br></pre></td></tr></table></figure></li>
-</ol>
-<h3 id="集合操作"><a href="#集合操作" class="headerlink" title="集合操作"></a>集合操作</h3><ol>
-<li><p><strong><code>List</code>深拷贝</strong>：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">List&lt;Integer&gt; original = <span class="keyword">new</span> <span class="title class_">ArrayList</span>&lt;&gt;(Arrays.asList(<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>));</span><br><span class="line">List&lt;Integer&gt; copy = <span class="keyword">new</span> <span class="title class_">ArrayList</span>&lt;&gt;(original);</span><br></pre></td></tr></table></figure>
+</ul>
+<h2 id="字符串-String"><a href="#字符串-String" class="headerlink" title="字符串 String"></a>字符串 String</h2><ul>
+<li>求长度 <code>str.length()</code></li>
+<li>以<code>regex</code>分割字符串为数组 <code>str.split(regex)</code></li>
+<li>查找目标字符（串）（找不到返回-1） <code>str.indexOf(c)</code> <code>str.lastIndexOf(c)</code> <code>str.indexOf(subStr)</code> <code>str.lastIndexOf(subStr)</code></li>
+<li>判断字符串相同 <code>strA.equals(strB)</code></li>
+<li>比较字符串的字典序 <code>strA.compareTo(strB)</code></li>
+<li>判断是否以目标前缀开头 <code>str.startsWith(prefix)</code></li>
+<li>判断是否以目标后缀结尾 <code>str.endsWith(suffix)</code></li>
+<li>去除首尾空格 <code>str.trim()</code></li>
+<li>全小写 <code>str.toLowerCase()</code></li>
+<li>全大写 <code>str.toUpperCase()</code></li>
+<li>替换字符 <code>str.replace(oldChar, newChar)</code></li>
+<li>替换字符串 <code>str.replace(oldRegex, newRegex)</code></li>
+<li>获取从<code>[start, end - 1]</code>的子串 <code>str.substring(start, end)</code></li>
+<li>获取第i个字符 <code>str.charAt(i)</code></li>
+<li>转化为字符数组 <code>str.toCharArray()</code></li>
+<li>转化为StringBuilder <code>new StringBuilder(str)</code></li>
+<li><strong>转化为整数</strong> <code>Integer.parseInt(str)</code> <code>Integer.valueOf(str)</code></li>
+<li><strong>数字转化为字符串</strong> <code>String.valueOf(num)</code></li>
+<li>翻转字符串 <code>String reversed = new StringBuilder(&quot;hello&quot;).reverse().toString();</code></li>
+</ul>
+<h2 id="可变字符串-StringBuilder"><a href="#可变字符串-StringBuilder" class="headerlink" title="可变字符串 StringBuilder"></a>可变字符串 StringBuilder</h2><ul>
+<li>在末尾添加新字符（串） <code>sb.append(c)</code> <code>sb.append(str)</code></li>
+<li>删除第i个字符 <code>sb.deleteCharAt(i)</code></li>
+<li>删除从<code>[start, end - 1]</code>的子串 <code>sb.delete(start, end)</code></li>
+<li>替换第i个字符 <code>sb.setCharAt(i, newChar)</code></li>
+<li>替换从<code>[start, end - 1]</code>的子串 <code>sb.replace(start, end, str)</code></li>
+<li>在第i个字符之前插入字符串 <code>sb.insert(i, str)</code></li>
+<li>反转字符串 <code>sb.reverse()</code></li>
+<li>转化为String <code>sb.toString()</code></li>
+</ul>
+<h2 id="链表-List"><a href="#链表-List" class="headerlink" title="链表 List"></a>链表 List</h2><ul>
+<li><p>末尾添加元素 <code>list.add(element)</code></p>
 </li>
-<li><p><strong><code>Set</code>与<code>List</code>之间的转换</strong>：</p>
+<li><p>插入元素 <code>lst.add(index, value)</code></p>
+</li>
+<li><p>获取第i个位置的元素 <code>list.get(i)</code></p>
+</li>
+<li><p>替换第i个位置的元素 <code>list.set(i, newElement)</code></p>
+</li>
+<li><p>删除第i个位置的元素 <code>list.remove(i)</code></p>
+</li>
+<li><p>删除最后一个元素 <code>linkedList.removeLast()</code></p>
+</li>
+<li><p>求长度 <code>list.size()</code></p>
+</li>
+<li><p>判断是否为空 <code>list.isEmpty()</code></p>
+</li>
+<li><p>清空 <code>list.clear()</code></p>
+</li>
+<li><p>判断是否包含某元素 <code>list.contains(object)</code></p>
+</li>
+<li><p>查找元素（找不到返回-1） <code>list.indexOf(object)</code> <code>list.lastIndexOf(object)</code></p>
+</li>
+<li><p>转化为集合 <code>new HashSet&lt;&gt;(list)</code></p>
+</li>
+<li><p>转化为整数数组 <code>list.stream().mapToInt(x -&gt; x).toArray()</code> <code>list.stream.mapToInt(Integer::intValue).toArray()</code></p>
+</li>
+<li><p>转化为字符串数组 <code>(String[]) list.toArray(new String [0])</code></p>
+</li>
+<li><p>深拷贝</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">List&lt;Integer&gt; path = <span class="keyword">new</span> <span class="title class_">ArrayList</span>&lt;&gt;(Arrays.asList(<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>));</span><br><span class="line">List&lt;Integer&gt; copy = <span class="keyword">new</span> <span class="title class_">ArrayList</span>&lt;&gt;(path);</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>与 Set 的转换</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Set&lt;Integer&gt; set = <span class="keyword">new</span> <span class="title class_">HashSet</span>&lt;&gt;(list);</span><br><span class="line">List&lt;Integer&gt; listFromSet = <span class="keyword">new</span> <span class="title class_">ArrayList</span>&lt;&gt;(set);</span><br></pre></td></tr></table></figure>
 </li>
-<li><p>**排序<code>List</code>**：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Collections.sort(list);</span><br></pre></td></tr></table></figure>
+<li><p>排序 <code>Collections.sort(list);</code></p>
 </li>
-<li><p><strong>查找元素</strong>：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">boolean</span> <span class="variable">contains</span> <span class="operator">=</span> list.contains(<span class="number">2</span>);</span><br></pre></td></tr></table></figure>
-</li>
-<li><p><strong>移除元素</strong>：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">list.remove(Integer.valueOf(<span class="number">2</span>));</span><br></pre></td></tr></table></figure></li>
-</ol>
-<h3 id="List-与-int-互换"><a href="#List-与-int-互换" class="headerlink" title="List&lt;Integer&gt; 与 int[] 互换"></a>List&lt;Integer&gt; 与 int[] 互换</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span>[] nums = &#123;<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>&#125;;</span><br><span class="line"></span><br><span class="line">List&lt;Integer&gt; list = Arrays.stream(nums)</span><br><span class="line">    .boxed()</span><br><span class="line">    .collect(Collectors.toList());</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">List&lt;Integer&gt; list = <span class="keyword">new</span> <span class="title class_">ArrayList</span>&lt;&gt;();</span><br><span class="line">list.add(<span class="number">1</span>);</span><br><span class="line">list.add(<span class="number">2</span>);</span><br><span class="line">list.add(<span class="number">3</span>);</span><br><span class="line">list.add(<span class="number">4</span>);</span><br><span class="line">list.add(<span class="number">5</span>);</span><br><span class="line"></span><br><span class="line"><span class="type">int</span>[] nums = <span class="keyword">new</span> <span class="title class_">int</span>[list.size()];</span><br><span class="line"><span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; list.size(); i++) &#123;</span><br><span class="line">	nums[i] = list.get(i);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-
-
-<h3 id="自定义排序"><a href="#自定义排序" class="headerlink" title="自定义排序"></a>自定义排序</h3><p><strong>int[]</strong></p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> Integer[] sort(<span class="type">int</span>[] nums) &#123;</span><br><span class="line">        Integer[] numsObj = Arrays.stream(nums).boxed().toArray(Integer[]::<span class="keyword">new</span>);</span><br><span class="line">        Arrays.sort(numsObj, <span class="keyword">new</span> <span class="title class_">Comparator</span>&lt;Integer&gt;() &#123;</span><br><span class="line">            <span class="meta">@Override</span></span><br><span class="line">            <span class="keyword">public</span> <span class="type">int</span> <span class="title function_">compare</span><span class="params">(Integer a, Integer b)</span> &#123;</span><br><span class="line">                <span class="keyword">return</span> Integer.compare(Math.abs(a), Math.abs(b)); <span class="comment">// 按绝对值升序排序</span></span><br><span class="line">            &#125;</span><br><span class="line">        &#125;);</span><br><span class="line">        <span class="keyword">return</span> numsObj;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>java 8 中 可以使用lambda表达式</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> Integer[] sort(<span class="type">int</span>[] nums) &#123;</span><br><span class="line">        Integer[] numsObj = Arrays.stream(nums)</span><br><span class="line">                .boxed()</span><br><span class="line">                .toArray(Integer[]::<span class="keyword">new</span>); <span class="comment">// 转换为 Integer[]</span></span><br><span class="line">        <span class="comment">// 按绝对值升序排序</span></span><br><span class="line">        Arrays.sort(numsObj, (a, b) -&gt; Integer.compare(Math.abs(a), Math.abs(b)));</span><br><span class="line">        <span class="comment">// 或</span></span><br><span class="line">        <span class="comment">// Arrays.sort(nums, (n1, n2) -&gt; &#123;</span></span><br><span class="line">        <span class="comment">//     return Math.abs((Integer) n1) - Math.abs((Integer) n2);</span></span><br><span class="line">        <span class="comment">// &#125;);</span></span><br><span class="line">        <span class="keyword">return</span> numsObj;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>只有对象才有 compare 方法, 所以要把 int[] 装箱为对象</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="type">int</span>[] sort(<span class="type">int</span>[] nums) &#123;</span><br><span class="line">        nums = IntStream.of(nums)</span><br><span class="line">		     .boxed()</span><br><span class="line">		     .sorted((o1, o2) -&gt; Math.abs(o2) - Math.abs(o1))</span><br><span class="line">		     .mapToInt(Integer::intValue).toArray();</span><br><span class="line">        <span class="keyword">return</span> nums;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-
-
-<p><strong>List&lt;Integer&gt;</strong></p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">sort</span><span class="params">(List&lt;Integer&gt; nums)</span> &#123;</span><br><span class="line">        Collections.sort(nums, <span class="keyword">new</span> <span class="title class_">Comparator</span>&lt;Integer&gt;() &#123;</span><br><span class="line">            <span class="keyword">public</span> <span class="type">int</span> <span class="title function_">compare</span><span class="params">(Integer o1, Integer o2)</span> &#123;</span><br><span class="line">                <span class="keyword">return</span> Math.abs(o2) - Math.abs(o1);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;);</span><br><span class="line">        System.out.println(nums.toString());</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>java 8 中 可以使用lambda表达式</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">sort</span><span class="params">(List&lt;String&gt; words)</span> &#123;</span><br><span class="line">        Collections.sort(words, (a, b) -&gt; Integer.compare(a.length(), b.length())); <span class="comment">// 按字符串长度升序排序</span></span><br><span class="line">        System.out.println(words);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
+<li></li>
+</ul>
+<h2 id="栈-Stack"><a href="#栈-Stack" class="headerlink" title="栈 Stack"></a>栈 Stack</h2><ul>
+<li>压入栈顶 <code>stk.push(element)</code></li>
+<li>从栈顶弹出 <code>stk.pop()</code></li>
+<li>查看栈顶元素 <code>stk.peek()</code></li>
+<li>求长度 <code>stk.size()</code></li>
+<li>判断是否为空 <code>stk.isEmpty()</code> <code>stk.empty()</code></li>
+</ul>
+<h2 id="单端队列-Queue"><a href="#单端队列-Queue" class="headerlink" title="单端队列 Queue"></a>单端队列 Queue</h2><ul>
+<li>从队尾添加元素 失败会抛异常<code>queue.add(element)</code> 失败会返回false<code>queue.offer(element)</code></li>
+<li>从队头移除元素 空指针会抛异常<code>queue.remove()</code> 空指针会返回null<code>queue.poll()</code></li>
+<li>查看队头元素 空指针会抛异常<code>queue.element()</code> 空指针会返回null<code>queue.peek()</code></li>
+<li>求长度 <code>queue.size()</code></li>
+<li>判断是否为空 <code>queue.isEmpty()</code></li>
+<li>清空 <code>queue.clear()</code></li>
+<li>判断是否包含某元素 <code>queue.contains(object)</code></li>
+</ul>
+<h2 id="双端队列-Deque"><a href="#双端队列-Deque" class="headerlink" title="双端队列 Deque"></a>双端队列 Deque</h2><ul>
+<li>从队尾添加元素 失败会抛异常<code>deque.addLast(element)</code> 失败会返回false<code>deque.offerLast(element)</code></li>
+<li>从队头添加元素 失败会抛异常<code>deque.addFirst(element)</code> <code>deque.push()</code> 失败会返回false<code>deque.offerFirst(element)</code></li>
+<li>从队尾删除元素 空指针会抛异常<code>deque.removeLast()</code> 空指针会返回null<code>deque.pollLast()</code></li>
+<li>从队头删除元素 空指针会抛异常<code>deque.removeFirst()</code> <code>deque.pop()</code> 空指针会返回null<code>deque.pollFirst()</code></li>
+<li>查看队尾元素 空指针会抛异常<code>deque.getLast()</code> 空指针会返回null<code>deque.peekLast()</code></li>
+<li>查看队头元素 空指针会抛异常<code>deque.getFirst()</code> 空指针会返回null<code>deque.peekFirst()</code></li>
+<li>求长度 <code>deque.size()</code></li>
+<li>判断是否为空 <code>deque.isEmpty()</code></li>
+<li>清空 <code>deque.clear()</code></li>
+</ul>
+<h2 id="集合-Set"><a href="#集合-Set" class="headerlink" title="集合 Set"></a>集合 Set</h2><ul>
+<li>添加元素 <code>set.add(element)</code></li>
+<li>删除元素 <code>set.remove(element)</code></li>
+<li>判断是否包含某元素 <code>set.contains(object)</code></li>
+<li>求长度 <code>set.size()</code></li>
+<li>清空 <code>set.clear()</code></li>
+<li>获取不小于key的最小元素（空指针返回null） <code>treeSet.ceiling(key)</code></li>
+<li>获取不大于key的最大元素（空指针返回null） <code>treeSet.floor(key)</code></li>
+<li>获取第一个元素 <code>treeSet.first()</code></li>
+<li>获取最后一个元素 <code>treeSet.last()</code></li>
+<li>转化为整数数组 <code>set.stream().mapToInt(x -&gt; x).toArray()</code></li>
+</ul>
+<h2 id="映射-Map"><a href="#映射-Map" class="headerlink" title="映射 Map"></a>映射 Map</h2><ul>
+<li>添加或修改键值对 <code>map.put(key, val)</code></li>
+<li>删除键值对 <code>map.remove(key)</code></li>
+<li>获取指定键对应的值 <code>map.get(key)</code></li>
+<li>获取指定键对应的值（如果不存在，则设定默认值） <code>map.getOrDefault(key, defaultVal)</code></li>
+<li>判断是否包含某个键 <code>map.containsKey(key)</code></li>
+<li>判断是否包含某个值 <code>map.containsValue(val)</code></li>
+<li>判断是否为空 <code>map.isEmpty()</code></li>
+<li>求长度 <code>map.size()</code></li>
+<li>清空 <code>map.clear()</code></li>
+<li>生成对应的键值对集合 <code>map.entrySet()</code></li>
+<li>获取不小于key的最小元素（空指针返回null） <code>treeMap.ceilingEntry(key)</code></li>
+<li>获取不大于key的最大元素（空指针返回null） <code>treeMap.floorEntry(key)</code></li>
+<li>获取第一个键 <code>treeMap.firstKey()</code></li>
+<li>获取最后一个键 <code>treeMap.lastKey()</code></li>
+</ul>
+<h2 id="键值对-Map-Entry"><a href="#键值对-Map-Entry" class="headerlink" title="键值对 Map.Entry"></a>键值对 Map.Entry</h2><ul>
+<li>获取键值对的键 <code>entry.getKey()</code></li>
+<li>获取键值对的值 <code>entry.getValue()</code></li>
+<li>修改键值对的值 <code>entry.setValue(val)</code></li>
+</ul>
 
       
     </div>
@@ -966,7 +1192,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">5</span>
+          <span class="site-state-item-count">6</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
