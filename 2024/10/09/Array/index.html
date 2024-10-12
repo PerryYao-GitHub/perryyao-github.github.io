@@ -1,0 +1,497 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 7.3.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="704. Binary Search二分 123456789101112131415class Solution &#123;    public int search(int[] nums, int target) &#123;        int left &#x3D; 0, right &#x3D; nums.length - 1;        if (nums[left] &gt; target || n">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Array">
+<meta property="og:url" content="http://example.com/2024/10/09/Array/index.html">
+<meta property="og:site_name" content="Perry&#39;s Blog">
+<meta property="og:description" content="704. Binary Search二分 123456789101112131415class Solution &#123;    public int search(int[] nums, int target) &#123;        int left &#x3D; 0, right &#x3D; nums.length - 1;        if (nums[left] &gt; target || n">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2024-10-09T08:58:39.000Z">
+<meta property="article:modified_time" content="2024-10-09T08:59:16.273Z">
+<meta property="article:author" content="Perry Yao">
+<meta property="article:tag" content="algorithm">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://example.com/2024/10/09/Array/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'en'
+  };
+</script>
+
+  <title>Array | Perry's Blog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Perry's Blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">tech & muse & sleep</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
+
+  </li>
+        <li class="menu-item menu-item-schedule">
+
+    <a href="/schedule/" rel="section"><i class="fa fa-calendar fa-fw"></i>Schedule</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2024/10/09/Array/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="https://avatars.githubusercontent.com/u/126999663?v=4">
+      <meta itemprop="name" content="Perry Yao">
+      <meta itemprop="description" content="...">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Perry's Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Array
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2024-10-09 16:58:39 / Modified: 16:59:16" itemprop="dateCreated datePublished" datetime="2024-10-09T16:58:39+08:00">2024-10-09</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h2 id="704-Binary-Search"><a href="#704-Binary-Search" class="headerlink" title="704. Binary Search"></a><a target="_blank" rel="noopener" href="https://leetcode.com/problems/binary-search/">704. Binary Search</a></h2><p><strong>二分</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="type">int</span> <span class="title function_">search</span><span class="params">(<span class="type">int</span>[] nums, <span class="type">int</span> target)</span> &#123;</span><br><span class="line">        <span class="type">int</span> <span class="variable">left</span> <span class="operator">=</span> <span class="number">0</span>, right = nums.length - <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">if</span> (nums[left] &gt; target || nums[right] &lt; target) <span class="keyword">return</span> -<span class="number">1</span>;</span><br><span class="line">        <span class="keyword">if</span> (nums[left] == target) <span class="keyword">return</span> left;</span><br><span class="line">        <span class="keyword">if</span> (nums[right] == target) <span class="keyword">return</span> right;</span><br><span class="line">        <span class="keyword">while</span> (left &lt;= right) &#123;</span><br><span class="line">            <span class="type">int</span> <span class="variable">middle</span> <span class="operator">=</span> (left + right) / <span class="number">2</span>;</span><br><span class="line">            <span class="keyword">if</span> (nums[middle] == target) <span class="keyword">return</span> middle;</span><br><span class="line">            <span class="keyword">if</span> (nums[middle] &gt; target) right = middle - <span class="number">1</span>;</span><br><span class="line">            <span class="keyword">else</span> left = middle + <span class="number">1</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> -<span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><code>[left, right]</code> 考虑的是左闭右闭, 注意 <code>middle</code> 更新时的 <code>+ / - 1</code></p>
+<h2 id="35-Search-Insert-Position"><a href="#35-Search-Insert-Position" class="headerlink" title="35. Search Insert Position"></a><a target="_blank" rel="noopener" href="https://leetcode.com/problems/search-insert-position/">35. Search Insert Position</a></h2><p><strong>二分</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="type">int</span> <span class="title function_">searchInsert</span><span class="params">(<span class="type">int</span>[] nums, <span class="type">int</span> target)</span> &#123;</span><br><span class="line">        <span class="type">int</span> <span class="variable">left</span> <span class="operator">=</span> <span class="number">0</span>, right = nums.length - <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">if</span> (nums[left] &gt;= target) <span class="keyword">return</span> left;</span><br><span class="line">        <span class="keyword">if</span> (nums[right] &lt; target) <span class="keyword">return</span> right + <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">if</span> (nums[right] == target) <span class="keyword">return</span> right;</span><br><span class="line">        <span class="keyword">while</span> (left &lt;= right) &#123;</span><br><span class="line">            <span class="type">int</span> <span class="variable">middle</span> <span class="operator">=</span> (left + right) / <span class="number">2</span>;</span><br><span class="line">            <span class="keyword">if</span> (nums[middle] == target) <span class="keyword">return</span> middle;</span><br><span class="line">            <span class="keyword">else</span> <span class="keyword">if</span> (nums[middle] &gt; target) right = middle - <span class="number">1</span>;</span><br><span class="line">            <span class="keyword">else</span> left = middle + <span class="number">1</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> left;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="34-Find-First-and-Last-Position-of-Element-in-Sorted-Array"><a href="#34-Find-First-and-Last-Position-of-Element-in-Sorted-Array" class="headerlink" title="34. Find First and Last Position of Element in Sorted Array"></a><a target="_blank" rel="noopener" href="https://leetcode.com/problems/find-first-and-last-position-of-element-in-sorted-array/">34. Find First and Last Position of Element in Sorted Array</a></h2><p><strong>二分</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="type">int</span> <span class="title function_">bs</span><span class="params">(<span class="type">int</span>[] nums, <span class="type">int</span> target)</span> &#123;</span><br><span class="line">        <span class="keyword">if</span> (nums.length == <span class="number">0</span>) <span class="keyword">return</span> -<span class="number">1</span>;</span><br><span class="line">        <span class="type">int</span> <span class="variable">left</span> <span class="operator">=</span> <span class="number">0</span>, right = nums.length - <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">if</span> ( nums[left] == target ) <span class="keyword">return</span> left;</span><br><span class="line">        <span class="keyword">if</span> ( nums[right] == target ) <span class="keyword">return</span> right;</span><br><span class="line">        <span class="keyword">while</span> (left &lt;= right) &#123;</span><br><span class="line">            <span class="type">int</span> <span class="variable">middle</span> <span class="operator">=</span> ( left + right ) / <span class="number">2</span>;</span><br><span class="line">            <span class="keyword">if</span> ( nums[middle] == target ) <span class="keyword">return</span> middle;</span><br><span class="line">            <span class="keyword">else</span> <span class="keyword">if</span> ( nums[middle] &lt; target ) left = middle + <span class="number">1</span>;</span><br><span class="line">            <span class="keyword">else</span> right = middle - <span class="number">1</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> -<span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="type">int</span>[] searchRange(<span class="type">int</span>[] nums, <span class="type">int</span> target) &#123;</span><br><span class="line">        <span class="type">int</span> <span class="variable">center</span> <span class="operator">=</span> <span class="built_in">this</span>.bs(nums, target);</span><br><span class="line">        <span class="keyword">if</span> (center == -<span class="number">1</span>) <span class="keyword">return</span> <span class="keyword">new</span> <span class="title class_">int</span>[] &#123;-<span class="number">1</span>, -<span class="number">1</span>&#125;;</span><br><span class="line">        <span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> center, j = center;</span><br><span class="line">        <span class="keyword">while</span> ( i &gt;= <span class="number">0</span> &amp;&amp; nums[i] == target ) i --;</span><br><span class="line">        <span class="keyword">while</span> ( j &lt; nums.length &amp;&amp; nums[j] == target ) j ++;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> <span class="title class_">int</span>[] &#123;i + <span class="number">1</span>, j - <span class="number">1</span>&#125;;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="69-Sqrt-x"><a href="#69-Sqrt-x" class="headerlink" title="69. Sqrt(x)"></a><a target="_blank" rel="noopener" href="https://leetcode.com/problems/sqrtx/">69. Sqrt(x)</a></h2><p><strong>二分</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="type">int</span> <span class="title function_">mySqrt</span><span class="params">(<span class="type">int</span> x)</span> &#123;</span><br><span class="line">        <span class="keyword">if</span> (x == <span class="number">0</span>) <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">        <span class="type">long</span> <span class="variable">lower</span> <span class="operator">=</span> <span class="number">1</span>, upper = x;</span><br><span class="line">        <span class="keyword">while</span> (lower &lt;= upper) &#123;</span><br><span class="line">            <span class="type">long</span> <span class="variable">middle</span> <span class="operator">=</span> (lower + upper) / <span class="number">2</span>;</span><br><span class="line">            <span class="type">long</span> <span class="variable">square</span> <span class="operator">=</span> (<span class="type">long</span>) middle * middle;</span><br><span class="line">            <span class="keyword">if</span> (square == x) <span class="keyword">return</span> (<span class="type">int</span>) middle;</span><br><span class="line">            <span class="keyword">else</span> <span class="keyword">if</span> (square &lt; x) lower = middle + <span class="number">1</span>;</span><br><span class="line">            <span class="keyword">else</span> upper = middle - <span class="number">1</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> (<span class="type">int</span>) upper;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="367-Valid-Perfect-Square"><a href="#367-Valid-Perfect-Square" class="headerlink" title="367. Valid Perfect Square"></a><a target="_blank" rel="noopener" href="https://leetcode.com/problems/valid-perfect-square/">367. Valid Perfect Square</a></h2><p><strong>二分</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="type">boolean</span> <span class="title function_">isPerfectSquare</span><span class="params">(<span class="type">int</span> num)</span> &#123;</span><br><span class="line">        <span class="type">long</span> <span class="variable">lower</span> <span class="operator">=</span> <span class="number">1</span>, upper = num;</span><br><span class="line">        <span class="keyword">while</span> (lower &lt;= upper) &#123;</span><br><span class="line">            <span class="type">long</span> <span class="variable">middle</span> <span class="operator">=</span> ( lower + upper ) / <span class="number">2</span>;</span><br><span class="line">            <span class="type">long</span> <span class="variable">square</span> <span class="operator">=</span> middle * middle;</span><br><span class="line">            <span class="keyword">if</span> ( square == num ) <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">            <span class="keyword">else</span> <span class="keyword">if</span> ( square &lt; num ) lower = middle + <span class="number">1</span>;</span><br><span class="line">            <span class="keyword">else</span> upper = middle - <span class="number">1</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="27-Remove-Element"><a href="#27-Remove-Element" class="headerlink" title="27. Remove Element"></a><a target="_blank" rel="noopener" href="https://leetcode.com/problems/remove-element/">27. Remove Element</a></h2><p><strong>双指针</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="type">int</span> <span class="title function_">removeElement</span><span class="params">(<span class="type">int</span>[] nums, <span class="type">int</span> val)</span> &#123;</span><br><span class="line">        <span class="type">int</span> <span class="variable">len</span> <span class="operator">=</span> <span class="number">0</span>;  <span class="comment">// 有效长度</span></span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; nums.length; i ++) &#123;</span><br><span class="line">            <span class="keyword">if</span> ( nums[i] != val ) &#123;</span><br><span class="line">                nums[len] = nums[i];</span><br><span class="line">                len ++;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> len;  <span class="comment">// Arrays.copyOfRange(nums, 0, len);</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="26-Remove-Duplicates-from-Sorted-Array"><a href="#26-Remove-Duplicates-from-Sorted-Array" class="headerlink" title="26. Remove Duplicates from Sorted Array"></a><a target="_blank" rel="noopener" href="https://leetcode.com/problems/remove-duplicates-from-sorted-array/">26. Remove Duplicates from Sorted Array</a></h2><p><strong>双指针</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="type">int</span> <span class="title function_">removeDuplicates</span><span class="params">(<span class="type">int</span>[] nums)</span> &#123;</span><br><span class="line">        <span class="type">int</span> <span class="variable">validInd</span> <span class="operator">=</span> <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; nums.length; i ++) &#123;</span><br><span class="line">            <span class="keyword">if</span> ( nums[i] != nums[validInd] ) &#123;  <span class="comment">// 合法情况, 更新 validInd</span></span><br><span class="line">                validInd ++;</span><br><span class="line">                nums[validInd] = nums[i];</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> validInd + <span class="number">1</span>;  <span class="comment">// Arrays.copyOfRange(nums, 0, validInd + 1);</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="283-Move-Zeroes"><a href="#283-Move-Zeroes" class="headerlink" title="283. Move Zeroes"></a><a target="_blank" rel="noopener" href="https://leetcode.com/problems/move-zeroes/">283. Move Zeroes</a></h2><p><strong>双指针</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">moveZeroes</span><span class="params">(<span class="type">int</span>[] nums)</span> &#123;</span><br><span class="line">        <span class="type">int</span> <span class="variable">ind</span> <span class="operator">=</span> <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; nums.length; i ++) &#123;</span><br><span class="line">            <span class="keyword">if</span> ( nums[i] != <span class="number">0</span> ) &#123;</span><br><span class="line">                nums[ind] = nums[i];</span><br><span class="line">                ind ++;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> ind; i &lt; nums.length; i ++) nums[i] = <span class="number">0</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="844-Backspace-String-Compare"><a href="#844-Backspace-String-Compare" class="headerlink" title="844. Backspace String Compare"></a><a target="_blank" rel="noopener" href="https://leetcode.com/problems/backspace-string-compare/">844. Backspace String Compare</a></h2><p><strong>双指针</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="type">int</span> <span class="title function_">getValidLen</span><span class="params">(StringBuilder s)</span> &#123;</span><br><span class="line">        <span class="type">int</span> <span class="variable">len</span> <span class="operator">=</span> <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; s.length(); i ++) &#123;</span><br><span class="line">            <span class="type">char</span> <span class="variable">ch</span> <span class="operator">=</span> s.charAt(i);</span><br><span class="line">            <span class="keyword">if</span> (ch == <span class="string">&#x27;#&#x27;</span>) &#123;</span><br><span class="line">                len  = Math.max(<span class="number">0</span>, len - <span class="number">1</span>);</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                s.setCharAt(len, ch);</span><br><span class="line">                len ++;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> len;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="type">boolean</span> <span class="title function_">backspaceCompare</span><span class="params">(String s, String t)</span> &#123;</span><br><span class="line">        <span class="type">StringBuilder</span> <span class="variable">sB</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">StringBuilder</span>(s);</span><br><span class="line">        <span class="type">StringBuilder</span> <span class="variable">tB</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">StringBuilder</span>(t);</span><br><span class="line">        <span class="type">int</span> <span class="variable">sLen</span> <span class="operator">=</span> getValidLen(sB);</span><br><span class="line">        <span class="type">int</span> <span class="variable">tLen</span> <span class="operator">=</span> getValidLen(tB);</span><br><span class="line">        <span class="keyword">if</span> (sLen != tLen) <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">        <span class="keyword">return</span> sB.substring(<span class="number">0</span>, sLen).equals( tB.substring(<span class="number">0</span>, tLen) );</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>注意 StringBuilder 的 .substring() 用法</p>
+<h2 id="977-Squares-of-a-Sorted-Array"><a href="#977-Squares-of-a-Sorted-Array" class="headerlink" title="977. Squares of a Sorted Array"></a><a target="_blank" rel="noopener" href="https://leetcode.com/problems/squares-of-a-sorted-array/">977. Squares of a Sorted Array</a></h2><p><strong>双指针</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="type">int</span>[] sortedSquares(<span class="type">int</span>[] nums) &#123;</span><br><span class="line">        <span class="type">int</span>[] res = <span class="keyword">new</span> <span class="title class_">int</span>[nums.length];</span><br><span class="line">        <span class="keyword">if</span> ( nums[<span class="number">0</span>] &gt;= <span class="number">0</span> ) &#123;</span><br><span class="line">            <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; nums.length; i++) &#123;</span><br><span class="line">                res[i] = nums[i] * nums[i];</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">return</span> res;</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;  <span class="comment">// 前后双指针  从后向前填充 res</span></span><br><span class="line">            <span class="type">int</span> <span class="variable">left</span> <span class="operator">=</span> <span class="number">0</span>, right = nums.length - <span class="number">1</span>, ind = nums.length - <span class="number">1</span>;</span><br><span class="line">            <span class="keyword">while</span> ( ind &gt; -<span class="number">1</span> ) &#123;</span><br><span class="line">                <span class="type">int</span> <span class="variable">squareLeft</span> <span class="operator">=</span> nums[left] * nums[left];</span><br><span class="line">                <span class="type">int</span> <span class="variable">squareRight</span> <span class="operator">=</span> nums[right] * nums[right];</span><br><span class="line">                <span class="keyword">if</span> ( squareLeft &gt; squareRight ) &#123;</span><br><span class="line">                    res[ind] = squareLeft;</span><br><span class="line">                    left ++;</span><br><span class="line">                &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                    res[ind] = squareRight;</span><br><span class="line">                    right --;</span><br><span class="line">                &#125;</span><br><span class="line">                ind --;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">return</span> res;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="209-Minimum-Size-Subarray-Sum"><a href="#209-Minimum-Size-Subarray-Sum" class="headerlink" title="209. Minimum Size Subarray Sum"></a><a target="_blank" rel="noopener" href="https://leetcode.com/problems/minimum-size-subarray-sum/">209. Minimum Size Subarray Sum</a></h2><p><strong>滑动窗口</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="type">int</span> <span class="title function_">minSubArrayLen</span><span class="params">(<span class="type">int</span> target, <span class="type">int</span>[] nums)</span> &#123;</span><br><span class="line">        <span class="type">int</span> <span class="variable">minLen</span> <span class="operator">=</span> Integer.MAX_VALUE;</span><br><span class="line">        <span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>, j = <span class="number">0</span>;</span><br><span class="line">        <span class="type">int</span> <span class="variable">curSum</span> <span class="operator">=</span> <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">while</span> ( i &lt; nums.length ) &#123;</span><br><span class="line">            <span class="keyword">if</span> ( curSum &gt;= target ) &#123;</span><br><span class="line">                <span class="comment">// valid range, calculate len</span></span><br><span class="line">                <span class="type">int</span> <span class="variable">validRangeLen</span> <span class="operator">=</span> j - i;</span><br><span class="line">                <span class="keyword">if</span> (minLen &gt; validRangeLen) &#123;</span><br><span class="line">                    minLen = validRangeLen;</span><br><span class="line">                    <span class="keyword">if</span> (minLen == <span class="number">1</span>) <span class="keyword">break</span>;</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="keyword">if</span> ( i &lt; nums.length ) &#123;</span><br><span class="line">                    curSum -= nums[i];</span><br><span class="line">                    i ++;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                <span class="keyword">if</span> ( j &lt; nums.length ) &#123;</span><br><span class="line">                    curSum += nums[j];</span><br><span class="line">                    j ++;</span><br><span class="line">                &#125; <span class="keyword">else</span> i ++;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> (minLen == Integer.MAX_VALUE) <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">return</span> minLen;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="904-Fruit-Into-Baskets"><a href="#904-Fruit-Into-Baskets" class="headerlink" title="904. Fruit Into Baskets"></a><a target="_blank" rel="noopener" href="https://leetcode.com/problems/fruit-into-baskets/">904. Fruit Into Baskets</a></h2><p><strong>滑动窗口</strong></p>
+<p>“record the last index of each type of fruits”</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="type">int</span> <span class="title function_">totalFruit</span><span class="params">(<span class="type">int</span>[] fruits)</span> &#123;</span><br><span class="line">        HashMap&lt;Integer, Integer&gt; types = <span class="keyword">new</span> <span class="title class_">HashMap</span>&lt;&gt;();</span><br><span class="line">        <span class="type">int</span> <span class="variable">left</span> <span class="operator">=</span> <span class="number">0</span>, right = <span class="number">0</span>;</span><br><span class="line">        <span class="type">int</span> <span class="variable">res</span> <span class="operator">=</span> <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span> (right = <span class="number">0</span>; right &lt; fruits.length; right ++) &#123;</span><br><span class="line">            types.put(fruits[right], right);  <span class="comment">// record the last index of each type of fruits</span></span><br><span class="line">            <span class="keyword">if</span> ( types.size() &gt; <span class="number">2</span> ) &#123;</span><br><span class="line">                <span class="type">int</span> <span class="variable">minIndex</span> <span class="operator">=</span> Integer.MAX_VALUE;</span><br><span class="line">                <span class="keyword">for</span> (<span class="type">int</span> index : types.values()) minIndex = Math.min(minIndex, index);</span><br><span class="line">                types.remove(fruits[minIndex]);  <span class="comment">// delete the fruits appearing most early</span></span><br><span class="line">                left = minIndex + <span class="number">1</span>;  <span class="comment">// jump to the index</span></span><br><span class="line">            &#125;</span><br><span class="line">            res = Math.max(right - left + <span class="number">1</span>, res);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> res;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>“record the cnt of each type of fruits”</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="type">int</span> <span class="title function_">totalFruit</span><span class="params">(<span class="type">int</span>[] fruits)</span> &#123;</span><br><span class="line">        HashMap&lt;Integer, Integer&gt; types = <span class="keyword">new</span> <span class="title class_">HashMap</span>&lt;&gt;();</span><br><span class="line">        <span class="type">int</span> <span class="variable">left</span> <span class="operator">=</span> <span class="number">0</span>, right = <span class="number">0</span>;</span><br><span class="line">        <span class="type">int</span> <span class="variable">res</span> <span class="operator">=</span> <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span> (right = <span class="number">0</span>; right &lt; fruits.length; right ++) &#123;</span><br><span class="line">            types.put( fruits[right] , types.getOrDefault( fruits[right], <span class="number">0</span> ) + <span class="number">1</span> );  <span class="comment">// record the cnt of each type of fruits</span></span><br><span class="line">            <span class="keyword">while</span> ( types.size() &gt; <span class="number">2</span> ) &#123;</span><br><span class="line">                types.put( fruits[left] , types.get( fruits[left] ) - <span class="number">1</span> );</span><br><span class="line">                <span class="keyword">if</span> ( types.get( fruits[left] ) == <span class="number">0</span> ) types.remove( fruits[left] );  <span class="comment">// delete the type that only have zero cnt</span></span><br><span class="line">                left ++;</span><br><span class="line">            &#125;</span><br><span class="line">            res = Math.max(right - left + <span class="number">1</span>, res);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> res;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="76-Minimum-Window-Substring"><a href="#76-Minimum-Window-Substring" class="headerlink" title="76. Minimum Window Substring"></a><a target="_blank" rel="noopener" href="https://leetcode.com/problems/minimum-window-substring/">76. Minimum Window Substring</a></h2><p><strong>滑动窗口</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line">    <span class="keyword">private</span> HashMap&lt;Character, Integer&gt; tMap = <span class="keyword">new</span> <span class="title class_">HashMap</span>&lt;&gt;();</span><br><span class="line">    <span class="keyword">private</span> HashMap&lt;Character, Integer&gt; sMap = <span class="keyword">new</span> <span class="title class_">HashMap</span>&lt;&gt;();</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="type">boolean</span> <span class="title function_">isOk</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="keyword">for</span> (Character ch : <span class="built_in">this</span>.tMap.keySet()) &#123;</span><br><span class="line">            <span class="keyword">if</span> ( !(sMap.containsKey(ch) &amp;&amp; sMap.get(ch) &gt;= tMap.get(ch)) ) <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> String <span class="title function_">minWindow</span><span class="params">(String s, String t)</span> &#123;</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">char</span> ch : t.toCharArray()) &#123;</span><br><span class="line">            tMap.put( ch , tMap.getOrDefault(ch, <span class="number">0</span>) + <span class="number">1</span> );</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="type">int</span> <span class="variable">left</span> <span class="operator">=</span> <span class="number">0</span>, right = <span class="number">0</span>, start = <span class="number">0</span>, end = Integer.MAX_VALUE, minLen = Integer.MAX_VALUE;</span><br><span class="line">        <span class="keyword">for</span> (right = <span class="number">0</span>; right &lt; s.length(); right ++) &#123;</span><br><span class="line">            sMap.put( s.charAt(right), sMap.getOrDefault(s.charAt(right), <span class="number">0</span>) + <span class="number">1</span> );</span><br><span class="line">            <span class="keyword">while</span> ( <span class="built_in">this</span>.isOk() ) &#123;</span><br><span class="line">                <span class="keyword">if</span> ( right - left + <span class="number">1</span> &lt; minLen ) &#123;</span><br><span class="line">                    minLen = right - left + <span class="number">1</span>;</span><br><span class="line">                    start = left;</span><br><span class="line">                    end = right;</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="built_in">this</span>.sMap.put( s.charAt(left), <span class="built_in">this</span>.sMap.get( s.charAt(left) ) - <span class="number">1</span> );</span><br><span class="line">                left ++;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> (minLen == Integer.MAX_VALUE) <span class="keyword">return</span> <span class="string">&quot;&quot;</span>;</span><br><span class="line">        <span class="keyword">return</span> s.substring(start, end + <span class="number">1</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="59-Spiral-Matrix-II"><a href="#59-Spiral-Matrix-II" class="headerlink" title="59. Spiral Matrix II"></a><a target="_blank" rel="noopener" href="https://leetcode.com/problems/spiral-matrix-ii/">59. Spiral Matrix II</a></h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="type">int</span>[][] generateMatrix(<span class="type">int</span> n) &#123;</span><br><span class="line">        <span class="type">int</span>[][] mat = <span class="keyword">new</span> <span class="title class_">int</span>[n][n];</span><br><span class="line">        <span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>, j = <span class="number">0</span>;</span><br><span class="line">        <span class="type">int</span>[] di = <span class="keyword">new</span> <span class="title class_">int</span>[] &#123;<span class="number">0</span>, <span class="number">1</span>, <span class="number">0</span>, -<span class="number">1</span>&#125;, dj = <span class="keyword">new</span> <span class="title class_">int</span>[] &#123;<span class="number">1</span>, <span class="number">0</span>, -<span class="number">1</span>, <span class="number">0</span>&#125;;</span><br><span class="line">        <span class="type">int</span> <span class="variable">d</span> <span class="operator">=</span> <span class="number">0</span>;        </span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">num</span> <span class="operator">=</span> <span class="number">1</span>; num &lt;= n * n; num ++) &#123;</span><br><span class="line">            mat[i][j] = num;</span><br><span class="line">            <span class="type">int</span> <span class="variable">iNext</span> <span class="operator">=</span> i + di[d], jNext = j + dj[d];</span><br><span class="line">            <span class="keyword">if</span> ( iNext &lt; <span class="number">0</span> || iNext == n || jNext &lt; <span class="number">0</span> || jNext == n || mat[iNext][jNext] != <span class="number">0</span>) &#123; <span class="comment">// invalid situation</span></span><br><span class="line">                d = (d + <span class="number">1</span>) % <span class="number">4</span>;</span><br><span class="line">                iNext = i + di[d]; jNext = j + dj[d];</span><br><span class="line">            &#125;</span><br><span class="line">            i = iNext; j = jNext;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> mat;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="54-Spiral-Matrix"><a href="#54-Spiral-Matrix" class="headerlink" title="54. Spiral Matrix"></a><a target="_blank" rel="noopener" href="https://leetcode.com/problems/spiral-matrix/">54. Spiral Matrix</a></h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">class Solution &#123;</span><br><span class="line">    public List&lt;Integer&gt; spiralOrder(int[][] matrix) &#123;</span><br><span class="line">        int m = matrix.length, n = matrix[0].length;</span><br><span class="line">        List&lt;Integer&gt; res = new LinkedList&lt;&gt;();</span><br><span class="line">        int[] di = new int[] &#123;0, 1, 0, -1&#125;, dj = new int[] &#123;1, 0, -1, 0&#125;;</span><br><span class="line">        int d = 0;</span><br><span class="line">        int i = 0, j = 0;</span><br><span class="line">        for (int k = 0; k &lt; m * n; k ++) &#123;</span><br><span class="line">            res.add(matrix[i][j]);</span><br><span class="line">            matrix[i][j] = 8964;  // label the elements that have been recorded</span><br><span class="line">            int ni = i + di[d], nj = j + dj[d];</span><br><span class="line">            if ( ni &lt; 0 || ni == m || nj &lt; 0 || nj == n || matrix[ni][nj] == 8964 ) &#123;</span><br><span class="line">                d = (d + 1) % 4;</span><br><span class="line">                ni = i + di[d]; nj = j + dj[d];</span><br><span class="line">            &#125;</span><br><span class="line">            i = ni; j = nj;</span><br><span class="line">        &#125;</span><br><span class="line">        return res;</span><br><span class="line">    &#125;;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="LCR-146-螺旋遍历二维数组"><a href="#LCR-146-螺旋遍历二维数组" class="headerlink" title="LCR 146. 螺旋遍历二维数组"></a><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/shun-shi-zhen-da-yin-ju-zhen-lcof/">LCR 146. 螺旋遍历二维数组</a></h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="type">int</span>[] spiralArray(<span class="type">int</span>[][] array) &#123;</span><br><span class="line">        <span class="keyword">if</span> (array.length == <span class="number">0</span>) <span class="keyword">return</span> <span class="keyword">new</span> <span class="title class_">int</span>[<span class="number">0</span>];</span><br><span class="line">        <span class="type">int</span> <span class="variable">m</span> <span class="operator">=</span> array.length, n = array[<span class="number">0</span>].length;</span><br><span class="line">        <span class="type">int</span>[] res = <span class="keyword">new</span> <span class="title class_">int</span>[m * n];</span><br><span class="line">        <span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>, j = <span class="number">0</span>;</span><br><span class="line">        <span class="type">int</span>[] di = &#123;<span class="number">0</span>, <span class="number">1</span>, <span class="number">0</span>, -<span class="number">1</span>&#125;, dj = &#123;<span class="number">1</span>, <span class="number">0</span>, -<span class="number">1</span>, <span class="number">0</span>&#125;;</span><br><span class="line">        <span class="type">int</span> <span class="variable">d</span> <span class="operator">=</span> <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">k</span> <span class="operator">=</span> <span class="number">0</span>; k &lt; m * n; k ++) &#123;</span><br><span class="line">            res[k] = array[i][j];</span><br><span class="line">            array[i][j] = Integer.MIN_VALUE;  <span class="comment">// label</span></span><br><span class="line">            <span class="type">int</span> <span class="variable">ni</span> <span class="operator">=</span> i + di[d], nj = j + dj[d];</span><br><span class="line">            <span class="keyword">if</span> (ni == -<span class="number">1</span> || ni == m || nj == -<span class="number">1</span> || nj == n || array[ni][nj] == Integer.MIN_VALUE) &#123;</span><br><span class="line">                d = (d + <span class="number">1</span>) % <span class="number">4</span>;</span><br><span class="line">                ni = i + di[d]; nj = j + dj[d];</span><br><span class="line">            &#125;</span><br><span class="line">            i = ni; j = nj;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> res;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="58-区间和（第九期模拟笔试）"><a href="#58-区间和（第九期模拟笔试）" class="headerlink" title="58.区间和（第九期模拟笔试）"></a><a target="_blank" rel="noopener" href="https://kamacoder.com/problempage.php?pid=1070">58.区间和（第九期模拟笔试）</a></h2><blockquote>
+<p> 给定一个整数数组 Array，请计算该数组在每个指定区间内元素的总和。</p>
+</blockquote>
+<p><strong>前缀和</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="type">int</span>[] sumOfIntervals(<span class="type">int</span>[] nums, <span class="type">int</span>[][] intervals) &#123;</span><br><span class="line">        <span class="comment">// 当输入 interval 过多时, 需要先把 nums 的累加和算出来, 以减少计算量</span></span><br><span class="line">        <span class="type">int</span>[] accumulate = <span class="keyword">new</span> <span class="title class_">int</span>[nums.length];</span><br><span class="line">        accumulate[<span class="number">0</span>] = nums[<span class="number">0</span>];  <span class="comment">// 前缀和</span></span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">1</span>; i &lt; nums.length; i++) &#123;</span><br><span class="line">            accumulate[i] = accumulate[i - <span class="number">1</span>] + nums[i];</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="type">int</span>[] res = <span class="keyword">new</span> <span class="title class_">int</span>[intervals.length];</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; intervals.length; i++) &#123;</span><br><span class="line">            <span class="type">int</span> <span class="variable">start</span> <span class="operator">=</span> intervals[i][<span class="number">0</span>];</span><br><span class="line">            <span class="type">int</span> <span class="variable">end</span> <span class="operator">=</span> intervals[i][<span class="number">1</span>];</span><br><span class="line">            res[i] = (start == <span class="number">0</span>) ? accumulate[end] : accumulate[end] - accumulate[start - <span class="number">1</span>];</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> res;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>ACM 模式</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> java.util.Scanner;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Main</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">        <span class="type">Scanner</span> <span class="variable">scanner</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Scanner</span>(System.in);</span><br><span class="line"></span><br><span class="line">        <span class="type">int</span> <span class="variable">n</span> <span class="operator">=</span> scanner.nextInt();</span><br><span class="line">        <span class="type">int</span>[] vec = <span class="keyword">new</span> <span class="title class_">int</span>[n];</span><br><span class="line">        <span class="type">int</span>[] p = <span class="keyword">new</span> <span class="title class_">int</span>[n];</span><br><span class="line"></span><br><span class="line">        <span class="type">int</span> <span class="variable">presum</span> <span class="operator">=</span> <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; n; i++) &#123;</span><br><span class="line">            vec[i] = scanner.nextInt();</span><br><span class="line">            presum += vec[i];</span><br><span class="line">            p[i] = presum;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">while</span> (scanner.hasNextInt()) &#123;</span><br><span class="line">            <span class="type">int</span> <span class="variable">a</span> <span class="operator">=</span> scanner.nextInt();</span><br><span class="line">            <span class="type">int</span> <span class="variable">b</span> <span class="operator">=</span> scanner.nextInt();</span><br><span class="line"></span><br><span class="line">            <span class="type">int</span> sum;</span><br><span class="line">            <span class="keyword">if</span> (a == <span class="number">0</span>) &#123;</span><br><span class="line">                sum = p[b];</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                sum = p[b] - p[a - <span class="number">1</span>];</span><br><span class="line">            &#125;</span><br><span class="line">            System.out.println(sum);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        scanner.close();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="44-开发商购买土地（第五期模拟笔试）"><a href="#44-开发商购买土地（第五期模拟笔试）" class="headerlink" title="44. 开发商购买土地（第五期模拟笔试）"></a><a target="_blank" rel="noopener" href="https://kamacoder.com/problempage.php?pid=1044">44. 开发商购买土地（第五期模拟笔试）</a></h2><blockquote>
+<p>在一个城市区域内，被划分成了n * m个连续的区块，每个区块都拥有不同的权值，代表着其土地价值。目前，有两家开发公司，A 公司和 B 公司，希望购买这个城市区域的土地。 </p>
+<p>现在，需要将这个城市区域的所有区块分配给 A 公司和 B 公司。</p>
+<p>然而，由于城市规划的限制，只允许将区域按横向或纵向划分成两个子区域，而且每个子区域都必须包含一个或多个区块。 为了确保公平竞争，你需要找到一种分配方式，使得 A 公司和 B 公司各自的子区域内的土地总价值之差最小。 </p>
+<p>注意：区块不可再分。</p>
+<p>请输出一个整数，代表两个子区域内土地总价值之间的最小差距。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">1 2 3</span><br><span class="line">2 1 3</span><br><span class="line">1 2 3</span><br><span class="line"></span><br><span class="line">如果将区域按照如下方式划分：</span><br><span class="line">1 2 | 3</span><br><span class="line">2 1 | 3</span><br><span class="line">1 2 | 3 </span><br><span class="line">两个子区域内土地总价值之间的最小差距可以达到 0。</span><br><span class="line"></span><br><span class="line">数据范围：</span><br><span class="line">1 &lt;= n, m &lt;= 100；</span><br><span class="line">n 和 m 不同时为 1。</span><br></pre></td></tr></table></figure>
+</blockquote>
+<p><strong>前缀和</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="type">int</span> <span class="title function_">divideLand</span><span class="params">(<span class="type">int</span>[][] land)</span> &#123;</span><br><span class="line">        <span class="type">int</span> <span class="variable">res</span> <span class="operator">=</span> Integer.MAX_VALUE;</span><br><span class="line">        <span class="type">int</span> <span class="variable">m</span> <span class="operator">=</span> land.length, n = land[<span class="number">0</span>].length;</span><br><span class="line">        <span class="type">int</span>[] preSumI = <span class="keyword">new</span> <span class="title class_">int</span>[m], preSumJ = <span class="keyword">new</span> <span class="title class_">int</span>[n];</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; m; i++) &#123;</span><br><span class="line">            <span class="type">int</span> <span class="variable">sum</span> <span class="operator">=</span> <span class="number">0</span>;</span><br><span class="line">            <span class="keyword">for</span> (<span class="type">int</span> num : land[i]) sum += num;</span><br><span class="line">            preSumI[i] = sum;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">1</span>; i &lt; m; i ++) preSumI[i] += preSumI[i - <span class="number">1</span>];</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; m; i++) &#123;</span><br><span class="line">            <span class="type">int</span> <span class="variable">sum1</span> <span class="operator">=</span> preSumI[i], sum2 = preSumI[m - <span class="number">1</span>] - preSumI[i];</span><br><span class="line">            res = Math.min(res, Math.abs(sum1 - sum2));</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">j</span> <span class="operator">=</span> <span class="number">0</span>; j &lt; n; j++) &#123;</span><br><span class="line">            <span class="type">int</span> <span class="variable">sum</span> <span class="operator">=</span> <span class="number">0</span>;</span><br><span class="line">            <span class="keyword">for</span> (<span class="type">int</span>[] col : land) sum += col[j];</span><br><span class="line">            preSumJ[j] = sum;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">j</span> <span class="operator">=</span> <span class="number">1</span>; j &lt; n; j++) preSumJ[j] += preSumJ[j - <span class="number">1</span>];</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">j</span> <span class="operator">=</span> <span class="number">0</span>; j &lt; n; j++) &#123;</span><br><span class="line">            <span class="type">int</span> <span class="variable">sum1</span> <span class="operator">=</span> preSumJ[j], sum2 = preSumJ[n - <span class="number">1</span>] - preSumJ[j];</span><br><span class="line">            res = Math.min(res, Math.abs(sum1 - sum2));</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> res;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> java.util.Scanner;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Main</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">        <span class="type">Scanner</span> <span class="variable">scanner</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Scanner</span>(System.in);</span><br><span class="line"></span><br><span class="line">        <span class="type">int</span> <span class="variable">n</span> <span class="operator">=</span> scanner.nextInt();</span><br><span class="line">        <span class="type">int</span>[] vec = <span class="keyword">new</span> <span class="title class_">int</span>[n];</span><br><span class="line">        <span class="type">int</span>[] p = <span class="keyword">new</span> <span class="title class_">int</span>[n];</span><br><span class="line"></span><br><span class="line">        <span class="type">int</span> <span class="variable">presum</span> <span class="operator">=</span> <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; n; i++) &#123;</span><br><span class="line">            vec[i] = scanner.nextInt();</span><br><span class="line">            presum += vec[i];</span><br><span class="line">            p[i] = presum;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">while</span> (scanner.hasNextInt()) &#123;</span><br><span class="line">            <span class="type">int</span> <span class="variable">a</span> <span class="operator">=</span> scanner.nextInt();</span><br><span class="line">            <span class="type">int</span> <span class="variable">b</span> <span class="operator">=</span> scanner.nextInt();</span><br><span class="line"></span><br><span class="line">            <span class="type">int</span> sum;</span><br><span class="line">            <span class="keyword">if</span> (a == <span class="number">0</span>) &#123;</span><br><span class="line">                sum = p[b];</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                sum = p[b] - p[a - <span class="number">1</span>];</span><br><span class="line">            &#125;</span><br><span class="line">            System.out.println(sum);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        scanner.close();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          
+          <div class="post-tags">
+              <a href="/tags/algorithm/" rel="tag"><i class="fa fa-tag"></i> algorithm</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2024/10/08/Java-Bugs/" rel="prev" title="Java Bugs">
+      <i class="fa fa-chevron-left"></i> Java Bugs
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2024/10/13/Java-Note/" rel="next" title="Java Note">
+      Java Note <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#704-Binary-Search"><span class="nav-number">1.</span> <span class="nav-text">704. Binary Search</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#35-Search-Insert-Position"><span class="nav-number">2.</span> <span class="nav-text">35. Search Insert Position</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#34-Find-First-and-Last-Position-of-Element-in-Sorted-Array"><span class="nav-number">3.</span> <span class="nav-text">34. Find First and Last Position of Element in Sorted Array</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#69-Sqrt-x"><span class="nav-number">4.</span> <span class="nav-text">69. Sqrt(x)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#367-Valid-Perfect-Square"><span class="nav-number">5.</span> <span class="nav-text">367. Valid Perfect Square</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#27-Remove-Element"><span class="nav-number">6.</span> <span class="nav-text">27. Remove Element</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#26-Remove-Duplicates-from-Sorted-Array"><span class="nav-number">7.</span> <span class="nav-text">26. Remove Duplicates from Sorted Array</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#283-Move-Zeroes"><span class="nav-number">8.</span> <span class="nav-text">283. Move Zeroes</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#844-Backspace-String-Compare"><span class="nav-number">9.</span> <span class="nav-text">844. Backspace String Compare</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#977-Squares-of-a-Sorted-Array"><span class="nav-number">10.</span> <span class="nav-text">977. Squares of a Sorted Array</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#209-Minimum-Size-Subarray-Sum"><span class="nav-number">11.</span> <span class="nav-text">209. Minimum Size Subarray Sum</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#904-Fruit-Into-Baskets"><span class="nav-number">12.</span> <span class="nav-text">904. Fruit Into Baskets</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#76-Minimum-Window-Substring"><span class="nav-number">13.</span> <span class="nav-text">76. Minimum Window Substring</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#59-Spiral-Matrix-II"><span class="nav-number">14.</span> <span class="nav-text">59. Spiral Matrix II</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#54-Spiral-Matrix"><span class="nav-number">15.</span> <span class="nav-text">54. Spiral Matrix</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#LCR-146-%E8%9E%BA%E6%97%8B%E9%81%8D%E5%8E%86%E4%BA%8C%E7%BB%B4%E6%95%B0%E7%BB%84"><span class="nav-number">16.</span> <span class="nav-text">LCR 146. 螺旋遍历二维数组</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#58-%E5%8C%BA%E9%97%B4%E5%92%8C%EF%BC%88%E7%AC%AC%E4%B9%9D%E6%9C%9F%E6%A8%A1%E6%8B%9F%E7%AC%94%E8%AF%95%EF%BC%89"><span class="nav-number">17.</span> <span class="nav-text">58.区间和（第九期模拟笔试）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#44-%E5%BC%80%E5%8F%91%E5%95%86%E8%B4%AD%E4%B9%B0%E5%9C%9F%E5%9C%B0%EF%BC%88%E7%AC%AC%E4%BA%94%E6%9C%9F%E6%A8%A1%E6%8B%9F%E7%AC%94%E8%AF%95%EF%BC%89"><span class="nav-number">18.</span> <span class="nav-text">44. 开发商购买土地（第五期模拟笔试）</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Perry Yao"
+      src="https://avatars.githubusercontent.com/u/126999663?v=4">
+  <p class="site-author-name" itemprop="name">Perry Yao</p>
+  <div class="site-description" itemprop="description">...</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">8</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">3</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/PerryYao-GitHub" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;PerryYao-GitHub" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:peiyouyao@gmail.com" title="E-Mail → mailto:peiyouyao@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2024</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Perry Yao</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://pisces.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a>
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>
