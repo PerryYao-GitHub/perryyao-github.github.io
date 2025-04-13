@@ -1,0 +1,603 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 7.3.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="Fundamental APIsJavaStackStack Class:star:继承关系 1Collections(I) -&gt; List(I) -&gt; Vector(C) -&gt; Stack(C)  :star:线程安全 Vector 是线程安全的, Stack 也是线程安全的, 故写算法题时性能较差 :star:主要方法 1234567boolean empty();bool">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Stack &amp; Queue">
+<meta property="og:url" content="http://example.com/2024/05/04/algorithm/06-stack-queue/index.html">
+<meta property="og:site_name" content="Perry&#39;s Blog">
+<meta property="og:description" content="Fundamental APIsJavaStackStack Class:star:继承关系 1Collections(I) -&gt; List(I) -&gt; Vector(C) -&gt; Stack(C)  :star:线程安全 Vector 是线程安全的, Stack 也是线程安全的, 故写算法题时性能较差 :star:主要方法 1234567boolean empty();bool">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2024-05-03T16:00:00.000Z">
+<meta property="article:modified_time" content="2025-02-02T07:14:14.000Z">
+<meta property="article:author" content="Perry Yao">
+<meta property="article:tag" content="key-algorithm">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://example.com/2024/05/04/algorithm/06-stack-queue/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'en'
+  };
+</script>
+
+  <title>Stack & Queue | Perry's Blog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Perry's Blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">tech & muse & sleep</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
+
+  </li>
+        <li class="menu-item menu-item-schedule">
+
+    <a href="/schedule/" rel="section"><i class="fa fa-calendar fa-fw"></i>Schedule</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2024/05/04/algorithm/06-stack-queue/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="https://avatars.githubusercontent.com/u/126999663?v=4">
+      <meta itemprop="name" content="Perry Yao">
+      <meta itemprop="description" content="...">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Perry's Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Stack & Queue
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2024-05-04 00:00:00" itemprop="dateCreated datePublished" datetime="2024-05-04T00:00:00+08:00">2024-05-04</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2025-02-02 15:14:14" itemprop="dateModified" datetime="2025-02-02T15:14:14+08:00">2025-02-02</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/algorithm/" itemprop="url" rel="index"><span itemprop="name">algorithm</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <hr>
+<h1 id="Fundamental-APIs"><a href="#Fundamental-APIs" class="headerlink" title="Fundamental APIs"></a>Fundamental APIs</h1><h2 id="Java"><a href="#Java" class="headerlink" title="Java"></a>Java</h2><h3 id="Stack"><a href="#Stack" class="headerlink" title="Stack"></a>Stack</h3><h4 id="Stack-Class"><a href="#Stack-Class" class="headerlink" title="Stack Class"></a>Stack Class</h4><p>:star:继承关系</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Collections(I) -&gt; List(I) -&gt; Vector(C) -&gt; Stack(C)</span><br></pre></td></tr></table></figure>
+
+<p>:star:线程安全</p>
+<p>Vector 是线程安全的, Stack 也是线程安全的, 故写算法题时性能较差</p>
+<p>:star:主要方法</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">boolean</span> <span class="title function_">empty</span><span class="params">()</span>;</span><br><span class="line"><span class="type">boolean</span> <span class="title function_">isEmpty</span><span class="params">()</span>;</span><br><span class="line"></span><br><span class="line">E <span class="title function_">peek</span><span class="params">()</span>; <span class="comment">// throws EmptyStackException when empty</span></span><br><span class="line">E <span class="title function_">pop</span><span class="params">()</span>; <span class="comment">// throws EmptyStackException when empty</span></span><br><span class="line">E <span class="title function_">push</span><span class="params">(E e)</span>;</span><br><span class="line"><span class="type">int</span> <span class="title function_">search</span><span class="params">(Object o)</span>; <span class="comment">// Returns the 1-based position where an object is on this stack.</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="Deque-Interface-List-Interface"><a href="#Deque-Interface-List-Interface" class="headerlink" title="Deque Interface &amp; List Interface"></a>Deque Interface &amp; List Interface</h4><p>更加推荐使用 Deque 或 List 来实现栈</p>
+<h3 id="Queue"><a href="#Queue" class="headerlink" title="Queue"></a>Queue</h3><h4 id="Queue-Interface"><a href="#Queue-Interface" class="headerlink" title="Queue Interface"></a>Queue Interface</h4><p>:star:继承关系</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Collection(I) -&gt; Queue(I)</span><br></pre></td></tr></table></figure>
+
+<p>:star:主要方法</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">boolean</span> <span class="title function_">add</span><span class="params">(E e)</span>; <span class="comment">// throwing an IllegalStateException if no space is currently available</span></span><br><span class="line">E <span class="title function_">remove</span><span class="params">(E e)</span>; <span class="comment">// throws NoSuchElementException when empty</span></span><br><span class="line">E <span class="title function_">element</span><span class="params">()</span>; <span class="comment">// throws NoSuchElementException when empty</span></span><br><span class="line"></span><br><span class="line"><span class="type">boolean</span> <span class="title function_">offer</span><span class="params">(E e)</span>;</span><br><span class="line">E <span class="title function_">poll</span><span class="params">(E e)</span>; <span class="comment">// return null when empty</span></span><br><span class="line">E <span class="title function_">peek</span><span class="params">(E e)</span>; <span class="comment">// return null when empty</span></span><br></pre></td></tr></table></figure>
+
+<p>:star:主要实现类</p>
+<table>
+<thead>
+<tr>
+<th>实现类</th>
+<th>描述</th>
+<th>特点</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong><code>LinkedList</code></strong></td>
+<td>基于链表的双端队列实现，既可以用作队列也可以用作栈。</td>
+<td>非线程安全，性能较好</td>
+</tr>
+<tr>
+<td><strong><code>ArrayDeque</code></strong></td>
+<td>基于动态数组的双端队列实现。</td>
+<td>非线程安全，性能更优于 <code>LinkedList</code></td>
+</tr>
+<tr>
+<td><strong><code>PriorityQueue</code></strong></td>
+<td>基于堆的优先级队列。</td>
+<td>非线程安全，元素按自然顺序或自定义比较器排序</td>
+</tr>
+</tbody></table>
+<h4 id="Deque-Interface"><a href="#Deque-Interface" class="headerlink" title="Deque Interface"></a>Deque Interface</h4><p>:star:继承关系</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Collection(I) -&gt; Queue(I) -&gt; Deque(I)</span><br></pre></td></tr></table></figure>
+
+<p>:star:主要方法</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th><strong>First Element (Head)</strong></th>
+<th><strong>Last Element (Tail)</strong></th>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td></td>
+<td><em>Throws exception</em></td>
+<td><em>Special value</em></td>
+<td><em>Throws exception</em></td>
+<td><em>Special value</em></td>
+</tr>
+<tr>
+<td><strong>Insert</strong></td>
+<td><code>void addFirst(E e);</code></td>
+<td><code> boolean offerFirst(E e);</code></td>
+<td><code>void addLast(E e);</code></td>
+<td><code>boolean offerLast(E e);</code></td>
+</tr>
+<tr>
+<td><strong>Remove</strong></td>
+<td><code>E removeFirst();</code></td>
+<td><code>E pollFirst();</code></td>
+<td><code>E removeLast();</code></td>
+<td><code>E pollLast();</code></td>
+</tr>
+<tr>
+<td><strong>Examine</strong></td>
+<td><code>E getFirst();</code></td>
+<td><code>E peekFirst();</code></td>
+<td><code>E getLast();</code></td>
+<td><code>E peekLast();</code></td>
+</tr>
+</tbody></table>
+<table>
+<thead>
+<tr>
+<th><strong><code>Queue</code> Method</strong></th>
+<th><strong>Equivalent <code>Deque</code> Method</strong></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>add(e)</code></td>
+<td><code>addLast(e)</code></td>
+</tr>
+<tr>
+<td><code>offer(e)</code></td>
+<td><code>offerLast(e)</code></td>
+</tr>
+<tr>
+<td><code>remove()</code></td>
+<td><code>removeFirst()</code></td>
+</tr>
+<tr>
+<td><code>poll()</code></td>
+<td><code>pollFirst()</code></td>
+</tr>
+<tr>
+<td><code>element()</code></td>
+<td><code>getFirst()</code></td>
+</tr>
+<tr>
+<td><code>peek()</code></td>
+<td><code>peekFirst()</code></td>
+</tr>
+</tbody></table>
+<p>:star:主要实现类</p>
+<p><code>ArrayDeque</code>, <code>LinkedList</code></p>
+<h1 id="Examples"><a href="#Examples" class="headerlink" title="Examples"></a>Examples</h1><h2 id="232-Implement-Queue-using-Stacks"><a href="#232-Implement-Queue-using-Stacks" class="headerlink" title="232. Implement Queue using Stacks"></a><a target="_blank" rel="noopener" href="https://leetcode.com/problems/implement-queue-using-stacks/">232. Implement Queue using Stacks</a></h2><h4 id="Java-1"><a href="#Java-1" class="headerlink" title="Java"></a>Java</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">MyQueue</span> &#123;</span><br><span class="line">    <span class="keyword">private</span> Stack&lt;Integer&gt; stk0;</span><br><span class="line">    <span class="keyword">private</span> Stack&lt;Integer&gt; stk1;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="title function_">MyQueue</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="built_in">this</span>.stk0 = <span class="keyword">new</span> <span class="title class_">Stack</span>&lt;&gt;();</span><br><span class="line">        <span class="built_in">this</span>.stk1 = <span class="keyword">new</span> <span class="title class_">Stack</span>&lt;&gt;();</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">push</span><span class="params">(<span class="type">int</span> x)</span> &#123;</span><br><span class="line">        stk0.push(x);</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">public</span> <span class="type">int</span> <span class="title function_">pop</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="built_in">this</span>.peek();</span><br><span class="line">        <span class="keyword">return</span> stk1.pop();</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">public</span> <span class="type">int</span> <span class="title function_">peek</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="keyword">if</span> ( !stk1.isEmpty() ) <span class="keyword">return</span> stk1.peek();</span><br><span class="line">        <span class="keyword">while</span> ( !stk0.isEmpty() ) &#123;</span><br><span class="line">            stk1.push(stk0.pop());</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> stk1.peek();</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">public</span> <span class="type">boolean</span> <span class="title function_">empty</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> stk0.isEmpty() &amp;&amp; stk1.isEmpty();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="C"><a href="#C" class="headerlink" title="C++"></a>C++</h4><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">MyQueue</span> &#123;</span><br><span class="line">    stack&lt;<span class="type">int</span>&gt; stk0 &#123;&#125;;</span><br><span class="line">    stack&lt;<span class="type">int</span>&gt; stk1 &#123;&#125;;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="built_in">MyQueue</span>() &#123;&#125;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="type">void</span> <span class="title">push</span><span class="params">(<span class="type">int</span> x)</span> </span>&#123;</span><br><span class="line">        stk<span class="number">0.</span><span class="built_in">push</span>(x);</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="type">int</span> <span class="title">pop</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="type">int</span> pop = <span class="keyword">this</span>-&gt;<span class="built_in">peek</span>();</span><br><span class="line">        stk<span class="number">1.</span><span class="built_in">pop</span>(); <span class="comment">// c++ 中 Stack::pop() 返回 void</span></span><br><span class="line">        <span class="keyword">return</span> pop;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="type">int</span> <span class="title">peek</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (<span class="keyword">this</span>-&gt;<span class="built_in">empty</span>()) <span class="keyword">return</span> <span class="number">-8964</span>;</span><br><span class="line">        <span class="keyword">if</span> (stk<span class="number">1.</span><span class="built_in">empty</span>()) &#123;</span><br><span class="line">            <span class="keyword">while</span> (!stk<span class="number">0.</span><span class="built_in">empty</span>()) &#123;</span><br><span class="line">                stk<span class="number">1.</span><span class="built_in">push</span>(stk<span class="number">0.</span><span class="built_in">top</span>());</span><br><span class="line">                stk<span class="number">0.</span><span class="built_in">pop</span>();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> stk<span class="number">1.</span><span class="built_in">top</span>();</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="type">bool</span> <span class="title">empty</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> stk<span class="number">0.</span><span class="built_in">empty</span>() &amp;&amp; stk<span class="number">1.</span><span class="built_in">empty</span>();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Your MyQueue object will be instantiated and called as such:</span></span><br><span class="line"><span class="comment"> * MyQueue* obj = new MyQueue();</span></span><br><span class="line"><span class="comment"> * obj-&gt;push(x);</span></span><br><span class="line"><span class="comment"> * int param_2 = obj-&gt;pop();</span></span><br><span class="line"><span class="comment"> * int param_3 = obj-&gt;peek();</span></span><br><span class="line"><span class="comment"> * bool param_4 = obj-&gt;empty();</span></span><br><span class="line"><span class="comment"> */</span></span><br></pre></td></tr></table></figure>
+
+<p><code>stack</code> 是 RAII（Resource Acquisition Is Initialization）类型的对象，生命周期由其作用域自动管理，它的析构函数会自动释放内部的内存资源。</p>
+<p>只要类中没有<strong>动态内存分配</strong>（例如 <code>new</code> 或 <code>malloc</code>），则不需要手动编写析构函数。</p>
+<h4 id="Rust"><a href="#Rust" class="headerlink" title="Rust"></a>Rust</h4><figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">struct</span> <span class="title class_">MyQueue</span> &#123;</span><br><span class="line">    sz: <span class="type">usize</span>,</span><br><span class="line">    stk0: <span class="type">Vec</span>&lt;<span class="type">i32</span>&gt;,</span><br><span class="line">    stk1: <span class="type">Vec</span>&lt;<span class="type">i32</span>&gt;,</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">/** </span></span><br><span class="line"><span class="comment"> * `&amp;self` means the method takes an immutable reference.</span></span><br><span class="line"><span class="comment"> * If you need a mutable reference, change it to `&amp;mut self` instead.</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">impl</span> <span class="title class_">MyQueue</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">fn</span> <span class="title function_">new</span>() <span class="punctuation">-&gt;</span> <span class="keyword">Self</span> &#123;</span><br><span class="line">        MyQueue &#123;</span><br><span class="line">            sz: <span class="number">0</span>,</span><br><span class="line">            stk0: <span class="type">Vec</span>::<span class="title function_ invoke__">new</span>(),</span><br><span class="line">            stk1: <span class="type">Vec</span>::<span class="title function_ invoke__">new</span>(),</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">fn</span> <span class="title function_">push</span>(&amp;<span class="keyword">mut</span> <span class="keyword">self</span>, x: <span class="type">i32</span>) &#123;</span><br><span class="line">        <span class="keyword">self</span>.stk0.<span class="title function_ invoke__">push</span>(x);</span><br><span class="line">        <span class="keyword">self</span>.sz += <span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">fn</span> <span class="title function_">pop</span>(&amp;<span class="keyword">mut</span> <span class="keyword">self</span>) <span class="punctuation">-&gt;</span> <span class="type">i32</span> &#123;</span><br><span class="line">        <span class="keyword">if</span> <span class="keyword">self</span>.sz == <span class="number">0</span> &#123;</span><br><span class="line">            <span class="keyword">return</span> -<span class="number">1</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">self</span>.sz -= <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">if</span> <span class="keyword">self</span>.stk1.<span class="title function_ invoke__">is_empty</span>() &#123;</span><br><span class="line">            <span class="keyword">while</span> !<span class="keyword">self</span>.stk0.<span class="title function_ invoke__">is_empty</span>() &#123;</span><br><span class="line">                <span class="keyword">self</span>.stk1.<span class="title function_ invoke__">push</span>(<span class="keyword">self</span>.stk0.<span class="title function_ invoke__">pop</span>().<span class="title function_ invoke__">unwrap</span>());</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">self</span>.stk1.<span class="title function_ invoke__">pop</span>().<span class="title function_ invoke__">unwrap</span>()</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">fn</span> <span class="title function_">peek</span>(&amp;<span class="keyword">mut</span> <span class="keyword">self</span>) <span class="punctuation">-&gt;</span> <span class="type">i32</span> &#123;</span><br><span class="line">        <span class="keyword">if</span> <span class="keyword">self</span>.stk1.<span class="title function_ invoke__">is_empty</span>() &#123;</span><br><span class="line">            <span class="keyword">while</span> !<span class="keyword">self</span>.stk0.<span class="title function_ invoke__">is_empty</span>() &#123;</span><br><span class="line">                <span class="keyword">self</span>.stk1.<span class="title function_ invoke__">push</span>(<span class="keyword">self</span>.stk0.<span class="title function_ invoke__">pop</span>().<span class="title function_ invoke__">unwrap</span>());</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">self</span>.stk1[<span class="keyword">self</span>.stk1.<span class="title function_ invoke__">len</span>() - <span class="number">1</span>]</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">fn</span> <span class="title function_">empty</span>(&amp;<span class="keyword">self</span>) <span class="punctuation">-&gt;</span> <span class="type">bool</span> &#123;</span><br><span class="line">        <span class="keyword">self</span>.sz == <span class="number">0</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="225-Implement-Stack-using-Queues"><a href="#225-Implement-Stack-using-Queues" class="headerlink" title="225. Implement Stack using Queues"></a><a target="_blank" rel="noopener" href="https://leetcode.com/problems/implement-stack-using-queues/">225. Implement Stack using Queues</a></h2><h4 id="Java-2"><a href="#Java-2" class="headerlink" title="Java"></a>Java</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">MyStack</span> &#123;</span><br><span class="line">    <span class="keyword">private</span> Queue&lt;Integer&gt; q;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="title function_">MyStack</span><span class="params">()</span> &#123; q = <span class="keyword">new</span> <span class="title class_">LinkedList</span>&lt;&gt;(); &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">push</span><span class="params">(<span class="type">int</span> x)</span> &#123; q.offer(x); &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">public</span> <span class="type">int</span> <span class="title function_">pop</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="type">int</span> <span class="variable">sz</span> <span class="operator">=</span> q.size();</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; sz - <span class="number">1</span>; i ++) &#123;</span><br><span class="line">            <span class="type">int</span> <span class="variable">tmp</span> <span class="operator">=</span> q.poll();</span><br><span class="line">            q.offer(tmp);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> q.poll();</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">public</span> <span class="type">int</span> <span class="title function_">top</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="type">int</span> <span class="variable">sz</span> <span class="operator">=</span> q.size();</span><br><span class="line">        <span class="type">int</span> tmp;</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; sz - <span class="number">1</span>; i ++) &#123;</span><br><span class="line">            tmp = q.poll();</span><br><span class="line">            q.offer(tmp);</span><br><span class="line">        &#125;</span><br><span class="line">        tmp = q.poll();</span><br><span class="line">        q.offer(tmp);</span><br><span class="line">        <span class="keyword">return</span> tmp;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">public</span> <span class="type">boolean</span> <span class="title function_">empty</span><span class="params">()</span> &#123; <span class="keyword">return</span> q.isEmpty(); &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="C-1"><a href="#C-1" class="headerlink" title="C++"></a>C++</h4><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">MyStack</span> &#123;</span><br><span class="line">    queue&lt;<span class="type">int</span>&gt; q&#123;&#125;;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="built_in">MyStack</span>() &#123;&#125;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="type">void</span> <span class="title">push</span><span class="params">(<span class="type">int</span> x)</span> </span>&#123;</span><br><span class="line">        q.<span class="built_in">push</span>(x);</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="type">int</span> <span class="title">pop</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (<span class="built_in">empty</span>()) <span class="keyword">return</span> <span class="number">-8964</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; q.<span class="built_in">size</span>() - <span class="number">1</span>; i ++) &#123;</span><br><span class="line">            <span class="type">int</span> top = q.<span class="built_in">front</span>();</span><br><span class="line">            q.<span class="built_in">pop</span>();</span><br><span class="line">            q.<span class="built_in">push</span>(top);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="type">int</span> pop = q.<span class="built_in">front</span>();</span><br><span class="line">        q.<span class="built_in">pop</span>();</span><br><span class="line">        <span class="keyword">return</span> pop;        </span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="type">int</span> <span class="title">top</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (<span class="built_in">empty</span>()) <span class="keyword">return</span> <span class="number">-8964</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; q.<span class="built_in">size</span>() - <span class="number">1</span>; i ++) &#123;</span><br><span class="line">            <span class="type">int</span> top = q.<span class="built_in">front</span>();</span><br><span class="line">            q.<span class="built_in">pop</span>();</span><br><span class="line">            q.<span class="built_in">push</span>(top);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="type">int</span> top = q.<span class="built_in">front</span>();</span><br><span class="line">        q.<span class="built_in">pop</span>();</span><br><span class="line">        q.<span class="built_in">push</span>(top);</span><br><span class="line">        <span class="keyword">return</span> top;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="type">bool</span> <span class="title">empty</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> q.<span class="built_in">empty</span>();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<h2 id="20-Valid-Parentheses"><a href="#20-Valid-Parentheses" class="headerlink" title="20. Valid Parentheses"></a><a target="_blank" rel="noopener" href="https://leetcode.com/problems/valid-parentheses/">20. Valid Parentheses</a></h2><h4 id="Java-3"><a href="#Java-3" class="headerlink" title="Java"></a>Java</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="type">boolean</span> <span class="title function_">isValid</span><span class="params">(String s)</span> &#123;</span><br><span class="line">        Stack&lt;Character&gt; stk = <span class="keyword">new</span> <span class="title class_">Stack</span>&lt;&gt;();</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">char</span> ch : s.toCharArray()) &#123;</span><br><span class="line">            <span class="keyword">if</span> (stk.isEmpty()) stk.push(ch);</span><br><span class="line">            <span class="keyword">else</span> &#123;</span><br><span class="line">                <span class="type">char</span> <span class="variable">peek</span> <span class="operator">=</span> stk.peek();</span><br><span class="line">                <span class="keyword">if</span> (peek == <span class="string">&#x27;(&#x27;</span> &amp;&amp; ch == <span class="string">&#x27;)&#x27;</span>) stk.pop();</span><br><span class="line">                <span class="keyword">else</span> <span class="keyword">if</span> (peek == <span class="string">&#x27;[&#x27;</span> &amp;&amp; ch == <span class="string">&#x27;]&#x27;</span>) stk.pop();</span><br><span class="line">                <span class="keyword">else</span> <span class="keyword">if</span> (peek == <span class="string">&#x27;&#123;&#x27;</span> &amp;&amp; ch == <span class="string">&#x27;&#125;&#x27;</span>) stk.pop();</span><br><span class="line">                <span class="keyword">else</span> stk.push(ch);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> stk.isEmpty();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="C-2"><a href="#C-2" class="headerlink" title="C++"></a>C++</h4><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="type">bool</span> <span class="title">isValid</span><span class="params">(string s)</span> </span>&#123;</span><br><span class="line">        stack&lt;<span class="type">char</span>&gt; stk&#123;&#125;;</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">char</span> c : s) &#123;</span><br><span class="line">            <span class="keyword">if</span> (stk.<span class="built_in">empty</span>() || c == <span class="string">&#x27;(&#x27;</span> || c == <span class="string">&#x27;[&#x27;</span> || c == <span class="string">&#x27;&#123;&#x27;</span>) stk.<span class="built_in">push</span>(c);</span><br><span class="line">            <span class="keyword">else</span> &#123;</span><br><span class="line">                <span class="type">char</span> last = stk.<span class="built_in">top</span>();</span><br><span class="line">                <span class="keyword">if</span> (last == <span class="string">&#x27;(&#x27;</span> &amp;&amp; c == <span class="string">&#x27;)&#x27;</span> || last == <span class="string">&#x27;[&#x27;</span> &amp;&amp; c == <span class="string">&#x27;]&#x27;</span> || last == <span class="string">&#x27;&#123;&#x27;</span> &amp;&amp; c == <span class="string">&#x27;&#125;&#x27;</span>) stk.<span class="built_in">pop</span>();</span><br><span class="line">                <span class="keyword">else</span> <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> stk.<span class="built_in">empty</span>();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<h4 id="Rust-1"><a href="#Rust-1" class="headerlink" title="Rust"></a>Rust</h4><figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">impl</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line">    <span class="keyword">pub</span> <span class="keyword">fn</span> <span class="title function_">is_valid</span>(s: <span class="type">String</span>) <span class="punctuation">-&gt;</span> <span class="type">bool</span> &#123;</span><br><span class="line">        <span class="keyword">let</span> <span class="keyword">mut </span><span class="variable">stk</span>: <span class="type">Vec</span>&lt;<span class="type">char</span>&gt; = <span class="type">Vec</span>::<span class="title function_ invoke__">new</span>();</span><br><span class="line">        <span class="keyword">for</span> <span class="variable">ch</span> <span class="keyword">in</span> s.<span class="title function_ invoke__">chars</span>() &#123;</span><br><span class="line">            <span class="keyword">if</span> ch == <span class="string">&#x27;(&#x27;</span> || ch == <span class="string">&#x27;[&#x27;</span> || ch == <span class="string">&#x27;&#123;&#x27;</span> &#123;</span><br><span class="line">                stk.<span class="title function_ invoke__">push</span>(ch);</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                <span class="keyword">if</span> stk.<span class="title function_ invoke__">is_empty</span>() &#123;</span><br><span class="line">                    <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">                &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                    <span class="keyword">let</span> <span class="variable">last</span>: &amp;<span class="type">char</span> = stk.<span class="title function_ invoke__">last</span>().<span class="title function_ invoke__">unwrap</span>();</span><br><span class="line">                    <span class="keyword">if</span> *last == <span class="string">&#x27;(&#x27;</span> &amp;&amp; ch == <span class="string">&#x27;)&#x27;</span></span><br><span class="line">                        || *last == <span class="string">&#x27;[&#x27;</span> &amp;&amp; ch == <span class="string">&#x27;]&#x27;</span></span><br><span class="line">                        || *last == <span class="string">&#x27;&#123;&#x27;</span> &amp;&amp; ch == <span class="string">&#x27;&#125;&#x27;</span></span><br><span class="line">                    &#123;</span><br><span class="line">                        stk.<span class="title function_ invoke__">pop</span>();</span><br><span class="line">                    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                        <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        stk.<span class="title function_ invoke__">is_empty</span>()</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="1047-Remove-All-Adjacent-Duplicates-In-String"><a href="#1047-Remove-All-Adjacent-Duplicates-In-String" class="headerlink" title="1047. Remove All Adjacent Duplicates In String"></a><a target="_blank" rel="noopener" href="https://leetcode.com/problems/remove-all-adjacent-duplicates-in-string/">1047. Remove All Adjacent Duplicates In String</a></h2><h4 id="Java-4"><a href="#Java-4" class="headerlink" title="Java"></a>Java</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> String <span class="title function_">removeDuplicates</span><span class="params">(String s)</span> &#123;</span><br><span class="line">        <span class="type">StringBuilder</span> <span class="variable">stk</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">StringBuilder</span>();</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">char</span> c : s.toCharArray()) &#123;</span><br><span class="line">            <span class="keyword">if</span> (!stk.isEmpty() &amp;&amp; stk.charAt(stk.length()-<span class="number">1</span>) == c) stk.deleteCharAt(stk.length()-<span class="number">1</span>);</span><br><span class="line">            <span class="keyword">else</span> stk.append(c); </span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> stk.toString();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="C-3"><a href="#C-3" class="headerlink" title="C++"></a>C++</h4><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function">string <span class="title">removeDuplicates</span><span class="params">(string s)</span> </span>&#123;</span><br><span class="line">        string ans;</span><br><span class="line">        <span class="keyword">for</span>(<span class="type">char</span> c : s) &#123;</span><br><span class="line">            <span class="keyword">if</span>(ans.<span class="built_in">empty</span>() || ans.<span class="built_in">back</span>() != c) ans.<span class="built_in">push_back</span>(c);</span><br><span class="line">            <span class="keyword">else</span> ans.<span class="built_in">pop_back</span>();</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> ans;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<h4 id="Rust-2"><a href="#Rust-2" class="headerlink" title="Rust"></a>Rust</h4><figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">impl</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line">    <span class="keyword">pub</span> <span class="keyword">fn</span> <span class="title function_">remove_duplicates</span>(s: <span class="type">String</span>) <span class="punctuation">-&gt;</span> <span class="type">String</span> &#123;</span><br><span class="line">        <span class="keyword">let</span> <span class="keyword">mut </span><span class="variable">ans</span> = <span class="type">Vec</span>::<span class="title function_ invoke__">new</span>();</span><br><span class="line">        <span class="keyword">for</span> <span class="variable">c</span> <span class="keyword">in</span> s.<span class="title function_ invoke__">chars</span>() &#123;</span><br><span class="line">            <span class="keyword">if</span> !ans.<span class="title function_ invoke__">is_empty</span>() &amp;&amp; ans[ans.<span class="title function_ invoke__">len</span>() - <span class="number">1</span>] == c &#123; ans.<span class="title function_ invoke__">pop</span>(); &#125;</span><br><span class="line">            <span class="keyword">else</span> &#123; ans.<span class="title function_ invoke__">push</span>(c); &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        ans.<span class="title function_ invoke__">into_iter</span>().<span class="title function_ invoke__">collect</span>()</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="150-Evaluate-Reverse-Polish-Notation"><a href="#150-Evaluate-Reverse-Polish-Notation" class="headerlink" title="150. Evaluate Reverse Polish Notation"></a><a target="_blank" rel="noopener" href="https://leetcode.com/problems/evaluate-reverse-polish-notation/">150. Evaluate Reverse Polish Notation</a></h2><h4 id="Java-5"><a href="#Java-5" class="headerlink" title="Java"></a>Java</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="type">int</span> <span class="title function_">evalRPN</span><span class="params">(String[] tokens)</span> &#123;</span><br><span class="line">        Stack&lt;Integer&gt; stk = <span class="keyword">new</span> <span class="title class_">Stack</span>&lt;&gt;();</span><br><span class="line">        <span class="keyword">for</span> ( String str : tokens ) &#123;</span><br><span class="line">            <span class="keyword">try</span> &#123;</span><br><span class="line">                <span class="type">int</span> <span class="variable">num</span> <span class="operator">=</span> Integer.parseInt(str);</span><br><span class="line">                stk.push(num);</span><br><span class="line">            &#125; <span class="keyword">catch</span> (NumberFormatException e) &#123;  <span class="comment">// 当字符不是数字走 catch</span></span><br><span class="line">                <span class="type">int</span> <span class="variable">num2</span> <span class="operator">=</span> stk.pop();</span><br><span class="line">                <span class="type">int</span> <span class="variable">num1</span> <span class="operator">=</span> stk.pop();</span><br><span class="line">                <span class="type">int</span> <span class="variable">res</span> <span class="operator">=</span> <span class="number">0</span>;</span><br><span class="line">                <span class="keyword">if</span> (str.equals(<span class="string">&quot;+&quot;</span>)) res = num1 + num2;</span><br><span class="line">                <span class="keyword">if</span> (str.equals(<span class="string">&quot;-&quot;</span>)) res = num1 - num2;</span><br><span class="line">                <span class="keyword">if</span> (str.equals(<span class="string">&quot;*&quot;</span>)) res = num1 * num2;</span><br><span class="line">                <span class="keyword">if</span> (str.equals(<span class="string">&quot;/&quot;</span>)) res = num1 / num2;</span><br><span class="line">                stk.push(res);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> stk.pop();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="C-4"><a href="#C-4" class="headerlink" title="C++"></a>C++</h4><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="type">int</span> <span class="title">evalRPN</span><span class="params">(vector&lt;string&gt;&amp; tokens)</span> </span>&#123;</span><br><span class="line">        stack&lt;<span class="type">long</span> <span class="type">long</span>&gt; stk&#123;&#125;;</span><br><span class="line">        <span class="keyword">for</span> (string&amp; token : tokens) &#123;</span><br><span class="line">            <span class="keyword">if</span> (token == <span class="string">&quot;+&quot;</span> || token == <span class="string">&quot;-&quot;</span> || token == <span class="string">&quot;*&quot;</span> || token == <span class="string">&quot;/&quot;</span>) &#123;</span><br><span class="line">                <span class="type">long</span> <span class="type">long</span> num1 = stk.<span class="built_in">top</span>();</span><br><span class="line">                stk.<span class="built_in">pop</span>();</span><br><span class="line">                <span class="type">long</span> <span class="type">long</span> num0 = stk.<span class="built_in">top</span>();</span><br><span class="line">                stk.<span class="built_in">pop</span>();</span><br><span class="line">                <span class="keyword">if</span> (token == <span class="string">&quot;+&quot;</span>) stk.<span class="built_in">push</span>(num0 + num1);</span><br><span class="line">                <span class="keyword">else</span> <span class="keyword">if</span> (token == <span class="string">&quot;-&quot;</span>) stk.<span class="built_in">push</span>(num0 - num1);</span><br><span class="line">                <span class="keyword">else</span> <span class="keyword">if</span> (token == <span class="string">&quot;*&quot;</span>) stk.<span class="built_in">push</span>(num0 * num1);</span><br><span class="line">                <span class="keyword">else</span> stk.<span class="built_in">push</span>(num0 / num1);</span><br><span class="line">            &#125; <span class="keyword">else</span> stk.<span class="built_in">push</span>(<span class="built_in">stoll</span>(token));</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> stk.<span class="built_in">top</span>();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<h4 id="Rust-3"><a href="#Rust-3" class="headerlink" title="Rust"></a>Rust</h4><figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">impl</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line">    <span class="keyword">pub</span> <span class="keyword">fn</span> <span class="title function_">eval_rpn</span>(tokens: <span class="type">Vec</span>&lt;<span class="type">String</span>&gt;) <span class="punctuation">-&gt;</span> <span class="type">i32</span> &#123;</span><br><span class="line">        <span class="keyword">let</span> <span class="keyword">mut </span><span class="variable">stk</span>: <span class="type">Vec</span>&lt;<span class="type">i32</span>&gt; = <span class="type">Vec</span>::<span class="title function_ invoke__">new</span>();</span><br><span class="line">        <span class="keyword">for</span> <span class="variable">token</span> <span class="keyword">in</span> tokens &#123;</span><br><span class="line">            <span class="keyword">match</span> token.<span class="title function_ invoke__">as_str</span>() &#123;</span><br><span class="line">                <span class="string">&quot;+&quot;</span> =&gt; &#123;</span><br><span class="line">                    <span class="keyword">if</span> <span class="keyword">let</span> <span class="variable">Some</span>(a) = stk.<span class="title function_ invoke__">pop</span>() &#123;</span><br><span class="line">                        <span class="keyword">if</span> <span class="keyword">let</span> <span class="variable">Some</span>(last) = stk.<span class="title function_ invoke__">last_mut</span>() &#123; *last += a; &#125;</span><br><span class="line">                        <span class="keyword">else</span> &#123; <span class="built_in">panic!</span>(<span class="string">&quot;wrong&quot;</span>); &#125;</span><br><span class="line">                    &#125; <span class="keyword">else</span> &#123; <span class="built_in">panic!</span>(<span class="string">&quot;wrong&quot;</span>); &#125;</span><br><span class="line">                &#125;,</span><br><span class="line">                <span class="string">&quot;-&quot;</span> =&gt; &#123;</span><br><span class="line">                    <span class="keyword">if</span> <span class="keyword">let</span> <span class="variable">Some</span>(a) = stk.<span class="title function_ invoke__">pop</span>() &#123;</span><br><span class="line">                        <span class="keyword">if</span> <span class="keyword">let</span> <span class="variable">Some</span>(last) = stk.<span class="title function_ invoke__">last_mut</span>() &#123; *last -= a; &#125;</span><br><span class="line">                        <span class="keyword">else</span> &#123; <span class="built_in">panic!</span>(<span class="string">&quot;wrong&quot;</span>); &#125;</span><br><span class="line">                    &#125; <span class="keyword">else</span> &#123; <span class="built_in">panic!</span>(<span class="string">&quot;wrong&quot;</span>); &#125;</span><br><span class="line">                &#125;,</span><br><span class="line">                <span class="string">&quot;*&quot;</span> =&gt; &#123;</span><br><span class="line">                    <span class="keyword">if</span> <span class="keyword">let</span> <span class="variable">Some</span>(a) = stk.<span class="title function_ invoke__">pop</span>() &#123;</span><br><span class="line">                        <span class="keyword">if</span> <span class="keyword">let</span> <span class="variable">Some</span>(last) = stk.<span class="title function_ invoke__">last_mut</span>() &#123; *last *= a; &#125;</span><br><span class="line">                        <span class="keyword">else</span> &#123; <span class="built_in">panic!</span>(<span class="string">&quot;wrong&quot;</span>); &#125;</span><br><span class="line">                    &#125; <span class="keyword">else</span> &#123; <span class="built_in">panic!</span>(<span class="string">&quot;wrong&quot;</span>); &#125;</span><br><span class="line">                &#125;,</span><br><span class="line">                <span class="string">&quot;/&quot;</span> =&gt; &#123;</span><br><span class="line">                    <span class="keyword">if</span> <span class="keyword">let</span> <span class="variable">Some</span>(a) = stk.<span class="title function_ invoke__">pop</span>() &#123;</span><br><span class="line">                        <span class="keyword">if</span> <span class="keyword">let</span> <span class="variable">Some</span>(last) = stk.<span class="title function_ invoke__">last_mut</span>() &#123; *last /= a; &#125;</span><br><span class="line">                        <span class="keyword">else</span> &#123; <span class="built_in">panic!</span>(<span class="string">&quot;wrong&quot;</span>); &#125;</span><br><span class="line">                    &#125; <span class="keyword">else</span> &#123; <span class="built_in">panic!</span>(<span class="string">&quot;wrong&quot;</span>); &#125;</span><br><span class="line">                &#125;,</span><br><span class="line">                _   =&gt; &#123;</span><br><span class="line">                    <span class="keyword">if</span> <span class="keyword">let</span> <span class="variable">Ok</span>(num) = token.parse::&lt;<span class="type">i32</span>&gt;() &#123; stk.<span class="title function_ invoke__">push</span>(num); &#125;</span><br><span class="line">                    <span class="keyword">else</span> &#123; <span class="built_in">panic!</span>(<span class="string">&quot;wrong&quot;</span>); &#125;</span><br><span class="line">                &#125;,</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> stk[<span class="number">0</span>];</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="Go"><a href="#Go" class="headerlink" title="Go"></a>Go</h4><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">evalRPN</span><span class="params">(tokens []<span class="type">string</span>)</span></span> <span class="type">int</span> &#123;</span><br><span class="line">    <span class="keyword">var</span> stk []<span class="type">string</span></span><br><span class="line">    <span class="keyword">for</span> _, token := <span class="keyword">range</span> tokens &#123;</span><br><span class="line">        <span class="keyword">if</span> token == <span class="string">&quot;+&quot;</span> || token == <span class="string">&quot;-&quot;</span> || token == <span class="string">&quot;*&quot;</span> || token == <span class="string">&quot;/&quot;</span> &#123;</span><br><span class="line">            num2, _ := strconv.Atoi(stk[<span class="built_in">len</span>(stk) - <span class="number">1</span>])</span><br><span class="line">            num1, _ := strconv.Atoi(stk[<span class="built_in">len</span>(stk) - <span class="number">2</span>])</span><br><span class="line">            <span class="keyword">var</span> val <span class="type">int</span></span><br><span class="line">            <span class="keyword">if</span> token == <span class="string">&quot;+&quot;</span> &#123;</span><br><span class="line">                val = num1 + num2</span><br><span class="line">            &#125; <span class="keyword">else</span> <span class="keyword">if</span> token == <span class="string">&quot;-&quot;</span> &#123;</span><br><span class="line">                val = num1 - num2</span><br><span class="line">            &#125; <span class="keyword">else</span> <span class="keyword">if</span> token == <span class="string">&quot;*&quot;</span> &#123;</span><br><span class="line">                val = num1 * num2</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                val = num1 / num2</span><br><span class="line">            &#125;</span><br><span class="line">            stk = stk[:<span class="built_in">len</span>(stk) - <span class="number">2</span>]</span><br><span class="line">            stk = <span class="built_in">append</span>(s0tk, strconv.Itoa(val))</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            stk = <span class="built_in">append</span>(stk, token)</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    ans, _ := strconv.Atoi(stk[<span class="number">0</span>])</span><br><span class="line">    <span class="keyword">return</span> ans</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="239-Sliding-Window-Maximum"><a href="#239-Sliding-Window-Maximum" class="headerlink" title="239. Sliding Window Maximum"></a><a target="_blank" rel="noopener" href="https://leetcode.com/problems/sliding-window-maximum/">239. Sliding Window Maximum</a></h2><p><em>Monotonic Queue</em></p>
+<h4 id="Java-6"><a href="#Java-6" class="headerlink" title="Java"></a>Java</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">class</span> <span class="title class_">MonoQueue</span> &#123;</span><br><span class="line">        LinkedList&lt;Integer&gt; q;</span><br><span class="line">        <span class="type">int</span> sz;</span><br><span class="line">        MonoQueue() &#123; q = <span class="keyword">new</span> <span class="title class_">LinkedList</span>&lt;&gt;(); &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">void</span> <span class="title function_">push</span><span class="params">(<span class="type">int</span> val)</span> &#123;</span><br><span class="line">            sz ++;</span><br><span class="line">            <span class="keyword">while</span> (!q.isEmpty() &amp;&amp; q.getLast() &lt; val) &#123; q.removeLast(); &#125;</span><br><span class="line">            q.addLast(val);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">void</span> <span class="title function_">remove</span><span class="params">(<span class="type">int</span> val)</span> &#123;</span><br><span class="line">            <span class="keyword">if</span> (sz == <span class="number">0</span>) <span class="keyword">return</span>;</span><br><span class="line">            sz --;</span><br><span class="line">            <span class="keyword">if</span> (q.getFirst() == val) q.removeFirst();</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="type">int</span> <span class="title function_">peek</span><span class="params">()</span> &#123; <span class="keyword">return</span> q.getFirst(); &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="type">int</span>[] maxSlidingWindow(<span class="type">int</span>[] nums, <span class="type">int</span> k) &#123;</span><br><span class="line">        <span class="type">int</span>[] ans = <span class="keyword">new</span> <span class="title class_">int</span>[nums.length - k + <span class="number">1</span>];</span><br><span class="line">        <span class="type">int</span> <span class="variable">idx</span> <span class="operator">=</span> <span class="number">0</span>;</span><br><span class="line">        <span class="type">MonoQueue</span> <span class="variable">mq</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">MonoQueue</span>();</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; nums.length; i ++) &#123;</span><br><span class="line">            mq.push(nums[i]);</span><br><span class="line">            <span class="keyword">if</span> (mq.sz == k) &#123;</span><br><span class="line">                ans[idx] = mq.peek();</span><br><span class="line">                idx ++;</span><br><span class="line">                mq.remove(nums[i - k + <span class="number">1</span>]);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> ans;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 使用 Deque 接口</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="type">int</span>[] maxSlidingWindow(<span class="type">int</span>[] nums, <span class="type">int</span> k) &#123;</span><br><span class="line">        <span class="type">int</span>[] ans = <span class="keyword">new</span> <span class="title class_">int</span>[nums.length - k + <span class="number">1</span>];</span><br><span class="line">        <span class="type">int</span> <span class="variable">idx</span> <span class="operator">=</span> <span class="number">0</span>;</span><br><span class="line">        Deque&lt;Integer&gt; dq = <span class="keyword">new</span> <span class="title class_">ArrayDeque</span>&lt;&gt;();</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; nums.length; i ++) &#123;</span><br><span class="line">            <span class="comment">// insert</span></span><br><span class="line">            <span class="keyword">while</span> (!dq.isEmpty() &amp;&amp; dq.peekLast() &lt; nums[i]) dq.pollLast();</span><br><span class="line">            dq.offerLast(nums[i]);</span><br><span class="line">            <span class="keyword">if</span> (i &gt;= k - <span class="number">1</span>) &#123;</span><br><span class="line">                ans[idx] = dq.peekFirst(); <span class="comment">// get max</span></span><br><span class="line">                <span class="comment">// remove</span></span><br><span class="line">                <span class="keyword">if</span> (nums[i - k + <span class="number">1</span>] == dq.peekFirst()) dq.pollFirst();</span><br><span class="line">                idx ++;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> ans;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="C-5"><a href="#C-5" class="headerlink" title="C++"></a>C++</h4><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line">    <span class="keyword">class</span> <span class="title class_">MonoQueue</span> &#123;</span><br><span class="line">        <span class="type">int</span> sz = <span class="number">0</span>;</span><br><span class="line">        deque&lt;<span class="type">int</span>&gt; q&#123;&#125;;</span><br><span class="line">    <span class="keyword">public</span>:</span><br><span class="line">        <span class="function"><span class="type">void</span> <span class="title">push</span><span class="params">(<span class="type">int</span> x)</span> </span>&#123;</span><br><span class="line">            sz ++;</span><br><span class="line">            <span class="keyword">while</span> (!q.<span class="built_in">empty</span>() &amp;&amp; q.<span class="built_in">back</span>() &lt; x) q.<span class="built_in">pop_back</span>();</span><br><span class="line">            q.<span class="built_in">push_back</span>(x);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="function"><span class="type">void</span> <span class="title">pop</span><span class="params">(<span class="type">int</span> x)</span> </span>&#123;</span><br><span class="line">            <span class="keyword">if</span> (sz == <span class="number">0</span>) <span class="keyword">return</span>;</span><br><span class="line">            sz --;</span><br><span class="line">            <span class="keyword">if</span> (!q.<span class="built_in">empty</span>() &amp;&amp; q.<span class="built_in">front</span>() == x) q.<span class="built_in">pop_front</span>();</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="function"><span class="type">int</span> <span class="title">front</span><span class="params">()</span> </span>&#123; <span class="keyword">return</span> q.<span class="built_in">front</span>(); &#125;</span><br><span class="line"></span><br><span class="line">        <span class="function"><span class="type">int</span> <span class="title">size</span><span class="params">()</span> </span>&#123; <span class="keyword">return</span> sz; &#125;</span><br><span class="line">    &#125;;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function">vector&lt;<span class="type">int</span>&gt; <span class="title">maxSlidingWindow</span><span class="params">(vector&lt;<span class="type">int</span>&gt;&amp; nums, <span class="type">int</span> k)</span> </span>&#123;</span><br><span class="line">        MonoQueue mq&#123;&#125;;</span><br><span class="line">        vector&lt;<span class="type">int</span>&gt; ans;</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; nums.<span class="built_in">size</span>(); i ++) &#123;</span><br><span class="line">            mq.<span class="built_in">push</span>(nums[i]);</span><br><span class="line">            <span class="keyword">if</span> (mq.<span class="built_in">size</span>() == k) &#123;</span><br><span class="line">                ans.<span class="built_in">push_back</span>(mq.<span class="built_in">front</span>());</span><br><span class="line">                mq.<span class="built_in">pop</span>(nums[i - k + <span class="number">1</span>]);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> ans;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<h4 id="Rust-4"><a href="#Rust-4" class="headerlink" title="Rust"></a>Rust</h4><figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">use::std::collections::VecDeque;</span><br><span class="line"><span class="keyword">impl</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line">    <span class="keyword">pub</span> <span class="keyword">fn</span> <span class="title function_">max_sliding_window</span>(nums: <span class="type">Vec</span>&lt;<span class="type">i32</span>&gt;, k: <span class="type">i32</span>) <span class="punctuation">-&gt;</span> <span class="type">Vec</span>&lt;<span class="type">i32</span>&gt; &#123;</span><br><span class="line">        <span class="keyword">let</span> <span class="variable">k</span> = k <span class="keyword">as</span> <span class="type">usize</span>;</span><br><span class="line">        <span class="keyword">let</span> <span class="keyword">mut </span><span class="variable">ans</span> = <span class="built_in">vec!</span>[<span class="number">0</span>; nums.<span class="title function_ invoke__">len</span>() - k + <span class="number">1</span>];</span><br><span class="line">        <span class="keyword">let</span> <span class="keyword">mut </span><span class="variable">idx</span>: <span class="type">usize</span> = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">let</span> <span class="keyword">mut </span><span class="variable">mq</span> = VecDeque::<span class="title function_ invoke__">with_capacity</span>(k);</span><br><span class="line">        <span class="keyword">for</span> (i, &amp;num) <span class="keyword">in</span> nums.<span class="title function_ invoke__">iter</span>().<span class="title function_ invoke__">enumerate</span>() &#123;</span><br><span class="line">            <span class="keyword">while</span> <span class="keyword">let</span> <span class="variable">Some</span>(back) = mq.<span class="title function_ invoke__">back</span>() &#123;</span><br><span class="line">                <span class="keyword">if</span> *back &lt; num &#123; mq.<span class="title function_ invoke__">pop_back</span>(); &#125;</span><br><span class="line">                <span class="keyword">else</span> &#123; <span class="keyword">break</span>; &#125; <span class="comment">// 别漏了</span></span><br><span class="line">            &#125;</span><br><span class="line">            mq.<span class="title function_ invoke__">push_back</span>(num);</span><br><span class="line">            <span class="keyword">if</span> i &gt;= k - <span class="number">1</span> &#123;</span><br><span class="line">                <span class="keyword">if</span> <span class="keyword">let</span> <span class="variable">Some</span>(front) = mq.<span class="title function_ invoke__">front</span>() &#123;</span><br><span class="line">                    ans[idx] = *front;</span><br><span class="line">                    idx += <span class="number">1</span>;</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="keyword">if</span> nums[i - k + <span class="number">1</span>] == ans[idx - <span class="number">1</span>] &#123;</span><br><span class="line">                    mq.<span class="title function_ invoke__">pop_front</span>();</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        ans</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="347-Top-K-Frequent-Elements"><a href="#347-Top-K-Frequent-Elements" class="headerlink" title="347. Top K Frequent Elements"></a><a target="_blank" rel="noopener" href="https://leetcode.com/problems/top-k-frequent-elements/">347. Top K Frequent Elements</a></h2><p><em>Heap</em> <a target="_blank" rel="noopener" href="https://leetcode.com/problems/kth-largest-element-in-an-array/">215. Kth Largest Element in an Array</a> 手写小顶堆</p>
+<h4 id="Java-7"><a href="#Java-7" class="headerlink" title="Java"></a>Java</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="type">int</span>[] topKFrequent(<span class="type">int</span>[] nums, <span class="type">int</span> k) &#123;</span><br><span class="line">        Map&lt;Integer, Integer&gt; freq = <span class="keyword">new</span> <span class="title class_">HashMap</span>&lt;&gt;();</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> num : nums) freq.put(num, freq.getOrDefault(num, <span class="number">0</span>) + <span class="number">1</span>);</span><br><span class="line">        Queue&lt;Integer&gt; heap = <span class="keyword">new</span> <span class="title class_">PriorityQueue</span>&lt;&gt;((e1, e2) -&gt; freq.get(e1) - freq.get(e2));</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> key : freq.keySet()) &#123;</span><br><span class="line">            heap.offer(key);</span><br><span class="line">            <span class="keyword">if</span> (heap.size() &gt; k) heap.poll();</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> heap.stream().mapToInt(Integer::intValue).toArray();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="C-6"><a href="#C-6" class="headerlink" title="C++"></a>C++</h4><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line">    <span class="keyword">class</span> <span class="title class_">MyComparator</span> &#123;</span><br><span class="line">    <span class="keyword">public</span>: <span class="function"><span class="type">bool</span> <span class="title">operator</span><span class="params">()</span><span class="params">(<span class="type">const</span> pair&lt;<span class="type">int</span>, <span class="type">int</span>&gt;&amp; p1, <span class="type">const</span> pair&lt;<span class="type">int</span>, <span class="type">int</span>&gt;&amp; p2)</span> </span>&#123; <span class="keyword">return</span> p<span class="number">1.</span>second &gt; p<span class="number">2.</span>second; &#125;</span><br><span class="line">    &#125;;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function">vector&lt;<span class="type">int</span>&gt; <span class="title">topKFrequent</span><span class="params">(vector&lt;<span class="type">int</span>&gt;&amp; nums, <span class="type">int</span> k)</span> </span>&#123;</span><br><span class="line">        unordered_map&lt;<span class="type">int</span>, <span class="type">int</span>&gt; freq;</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> num : nums) freq[num] ++;</span><br><span class="line">        priority_queue&lt;pair&lt;<span class="type">int</span>, <span class="type">int</span>&gt;, vector&lt;pair&lt;<span class="type">int</span>, <span class="type">int</span>&gt;&gt;, MyComparator&gt; pq;</span><br><span class="line">        <span class="keyword">for</span> (unordered_map&lt;<span class="type">int</span>, <span class="type">int</span>&gt;::iterator it = freq.<span class="built_in">begin</span>(); it != freq.<span class="built_in">end</span>(); it ++) &#123;</span><br><span class="line">            pq.<span class="built_in">push</span>(*it);</span><br><span class="line">            <span class="keyword">if</span> (pq.<span class="built_in">size</span>() &gt; k) pq.<span class="built_in">pop</span>();</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="function">vector&lt;<span class="type">int</span>&gt; <span class="title">ans</span><span class="params">(k)</span></span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> i = k - <span class="number">1</span>; i &gt; <span class="number">-1</span>; i --) &#123;</span><br><span class="line">            ans[i] = pq.<span class="built_in">top</span>().first;</span><br><span class="line">            pq.<span class="built_in">pop</span>();</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> ans;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<h4 id="Rust-5"><a href="#Rust-5" class="headerlink" title="Rust"></a>Rust</h4><figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">use</span> std::collections::&#123;BinaryHeap, HashMap&#125;;</span><br><span class="line"><span class="keyword">impl</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line">    <span class="keyword">pub</span> <span class="keyword">fn</span> <span class="title function_">top_k_frequent</span>(nums: <span class="type">Vec</span>&lt;<span class="type">i32</span>&gt;, k: <span class="type">i32</span>) <span class="punctuation">-&gt;</span> <span class="type">Vec</span>&lt;<span class="type">i32</span>&gt; &#123;</span><br><span class="line">        <span class="keyword">let</span> <span class="variable">k</span> = k <span class="keyword">as</span> <span class="type">usize</span>;</span><br><span class="line">        <span class="keyword">let</span> <span class="keyword">mut </span><span class="variable">hash</span>: HashMap&lt;<span class="type">i32</span>, <span class="type">i32</span>&gt; = HashMap::<span class="title function_ invoke__">new</span>();</span><br><span class="line">        <span class="keyword">let</span> <span class="keyword">mut </span><span class="variable">heap</span>: BinaryHeap&lt;(<span class="type">i32</span>, <span class="type">i32</span>)&gt; = BinaryHeap::<span class="title function_ invoke__">with_capacity</span>(k);</span><br><span class="line">        nums.<span class="title function_ invoke__">into_iter</span>().for_each(|k| &#123; *hash.<span class="title function_ invoke__">entry</span>(k).<span class="title function_ invoke__">or_insert</span>(<span class="number">0</span>) -= <span class="number">1</span>; &#125;); <span class="comment">// BinaryHeap 默认是大顶堆, 故减一</span></span><br><span class="line">        hash.<span class="title function_ invoke__">into_iter</span>().for_each(|entry| &#123;</span><br><span class="line">            heap.<span class="title function_ invoke__">push</span>((entry.<span class="number">1</span>, entry.<span class="number">0</span>));</span><br><span class="line">            <span class="keyword">if</span> heap.<span class="title function_ invoke__">len</span>() &gt; k &#123; heap.<span class="title function_ invoke__">pop</span>(); &#125;</span><br><span class="line">        &#125;);</span><br><span class="line">        heap.<span class="title function_ invoke__">into_iter</span>().<span class="title function_ invoke__">map</span>(|x| x.<span class="number">1</span>).collect::&lt;<span class="type">Vec</span>&lt;<span class="type">i32</span>&gt;&gt;()</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          
+          <div class="post-tags">
+              <a href="/tags/key-algorithm/" rel="tag"><i class="fa fa-tag"></i> key-algorithm</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2024/05/04/tech/mysql/" rel="prev" title="MySQL">
+      <i class="fa fa-chevron-left"></i> MySQL
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2024/05/07/algorithm/07-tree/" rel="next" title="Tree Node">
+      Tree Node <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Fundamental-APIs"><span class="nav-number">1.</span> <span class="nav-text">Fundamental APIs</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Java"><span class="nav-number">1.1.</span> <span class="nav-text">Java</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Stack"><span class="nav-number">1.1.1.</span> <span class="nav-text">Stack</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Stack-Class"><span class="nav-number">1.1.1.1.</span> <span class="nav-text">Stack Class</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Deque-Interface-List-Interface"><span class="nav-number">1.1.1.2.</span> <span class="nav-text">Deque Interface &amp; List Interface</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Queue"><span class="nav-number">1.1.2.</span> <span class="nav-text">Queue</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Queue-Interface"><span class="nav-number">1.1.2.1.</span> <span class="nav-text">Queue Interface</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Deque-Interface"><span class="nav-number">1.1.2.2.</span> <span class="nav-text">Deque Interface</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Examples"><span class="nav-number">2.</span> <span class="nav-text">Examples</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#232-Implement-Queue-using-Stacks"><span class="nav-number">2.1.</span> <span class="nav-text">232. Implement Queue using Stacks</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Java-1"><span class="nav-number">2.1.0.1.</span> <span class="nav-text">Java</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#C"><span class="nav-number">2.1.0.2.</span> <span class="nav-text">C++</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Rust"><span class="nav-number">2.1.0.3.</span> <span class="nav-text">Rust</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#225-Implement-Stack-using-Queues"><span class="nav-number">2.2.</span> <span class="nav-text">225. Implement Stack using Queues</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Java-2"><span class="nav-number">2.2.0.1.</span> <span class="nav-text">Java</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#C-1"><span class="nav-number">2.2.0.2.</span> <span class="nav-text">C++</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#20-Valid-Parentheses"><span class="nav-number">2.3.</span> <span class="nav-text">20. Valid Parentheses</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Java-3"><span class="nav-number">2.3.0.1.</span> <span class="nav-text">Java</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#C-2"><span class="nav-number">2.3.0.2.</span> <span class="nav-text">C++</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Rust-1"><span class="nav-number">2.3.0.3.</span> <span class="nav-text">Rust</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1047-Remove-All-Adjacent-Duplicates-In-String"><span class="nav-number">2.4.</span> <span class="nav-text">1047. Remove All Adjacent Duplicates In String</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Java-4"><span class="nav-number">2.4.0.1.</span> <span class="nav-text">Java</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#C-3"><span class="nav-number">2.4.0.2.</span> <span class="nav-text">C++</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Rust-2"><span class="nav-number">2.4.0.3.</span> <span class="nav-text">Rust</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#150-Evaluate-Reverse-Polish-Notation"><span class="nav-number">2.5.</span> <span class="nav-text">150. Evaluate Reverse Polish Notation</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Java-5"><span class="nav-number">2.5.0.1.</span> <span class="nav-text">Java</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#C-4"><span class="nav-number">2.5.0.2.</span> <span class="nav-text">C++</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Rust-3"><span class="nav-number">2.5.0.3.</span> <span class="nav-text">Rust</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Go"><span class="nav-number">2.5.0.4.</span> <span class="nav-text">Go</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#239-Sliding-Window-Maximum"><span class="nav-number">2.6.</span> <span class="nav-text">239. Sliding Window Maximum</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Java-6"><span class="nav-number">2.6.0.1.</span> <span class="nav-text">Java</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#C-5"><span class="nav-number">2.6.0.2.</span> <span class="nav-text">C++</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Rust-4"><span class="nav-number">2.6.0.3.</span> <span class="nav-text">Rust</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#347-Top-K-Frequent-Elements"><span class="nav-number">2.7.</span> <span class="nav-text">347. Top K Frequent Elements</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Java-7"><span class="nav-number">2.7.0.1.</span> <span class="nav-text">Java</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#C-6"><span class="nav-number">2.7.0.2.</span> <span class="nav-text">C++</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Rust-5"><span class="nav-number">2.7.0.3.</span> <span class="nav-text">Rust</span></a></li></ol></li></ol></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Perry Yao"
+      src="https://avatars.githubusercontent.com/u/126999663?v=4">
+  <p class="site-author-name" itemprop="name">Perry Yao</p>
+  <div class="site-description" itemprop="description">...</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">50</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">5</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">14</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/PerryYao-GitHub" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;PerryYao-GitHub" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:peiyouyao@gmail.com" title="E-Mail → mailto:peiyouyao@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2025</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Perry Yao</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://pisces.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a>
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

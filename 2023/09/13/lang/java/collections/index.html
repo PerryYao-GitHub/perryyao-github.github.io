@@ -1,0 +1,581 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 7.3.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="包装类八个基本数据类型 -&gt; 包装类 123456789boolean -&gt; Booleanchar -&gt; Character---byte -&gt; Byteshort -&gt; Shortint -&gt; Integerlong -&gt; Longfloat -&gt; Floatdouble -&gt; Double  六个数字基本类型的包装类继承了 Number">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Collection">
+<meta property="og:url" content="http://example.com/2023/09/13/lang/java/collections/index.html">
+<meta property="og:site_name" content="Perry&#39;s Blog">
+<meta property="og:description" content="包装类八个基本数据类型 -&gt; 包装类 123456789boolean -&gt; Booleanchar -&gt; Character---byte -&gt; Byteshort -&gt; Shortint -&gt; Integerlong -&gt; Longfloat -&gt; Floatdouble -&gt; Double  六个数字基本类型的包装类继承了 Number">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2023-09-12T16:00:00.000Z">
+<meta property="article:modified_time" content="2025-04-12T11:54:51.301Z">
+<meta property="article:author" content="Perry Yao">
+<meta property="article:tag" content="java">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://example.com/2023/09/13/lang/java/collections/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'en'
+  };
+</script>
+
+  <title>Collection | Perry's Blog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Perry's Blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">tech & muse & sleep</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
+
+  </li>
+        <li class="menu-item menu-item-schedule">
+
+    <a href="/schedule/" rel="section"><i class="fa fa-calendar fa-fw"></i>Schedule</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2023/09/13/lang/java/collections/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="https://avatars.githubusercontent.com/u/126999663?v=4">
+      <meta itemprop="name" content="Perry Yao">
+      <meta itemprop="description" content="...">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Perry's Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Collection
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2023-09-13 00:00:00" itemprop="dateCreated datePublished" datetime="2023-09-13T00:00:00+08:00">2023-09-13</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2025-04-12 19:54:51" itemprop="dateModified" datetime="2025-04-12T19:54:51+08:00">2025-04-12</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/lang/" itemprop="url" rel="index"><span itemprop="name">lang</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <hr>
+<h1 id="包装类"><a href="#包装类" class="headerlink" title="包装类"></a>包装类</h1><p>八个基本数据类型 -&gt; 包装类</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">boolean -&gt; Boolean</span><br><span class="line">char -&gt; Character</span><br><span class="line">---</span><br><span class="line">byte -&gt; Byte</span><br><span class="line">short -&gt; Short</span><br><span class="line">int -&gt; Integer</span><br><span class="line">long -&gt; Long</span><br><span class="line">float -&gt; Float</span><br><span class="line">double -&gt; Double</span><br></pre></td></tr></table></figure>
+
+<p>六个数字基本类型的包装类继承了 Number 抽象类, 它们实现了抽象方法: <code>intValue(), longValue(), floatValue(), doubleValue(), shortValue(), byteValue()</code></p>
+<p>以上是实现类型转化的, 例如 <code>Double d = new Double(3.14)</code>; <code>d</code> 中有 <code>intValue()</code> 方法, 可以转为 <code>int</code></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">Integer</span> <span class="variable">int1</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Integer</span>(<span class="number">1</span>);</span><br><span class="line"><span class="type">Integer</span> <span class="variable">int2</span> <span class="operator">=</span> Integer.valueOf(<span class="number">2</span>);  <span class="comment">// 推荐</span></span><br><span class="line"></span><br><span class="line"><span class="type">int</span> <span class="variable">n1</span> <span class="operator">=</span> int1.intValue();</span><br><span class="line"></span><br><span class="line"><span class="comment">// String 转 Integer 对象</span></span><br><span class="line"><span class="type">Integer</span> <span class="variable">int3</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Integer</span>(<span class="string">&quot;333&quot;</span>);</span><br><span class="line"><span class="type">Integer</span> <span class="variable">int4</span> <span class="operator">=</span> Integer.parseInt(<span class="string">&quot;999&quot;</span>);  <span class="comment">// 推荐</span></span><br><span class="line"><span class="type">Integer</span> <span class="variable">int44</span> <span class="operator">=</span> Integer.valueOf(<span class="string">&quot;999&quot;</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// Integer 转 String</span></span><br><span class="line"><span class="type">String</span> <span class="variable">str1</span> <span class="operator">=</span> int1.toString();</span><br><span class="line"></span><br><span class="line"><span class="type">Integer</span> <span class="variable">int5</span> <span class="operator">=</span> Integer.MAX_VALUE;</span><br><span class="line"><span class="type">Integer</span> <span class="variable">int6</span> <span class="operator">=</span> Integer.MIN_VALUE;</span><br></pre></td></tr></table></figure>
+
+<h2 id="自动装箱拆箱"><a href="#自动装箱拆箱" class="headerlink" title="自动装箱拆箱"></a>自动装箱拆箱</h2><p>装箱 <code>Integer a = Integer.valueOf(3)</code></p>
+<p>拆箱 <code>int b = a.intValue()</code></p>
+<h2 id="包装类的缓存问题"><a href="#包装类的缓存问题" class="headerlink" title="包装类的缓存问题"></a>包装类的缓存问题</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">Integer</span> <span class="variable">n1</span> <span class="operator">=</span> <span class="number">4000</span>;</span><br><span class="line"><span class="type">Integer</span> <span class="variable">n2</span> <span class="operator">=</span> <span class="number">4000</span>;</span><br><span class="line"></span><br><span class="line">n1 == n2;  <span class="comment">// false</span></span><br><span class="line">n1.equals(n2);  <span class="comment">// true</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 包装类的缓存问题  -128 &lt;= n &lt;= 127  直接取缓存数组中的元素 缓存了 Integer(-128) ... Integer(127), 相当于是一个对象池 (static) 只要使用 Integer, 就会制造一个static的缓存对象池</span></span><br><span class="line"><span class="type">Integer</span> <span class="variable">n3</span> <span class="operator">=</span> <span class="number">123</span>;</span><br><span class="line"><span class="type">Integer</span> <span class="variable">n4</span> <span class="operator">=</span> <span class="number">123</span>;</span><br><span class="line">n3 == n4;  <span class="comment">// true</span></span><br><span class="line">n3.equals(n4);  <span class="comment">// true</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="包装类数组的装箱拆箱"><a href="#包装类数组的装箱拆箱" class="headerlink" title="包装类数组的装箱拆箱"></a>包装类数组的装箱拆箱</h2><h3 id="int-转换为-Integer"><a href="#int-转换为-Integer" class="headerlink" title="int[] 转换为 Integer[]"></a><code>int[]</code> 转换为 <code>Integer[]</code></h3><p>可以使用 <code>Arrays.stream()</code> 方法, 将 <code>int[]</code> 转换为流, 并使用 <code>boxed()</code> 方法将基本类型 <code>int</code> 转换为包装类型 <code>Integer</code>, 然后将其转换为数组:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span>[] intArray = &#123;<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>&#125;;</span><br><span class="line">Integer[] integerArray = Arrays.stream(intArray).boxed().toArray(Integer[]::<span class="keyword">new</span>);</span><br></pre></td></tr></table></figure>
+
+<h3 id="Integer-转换为-int"><a href="#Integer-转换为-int" class="headerlink" title="Integer[] 转换为 int[]"></a><code>Integer[]</code> 转换为 <code>int[]</code></h3><p>使用 <code>Arrays.stream()</code> 方法将 <code>Integer[]</code> 转换为流, 然后使用 <code>mapToInt()</code> 方法将流中的 <code>Integer</code> 元素转换为基本类型 <code>int</code>:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Integer[] integerArray = &#123;<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>&#125;;</span><br><span class="line"><span class="type">int</span>[] intArray = Arrays.stream(integerArray).mapToInt(Integer::intValue)<span class="comment">/* 或 mapToInt(x -&gt; x) */</span>.toArray();</span><br></pre></td></tr></table></figure>
+
+<h1 id="泛型-Generics"><a href="#泛型-Generics" class="headerlink" title="泛型 Generics"></a>泛型 Generics</h1><p>数据类型参数化</p>
+<p>不使用泛型时, 要使用 Object + instanceof + 强制类型转换, 很麻烦</p>
+<p>类型擦除: 泛型仅存在于编译中, 编译之后都会被搞成 Object</p>
+<h2 id="定义泛型"><a href="#定义泛型" class="headerlink" title="定义泛型"></a>定义泛型</h2><p>通常使用 E T K V N ? 来代表泛型</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">E - Element 在容器中使用</span><br><span class="line">T - Type 普通的 Java 类</span><br><span class="line">K - Key</span><br><span class="line">V - Value</span><br><span class="line">? - 不确定的类型</span><br></pre></td></tr></table></figure>
+
+<h2 id="泛型类"><a href="#泛型类" class="headerlink" title="泛型类"></a>泛型类</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Resp</span>&lt;T&gt; &#123;</span><br><span class="line">    <span class="keyword">private</span> T data;</span><br><span class="line">    <span class="keyword">private</span> String msg;</span><br><span class="line">    <span class="keyword">private</span> <span class="type">int</span> code;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">setData</span><span class="params">(T data)</span> &#123;</span><br><span class="line">        <span class="built_in">this</span>.data = data;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="泛型接口"><a href="#泛型接口" class="headerlink" title="泛型接口"></a>泛型接口</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">interface</span> <span class="title class_">UserService</span>&lt;T&gt; &#123;</span><br><span class="line">    T <span class="title function_">login</span><span class="params">(UsernamePasswordDTO)</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="泛型方法"><a href="#泛型方法" class="headerlink" title="泛型方法"></a>泛型方法</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> &lt;T&gt; <span class="keyword">void</span> <span class="title function_">setName</span><span class="params">(T name)</span> &#123;  <span class="comment">// 在方法前定义要使用的泛型</span></span><br><span class="line">    ...</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> &lt;T&gt; T <span class="title function_">getName</span><span class="params">(T name)</span> &#123;</span><br><span class="line">    ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>静态方法无法使用类上定义的泛型, 静态方法只能定义泛型方法</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> &lt;T&gt; T <span class="title function_">f</span><span class="params">(T para)</span> &#123;&#125;</span><br></pre></td></tr></table></figure>
+
+<h1 id="容器-Collection"><a href="#容器-Collection" class="headerlink" title="容器 Collection"></a>容器 Collection</h1><h2 id="各容器关系图"><a href="#各容器关系图" class="headerlink" title="各容器关系图"></a>各容器关系图</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line">- Collection (I) (单例集合)</span><br><span class="line">  |</span><br><span class="line">  |- List (I)</span><br><span class="line">  |  |</span><br><span class="line">  |  |- ArrayList (C)</span><br><span class="line">  |  |</span><br><span class="line">  |  |- LinkedList (C)</span><br><span class="line">  |  |</span><br><span class="line">  |  `- Vector (C)</span><br><span class="line">  |    |</span><br><span class="line">  |    `- Stack (C)</span><br><span class="line">  |</span><br><span class="line">  |- Set (I)</span><br><span class="line">  |  |</span><br><span class="line">  |  |- HashSet (C)</span><br><span class="line">  |  |</span><br><span class="line">  |  `- TreeSet (C)</span><br><span class="line">  |</span><br><span class="line">  `- Queue (I)</span><br><span class="line">    |</span><br><span class="line">    |- Deque (I)</span><br><span class="line">    |  |</span><br><span class="line">    |  |- LinkedList (C)</span><br><span class="line">    |  `- ArrayDeque (C)</span><br><span class="line">    |</span><br><span class="line">    |- LinkedList (C)</span><br><span class="line">    |</span><br><span class="line">    `- PriorityQueue (C)</span><br><span class="line">    </span><br><span class="line">    </span><br><span class="line">- Map (I) (双例集合)</span><br><span class="line">  |</span><br><span class="line">  |- HashMap (C)</span><br><span class="line">  |</span><br><span class="line">  `- TreeMap (C)</span><br></pre></td></tr></table></figure>
+
+<h2 id="List-Interface"><a href="#List-Interface" class="headerlink" title="List Interface"></a>List Interface</h2><blockquote>
+<p> 继承 Collection 接口, 添加了其它方法</p>
+</blockquote>
+<p>可重, 有序</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> <span class="title function_">size</span><span class="params">()</span>;</span><br><span class="line"><span class="type">boolean</span> <span class="title function_">isEmpty</span><span class="params">()</span>;</span><br><span class="line"><span class="type">boolean</span> <span class="title function_">contains</span><span class="params">(Object o)</span>;</span><br><span class="line">Iterator&lt;E&gt; <span class="title function_">iterator</span><span class="params">()</span>;</span><br><span class="line"><span class="type">boolean</span> <span class="title function_">add</span><span class="params">(E e)</span>;</span><br><span class="line"><span class="keyword">void</span> <span class="title function_">add</span><span class="params">(<span class="type">int</span> idx, E e)</span>;</span><br><span class="line"><span class="type">boolean</span> <span class="title function_">addAll</span><span class="params">(Collection&lt;? extends E&gt; c)</span>;</span><br><span class="line"><span class="type">boolean</span> <span class="title function_">addAll</span><span class="params">(<span class="type">int</span> index, Collection&lt;? extends E&gt; c)</span>;</span><br><span class="line">E <span class="title function_">get</span><span class="params">(<span class="type">int</span> idx)</span>;</span><br><span class="line">E <span class="title function_">set</span><span class="params">(<span class="type">int</span> idx, E e)</span>;</span><br><span class="line">E <span class="title function_">remove</span><span class="params">(<span class="type">int</span> idx)</span>;</span><br><span class="line"><span class="type">boolean</span> <span class="title function_">remove</span><span class="params">(Object o)</span>;</span><br><span class="line"><span class="type">boolean</span> <span class="title function_">removeAll</span><span class="params">(Collection&lt;?&gt; c)</span>;</span><br><span class="line"><span class="type">boolean</span> <span class="title function_">retainAll</span><span class="params">(Collection&lt;?&gt; c)</span>;</span><br><span class="line"><span class="keyword">void</span> <span class="title function_">clear</span><span class="params">()</span>;</span><br><span class="line"><span class="type">int</span> <span class="title function_">indexOf</span><span class="params">(Object o)</span>;</span><br><span class="line"><span class="type">int</span> <span class="title function_">lastIndexOf</span><span class="params">(Object o)</span>;</span><br><span class="line">List&lt;E&gt; <span class="title function_">subList</span><span class="params">(<span class="type">int</span> fromIndex, <span class="type">int</span> toIndex)</span>;</span><br><span class="line">Object[] toArray();</span><br><span class="line">&lt;T&gt; T[] toArray(T[] a);</span><br></pre></td></tr></table></figure>
+
+<h3 id="ArrayList-Class"><a href="#ArrayList-Class" class="headerlink" title="ArrayList Class"></a>ArrayList Class</h3><blockquote>
+<p> 实现 List 接口</p>
+</blockquote>
+<p>底层数组实现, 查询效率高, 增删效率低, 线程不安全</p>
+<h3 id="LinkedList-Class"><a href="#LinkedList-Class" class="headerlink" title="LinkedList Class"></a>LinkedList Class</h3><blockquote>
+<p> 实现 List 接口</p>
+</blockquote>
+<p>双链表实现, 查询效率低, 增删效率高, 线程不安全</p>
+<h3 id="Vector-Class"><a href="#Vector-Class" class="headerlink" title="Vector Class"></a>Vector Class</h3><blockquote>
+<p>实现 List 接口</p>
+</blockquote>
+<p>底层数组, 线程安全, 效率低 (所有方法都套上了 synchronized 关键字)</p>
+<h4 id="Stack-Class"><a href="#Stack-Class" class="headerlink" title="Stack Class"></a>Stack Class</h4><blockquote>
+<p>继承 Vector 类</p>
+</blockquote>
+<p>是 Vector 的子类 Last In First Out</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">E <span class="title function_">peek</span><span class="params">()</span>;</span><br><span class="line"><span class="keyword">void</span> <span class="title function_">push</span><span class="params">(E e)</span>;</span><br><span class="line">E <span class="title function_">pop</span><span class="params">()</span>;</span><br></pre></td></tr></table></figure>
+
+<h2 id="Queue-Interface"><a href="#Queue-Interface" class="headerlink" title="Queue Interface"></a>Queue Interface</h2><blockquote>
+<p>继承 Collection 接口</p>
+</blockquote>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">boolean</span> <span class="title function_">add</span><span class="params">(E e)</span>; <span class="comment">// 入队, 满则抛异常</span></span><br><span class="line"><span class="type">boolean</span> <span class="title function_">offer</span><span class="params">(E e)</span>; <span class="comment">// 入队, 满则 return flase</span></span><br><span class="line"></span><br><span class="line">E <span class="title function_">remove</span><span class="params">()</span>; <span class="comment">// 出队, 空则抛异常</span></span><br><span class="line">E <span class="title function_">poll</span><span class="params">()</span>; <span class="comment">// 出队, 空则 return null</span></span><br><span class="line"></span><br><span class="line">E <span class="title function_">element</span><span class="params">()</span>; <span class="comment">// 获取队头, 空则抛异常</span></span><br><span class="line">E <span class="title function_">peek</span><span class="params">()</span>; <span class="comment">// 获取队头, 空则 return null</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="LinkedList-Class-1"><a href="#LinkedList-Class-1" class="headerlink" title="LinkedList Class"></a>LinkedList Class</h3><blockquote>
+<p>实现 Queue 接口</p>
+</blockquote>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">void</span> <span class="title function_">addFirst</span><span class="params">(E e)</span>; <span class="keyword">void</span> <span class="title function_">addLast</span><span class="params">(E e)</span>;</span><br><span class="line">E <span class="title function_">removeFirst</span><span class="params">()</span>; E <span class="title function_">removeLast</span><span class="params">()</span>;</span><br><span class="line">E <span class="title function_">getFirst</span><span class="params">()</span>; E <span class="title function_">getLast</span><span class="params">()</span>;</span><br><span class="line"><span class="type">boolean</span> <span class="title function_">offerFirst</span><span class="params">(E e)</span>; <span class="type">boolean</span> <span class="title function_">offerLast</span><span class="params">(E e)</span>;</span><br><span class="line">E <span class="title function_">pollFirst</span><span class="params">()</span>; E <span class="title function_">pollLast</span><span class="params">()</span>;</span><br></pre></td></tr></table></figure>
+
+<h3 id="PriorityQueue-Class"><a href="#PriorityQueue-Class" class="headerlink" title="PriorityQueue Class"></a>PriorityQueue Class</h3><blockquote>
+<p>实现 Queue 接口</p>
+</blockquote>
+<h2 id="Set-Interface"><a href="#Set-Interface" class="headerlink" title="Set Interface"></a>Set Interface</h2><blockquote>
+<p>继承 Collection 接口, 未添加其它方法</p>
+</blockquote>
+<p>不可重复, 无序</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">boolean</span> <span class="title function_">add</span><span class="params">(E e)</span>;</span><br><span class="line"><span class="type">boolean</span>	<span class="title function_">addAll</span><span class="params">(Collection&lt;? extends E&gt; c)</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">void</span> <span class="title function_">clear</span><span class="params">()</span>;</span><br><span class="line"></span><br><span class="line"><span class="type">boolean</span>	<span class="title function_">contains</span><span class="params">(Object o)</span>;</span><br><span class="line"><span class="type">boolean</span>	<span class="title function_">containsAll</span><span class="params">(Collection&lt;?&gt; c)</span>;</span><br><span class="line"></span><br><span class="line"><span class="type">boolean</span>	<span class="title function_">remove</span><span class="params">(Object o)</span>;</span><br><span class="line"><span class="type">boolean</span>	<span class="title function_">removeAll</span><span class="params">(Collection&lt;?&gt; c)</span>;</span><br></pre></td></tr></table></figure>
+
+<h3 id="HashSet-Class"><a href="#HashSet-Class" class="headerlink" title="HashSet Class"></a>HashSet Class</h3><blockquote>
+<p>实现 Set 接口, 底层 HashMap</p>
+</blockquote>
+<p>Hash 算法 (散列算法) mod n 运算</p>
+<p>HashSet 底层是 HashMap, HashMap 底层使用 数组 和 链表 实现存储</p>
+<p>当两个元素 Hash 值得到位置相同时, 会 调用元素 <code>equals()</code> 方法, 如果相同则跳过, 不同则加到链表</p>
+<p>数组默认长度是 16, 数组中存储的是单链表: <code>NodeList&lt;Object&gt;[] hashArr = new NodeList&lt;&gt;[16]; </code></p>
+<p>使用 HashSet 存储自定义对象</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">User</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="type">int</span> id;</span><br><span class="line">    <span class="keyword">public</span> String username;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 要重写 hashCode() 和 equals() 以便使用集合存储</span></span><br><span class="line">    <span class="keyword">public</span> <span class="type">int</span> <span class="title function_">hashCode</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="type">int</span> <span class="variable">code</span> <span class="operator">=</span> username == <span class="literal">null</span> ? <span class="number">0</span> : username.hashCode();</span><br><span class="line">        code = <span class="number">31</span> * code + id;</span><br><span class="line">        <span class="keyword">return</span> code;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">public</span> <span class="type">boolean</span> <span class="title function_">equals</span><span class="params">(Object o)</span> &#123;</span><br><span class="line">        <span class="keyword">if</span> (o <span class="keyword">instanceof</span> User) &#123;</span><br><span class="line">            <span class="type">User</span> <span class="variable">user</span> <span class="operator">=</span> (User) o;</span><br><span class="line">            <span class="keyword">return</span> (user.id == <span class="built_in">this</span>.id) &amp;&amp; (user.username == <span class="built_in">this</span>.username);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="TreeSet-Class"><a href="#TreeSet-Class" class="headerlink" title="TreeSet Class"></a>TreeSet Class</h3><blockquote>
+<p>实现 Set 接口, 底层 TreeMap</p>
+</blockquote>
+<p>允许对元素排序 要给定排序规则</p>
+<p>通过元素自身实现比较规则 (Integer, String) compareTo() 方法</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">User</span> <span class="keyword">implements</span> <span class="title class_">Comparable</span>&lt;User&gt; &#123;</span><br><span class="line">    <span class="keyword">public</span> Integer id;</span><br><span class="line">    <span class="keyword">public</span> String username;</span><br><span class="line">    </span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="type">int</span> <span class="title function_">compareTo</span><span class="params">(User user)</span> &#123;  <span class="comment">// 只有实现了 compareTo() 方法的类, 才可以 add 进 TreeSet</span></span><br><span class="line">        <span class="keyword">if</span> (<span class="built_in">this</span>.id &lt; user.id) <span class="keyword">return</span> -<span class="number">1</span>;</span><br><span class="line">        <span class="keyword">if</span> (<span class="built_in">this</span>.id &gt; user.id) <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">this</span>.username.compareTo(user.username);</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 要有 hashCode 和 equals() 方法</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>通过比较器指定比较规则</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">UserComparator</span> <span class="keyword">implements</span> <span class="title class_">Comparator</span>&lt;User&gt; &#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="type">int</span> <span class="title function_">compare</span><span class="params">(User u1, User u2)</span> &#123;</span><br><span class="line">        <span class="keyword">if</span> (u1.id &lt;= u2) <span class="keyword">return</span> -<span class="number">1</span>; <span class="comment">// u1 先于 u2</span></span><br><span class="line">        <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Main</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">        Set&lt;User&gt; set = <span class="keyword">new</span> <span class="title class_">TreeMap</span>&lt;&gt;(<span class="keyword">new</span> <span class="title class_">UserComparator</span>());</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="Map-Interface"><a href="#Map-Interface" class="headerlink" title="Map Interface"></a>Map Interface</h2><blockquote>
+<p> 是双例集合的一个母接口, 不是 Collection 的子接口</p>
+</blockquote>
+<p>Map 接口要求双例集合 - Collection 接口要求单例集合</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">boolean</span>	<span class="title function_">containsKey</span><span class="params">(Object key)</span>;</span><br><span class="line"><span class="type">boolean</span>	<span class="title function_">containsValue</span><span class="params">(Object value)</span>;</span><br><span class="line"></span><br><span class="line">Set&lt;Map.Entry&lt;K,V&gt;&gt;	entrySet();</span><br><span class="line">Set&lt;K&gt; <span class="title function_">keySet</span><span class="params">()</span>;</span><br><span class="line">Collection&lt;V&gt; <span class="title function_">values</span><span class="params">()</span>;</span><br><span class="line"></span><br><span class="line">V <span class="title function_">get</span><span class="params">(Object key)</span>;</span><br><span class="line">V <span class="title function_">remove</span><span class="params">(Object key)</span>;</span><br></pre></td></tr></table></figure>
+
+<p>在 Java 中，可以使用多种方式遍历 <code>Map</code> 的键、值和键值对。以下是几种常见的方法：</p>
+<h3 id="遍历-Map-的键-keySet"><a href="#遍历-Map-的键-keySet" class="headerlink" title="遍历 Map 的键 (keySet())"></a>遍历 Map 的键 (<code>keySet()</code>)</h3><p>可以使用 <code>keySet()</code> 方法来获取 <code>Map</code> 中的所有键，并使用 <code>for-each</code> 循环来遍历这些键：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">Map&lt;Integer, String&gt; map = <span class="keyword">new</span> <span class="title class_">HashMap</span>&lt;&gt;();</span><br><span class="line">map.put(<span class="number">1</span>, <span class="string">&quot;A&quot;</span>);</span><br><span class="line">map.put(<span class="number">2</span>, <span class="string">&quot;B&quot;</span>);</span><br><span class="line">map.put(<span class="number">3</span>, <span class="string">&quot;C&quot;</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> (Integer key : map.keySet()) &#123;</span><br><span class="line">    System.out.println(<span class="string">&quot;Key: &quot;</span> + key);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="遍历-Map-的值-values"><a href="#遍历-Map-的值-values" class="headerlink" title="遍历 Map 的值 (values())"></a>遍历 Map 的值 (<code>values()</code>)</h3><p>可以使用 <code>values()</code> 方法来获取 <code>Map</code> 中的所有值，并使用 <code>for-each</code> 循环来遍历这些值：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> (String value : map.values()) &#123;</span><br><span class="line">    System.out.println(<span class="string">&quot;Value: &quot;</span> + value);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="遍历-Map-的键值对-entrySet"><a href="#遍历-Map-的键值对-entrySet" class="headerlink" title="遍历 Map 的键值对 (entrySet())"></a>遍历 Map 的键值对 (<code>entrySet()</code>)</h3><p>可以使用 <code>entrySet()</code> 方法来获取 <code>Map</code> 中的所有键值对，使用 <code>for-each</code> 循环来遍历 <code>Map.Entry</code> 对象：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> (Map.Entry&lt;Integer, String&gt; entry : map.entrySet()) &#123;</span><br><span class="line">    System.out.println(<span class="string">&quot;Key: &quot;</span> + entry.getKey() + <span class="string">&quot;, Value: &quot;</span> + entry.getValue());</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="使用-forEach-遍历键值对"><a href="#使用-forEach-遍历键值对" class="headerlink" title="使用 forEach() 遍历键值对"></a>使用 <code>forEach()</code> 遍历键值对</h3><p>从 Java 8 开始，<code>Map</code> 接口支持 <code>forEach</code> 方法，可以通过 Lambda 表达式遍历键值对：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">map.forEach((key, value) -&gt; System.out.println(<span class="string">&quot;Key: &quot;</span> + key + <span class="string">&quot;, Value: &quot;</span> + value));</span><br></pre></td></tr></table></figure>
+
+<h3 id="使用-Iterator-遍历键值对"><a href="#使用-Iterator-遍历键值对" class="headerlink" title="使用 Iterator 遍历键值对"></a>使用 Iterator 遍历键值对</h3><p>使用 <code>Iterator</code> 结合 <code>entrySet()</code> 来遍历 <code>Map</code> 的键值对，适合在遍历过程中进行修改操作：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Iterator&lt;Map.Entry&lt;Integer, String&gt;&gt; iterator = map.entrySet().iterator();</span><br><span class="line"><span class="keyword">while</span> (iterator.hasNext()) &#123;</span><br><span class="line">    Map.Entry&lt;Integer, String&gt; entry = iterator.next();</span><br><span class="line">    System.out.println(<span class="string">&quot;Key: &quot;</span> + entry.getKey() + <span class="string">&quot;, Value: &quot;</span> + entry.getValue());</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><ul>
+<li>遍历键：使用 <code>keySet()</code>。</li>
+<li>遍历值：使用 <code>values()</code>。</li>
+<li>遍历键值对：使用 <code>entrySet()</code>，或通过 <code>forEach()</code> 方法和 Lambda 表达式来简化。</li>
+<li>使用 <code>Iterator</code> 可以在遍历过程中安全地进行删除操作。</li>
+</ul>
+<h3 id="HashMap-Class"><a href="#HashMap-Class" class="headerlink" title="HashMap Class"></a>HashMap Class</h3><blockquote>
+<p>实现 Map 接口</p>
+</blockquote>
+<h3 id="TreeMap-Class"><a href="#TreeMap-Class" class="headerlink" title="TreeMap Class"></a>TreeMap Class</h3><blockquote>
+<p>实现 Map 接口</p>
+</blockquote>
+<p>可以对键排序, 要给定Key对象的排序规则</p>
+<h2 id="Iterator-迭代器接口"><a href="#Iterator-迭代器接口" class="headerlink" title="Iterator 迭代器接口"></a>Iterator 迭代器接口</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="type">boolean</span> <span class="title function_">hasNext</span><span class="params">()</span>;</span><br><span class="line">Object <span class="title function_">next</span><span class="params">()</span>;</span><br><span class="line"><span class="keyword">void</span> <span class="title function_">remove</span><span class="params">()</span>;</span><br></pre></td></tr></table></figure>
+
+<p>使用 iterator 迭代 List</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">List&lt;String&gt; lst = <span class="keyword">new</span> <span class="title class_">LinkedList</span>&lt;&gt;();</span><br><span class="line">lst.add(<span class="string">&quot;asd&quot;</span>);</span><br><span class="line">lst.add(<span class="string">&quot;qwe&quot;</span>);</span><br><span class="line">lst.add(<span class="string">&quot;zxc&quot;</span>);</span><br><span class="line"></span><br><span class="line">Iterator&lt;String&gt; it = lst.iterator();  <span class="comment">// 获取迭代器对象</span></span><br><span class="line"><span class="keyword">while</span> (it.hasNext()) it.next();</span><br></pre></td></tr></table></figure>
+
+<p>迭代 Set 是完全一样的</p>
+<h2 id="不可变的集合-不仅仅是对象地址"><a href="#不可变的集合-不仅仅是对象地址" class="headerlink" title="不可变的集合 (不仅仅是对象地址)"></a>不可变的集合 (不仅仅是对象地址)</h2><p>内容, 长度均不可变</p>
+<p>使用 JDK 9 + 中的 .of() 静态方法</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">List&lt;String&gt; =  List.of(<span class="string">&quot;C&quot;</span>, <span class="string">&quot;D&quot;</span>, <span class="string">&quot;E&quot;</span>, <span class="string">&quot;F&quot;</span>, <span class="string">&quot;G&quot;</span>, <span class="string">&quot;A&quot;</span>, <span class="string">&quot;B&quot;</span>);</span><br></pre></td></tr></table></figure>
+
+
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          
+          <div class="post-tags">
+              <a href="/tags/java/" rel="tag"><i class="fa fa-tag"></i> java</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2023/09/09/lang/java/io/" rel="prev" title="Exception & IO">
+      <i class="fa fa-chevron-left"></i> Exception & IO
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2023/10/26/lang/java/multi-thread/" rel="next" title="Multi-Thread">
+      Multi-Thread <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%8C%85%E8%A3%85%E7%B1%BB"><span class="nav-number">1.</span> <span class="nav-text">包装类</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%87%AA%E5%8A%A8%E8%A3%85%E7%AE%B1%E6%8B%86%E7%AE%B1"><span class="nav-number">1.1.</span> <span class="nav-text">自动装箱拆箱</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8C%85%E8%A3%85%E7%B1%BB%E7%9A%84%E7%BC%93%E5%AD%98%E9%97%AE%E9%A2%98"><span class="nav-number">1.2.</span> <span class="nav-text">包装类的缓存问题</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8C%85%E8%A3%85%E7%B1%BB%E6%95%B0%E7%BB%84%E7%9A%84%E8%A3%85%E7%AE%B1%E6%8B%86%E7%AE%B1"><span class="nav-number">1.3.</span> <span class="nav-text">包装类数组的装箱拆箱</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#int-%E8%BD%AC%E6%8D%A2%E4%B8%BA-Integer"><span class="nav-number">1.3.1.</span> <span class="nav-text">int[] 转换为 Integer[]</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Integer-%E8%BD%AC%E6%8D%A2%E4%B8%BA-int"><span class="nav-number">1.3.2.</span> <span class="nav-text">Integer[] 转换为 int[]</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%B3%9B%E5%9E%8B-Generics"><span class="nav-number">2.</span> <span class="nav-text">泛型 Generics</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%9A%E4%B9%89%E6%B3%9B%E5%9E%8B"><span class="nav-number">2.1.</span> <span class="nav-text">定义泛型</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%B3%9B%E5%9E%8B%E7%B1%BB"><span class="nav-number">2.2.</span> <span class="nav-text">泛型类</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%B3%9B%E5%9E%8B%E6%8E%A5%E5%8F%A3"><span class="nav-number">2.3.</span> <span class="nav-text">泛型接口</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%B3%9B%E5%9E%8B%E6%96%B9%E6%B3%95"><span class="nav-number">2.4.</span> <span class="nav-text">泛型方法</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%AE%B9%E5%99%A8-Collection"><span class="nav-number">3.</span> <span class="nav-text">容器 Collection</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%90%84%E5%AE%B9%E5%99%A8%E5%85%B3%E7%B3%BB%E5%9B%BE"><span class="nav-number">3.1.</span> <span class="nav-text">各容器关系图</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#List-Interface"><span class="nav-number">3.2.</span> <span class="nav-text">List Interface</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#ArrayList-Class"><span class="nav-number">3.2.1.</span> <span class="nav-text">ArrayList Class</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#LinkedList-Class"><span class="nav-number">3.2.2.</span> <span class="nav-text">LinkedList Class</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Vector-Class"><span class="nav-number">3.2.3.</span> <span class="nav-text">Vector Class</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Stack-Class"><span class="nav-number">3.2.3.1.</span> <span class="nav-text">Stack Class</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Queue-Interface"><span class="nav-number">3.3.</span> <span class="nav-text">Queue Interface</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#LinkedList-Class-1"><span class="nav-number">3.3.1.</span> <span class="nav-text">LinkedList Class</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#PriorityQueue-Class"><span class="nav-number">3.3.2.</span> <span class="nav-text">PriorityQueue Class</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Set-Interface"><span class="nav-number">3.4.</span> <span class="nav-text">Set Interface</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#HashSet-Class"><span class="nav-number">3.4.1.</span> <span class="nav-text">HashSet Class</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#TreeSet-Class"><span class="nav-number">3.4.2.</span> <span class="nav-text">TreeSet Class</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Map-Interface"><span class="nav-number">3.5.</span> <span class="nav-text">Map Interface</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%81%8D%E5%8E%86-Map-%E7%9A%84%E9%94%AE-keySet"><span class="nav-number">3.5.1.</span> <span class="nav-text">遍历 Map 的键 (keySet())</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%81%8D%E5%8E%86-Map-%E7%9A%84%E5%80%BC-values"><span class="nav-number">3.5.2.</span> <span class="nav-text">遍历 Map 的值 (values())</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%81%8D%E5%8E%86-Map-%E7%9A%84%E9%94%AE%E5%80%BC%E5%AF%B9-entrySet"><span class="nav-number">3.5.3.</span> <span class="nav-text">遍历 Map 的键值对 (entrySet())</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8-forEach-%E9%81%8D%E5%8E%86%E9%94%AE%E5%80%BC%E5%AF%B9"><span class="nav-number">3.5.4.</span> <span class="nav-text">使用 forEach() 遍历键值对</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8-Iterator-%E9%81%8D%E5%8E%86%E9%94%AE%E5%80%BC%E5%AF%B9"><span class="nav-number">3.5.5.</span> <span class="nav-text">使用 Iterator 遍历键值对</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%80%BB%E7%BB%93"><span class="nav-number">3.5.6.</span> <span class="nav-text">总结</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#HashMap-Class"><span class="nav-number">3.5.7.</span> <span class="nav-text">HashMap Class</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#TreeMap-Class"><span class="nav-number">3.5.8.</span> <span class="nav-text">TreeMap Class</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Iterator-%E8%BF%AD%E4%BB%A3%E5%99%A8%E6%8E%A5%E5%8F%A3"><span class="nav-number">3.6.</span> <span class="nav-text">Iterator 迭代器接口</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%8D%E5%8F%AF%E5%8F%98%E7%9A%84%E9%9B%86%E5%90%88-%E4%B8%8D%E4%BB%85%E4%BB%85%E6%98%AF%E5%AF%B9%E8%B1%A1%E5%9C%B0%E5%9D%80"><span class="nav-number">3.7.</span> <span class="nav-text">不可变的集合 (不仅仅是对象地址)</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Perry Yao"
+      src="https://avatars.githubusercontent.com/u/126999663?v=4">
+  <p class="site-author-name" itemprop="name">Perry Yao</p>
+  <div class="site-description" itemprop="description">...</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">50</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">5</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">14</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/PerryYao-GitHub" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;PerryYao-GitHub" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:peiyouyao@gmail.com" title="E-Mail → mailto:peiyouyao@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2025</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Perry Yao</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://pisces.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a>
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

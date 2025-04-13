@@ -1,0 +1,465 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 7.3.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="701. Insert into a Binary Search Tree [Tree]704. Binary Search [Array]707. Design Linked List [List]714. Best Time to Buy and Sell Stock with Transaction Fee [DP]718. Maximum Length of Repeated Subarr">
+<meta property="og:type" content="article">
+<meta property="og:title" content="LeetCode 701-1000">
+<meta property="og:url" content="http://example.com/1989/06/04/algorithm/lc-701-1000/index.html">
+<meta property="og:site_name" content="Perry&#39;s Blog">
+<meta property="og:description" content="701. Insert into a Binary Search Tree [Tree]704. Binary Search [Array]707. Design Linked List [List]714. Best Time to Buy and Sell Stock with Transaction Fee [DP]718. Maximum Length of Repeated Subarr">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="1989-06-03T15:00:00.000Z">
+<meta property="article:modified_time" content="2025-04-08T11:24:32.000Z">
+<meta property="article:author" content="Perry Yao">
+<meta property="article:tag" content="leetcode">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://example.com/1989/06/04/algorithm/lc-701-1000/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'en'
+  };
+</script>
+
+  <title>LeetCode 701-1000 | Perry's Blog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Perry's Blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">tech & muse & sleep</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
+
+  </li>
+        <li class="menu-item menu-item-schedule">
+
+    <a href="/schedule/" rel="section"><i class="fa fa-calendar fa-fw"></i>Schedule</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://example.com/1989/06/04/algorithm/lc-701-1000/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="https://avatars.githubusercontent.com/u/126999663?v=4">
+      <meta itemprop="name" content="Perry Yao">
+      <meta itemprop="description" content="...">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Perry's Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          LeetCode 701-1000
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 1989-06-04 00:00:00" itemprop="dateCreated datePublished" datetime="1989-06-04T00:00:00+09:00">1989-06-04</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2025-04-08 19:24:32" itemprop="dateModified" datetime="2025-04-08T19:24:32+08:00">2025-04-08</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/algorithm/" itemprop="url" rel="index"><span itemprop="name">algorithm</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h2 id="701-Insert-into-a-Binary-Search-Tree-Tree"><a href="#701-Insert-into-a-Binary-Search-Tree-Tree" class="headerlink" title="701. Insert into a Binary Search Tree [Tree]"></a><a target="_blank" rel="noopener" href="https://leetcode.com/problems/insert-into-a-binary-search-tree/">701. Insert into a Binary Search Tree</a> [Tree]</h2><h2 id="704-Binary-Search-Array"><a href="#704-Binary-Search-Array" class="headerlink" title="704. Binary Search [Array]"></a><a target="_blank" rel="noopener" href="https://leetcode.com/problems/binary-search/">704. Binary Search</a> [Array]</h2><h2 id="707-Design-Linked-List-List"><a href="#707-Design-Linked-List-List" class="headerlink" title="707. Design Linked List [List]"></a><a target="_blank" rel="noopener" href="https://leetcode.com/problems/design-linked-list/">707. Design Linked List</a> [List]</h2><h2 id="714-Best-Time-to-Buy-and-Sell-Stock-with-Transaction-Fee-DP"><a href="#714-Best-Time-to-Buy-and-Sell-Stock-with-Transaction-Fee-DP" class="headerlink" title="714. Best Time to Buy and Sell Stock with Transaction Fee [DP]"></a><a target="_blank" rel="noopener" href="https://leetcode.com/problems/best-time-to-buy-and-sell-stock-with-transaction-fee/">714. Best Time to Buy and Sell Stock with Transaction Fee</a> [DP]</h2><h2 id="718-Maximum-Length-of-Repeated-Subarray-DP-Sub"><a href="#718-Maximum-Length-of-Repeated-Subarray-DP-Sub" class="headerlink" title="718. Maximum Length of Repeated Subarray [DP-Sub]"></a><a target="_blank" rel="noopener" href="https://leetcode.com/problems/maximum-length-of-repeated-subarray/">718. Maximum Length of Repeated Subarray</a> [DP-Sub]</h2><h2 id="724-Find-Pivot-Index-Array"><a href="#724-Find-Pivot-Index-Array" class="headerlink" title="724. Find Pivot Index [Array]"></a><a target="_blank" rel="noopener" href="https://leetcode.com/problems/find-pivot-index/">724. Find Pivot Index</a> [Array]</h2><h2 id="725-Split-Linked-List-in-Parts"><a href="#725-Split-Linked-List-in-Parts" class="headerlink" title="725. Split Linked List in Parts"></a><a target="_blank" rel="noopener" href="https://leetcode.com/problems/split-linked-list-in-parts/">725. Split Linked List in Parts</a></h2><h4 id="C"><a href="#C" class="headerlink" title="C++"></a>C++</h4><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line">    <span class="function"><span class="type">int</span> <span class="title">lstsz</span><span class="params">(ListNode* head)</span> </span>&#123;</span><br><span class="line">        <span class="type">int</span> sz = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">while</span> (head) &#123;</span><br><span class="line">            sz ++;</span><br><span class="line">            head = head-&gt;next;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> sz;</span><br><span class="line">    &#125;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function">vector&lt;ListNode*&gt; <span class="title">splitListToParts</span><span class="params">(ListNode* head, <span class="type">int</span> k)</span> </span>&#123;</span><br><span class="line">        <span class="type">int</span> sz = <span class="built_in">lstsz</span>(head);</span><br><span class="line">        <span class="type">int</span> q = sz / k;</span><br><span class="line">        <span class="type">int</span> r = sz - q * k;</span><br><span class="line">        <span class="function">vector&lt;ListNode*&gt; <span class="title">ans</span><span class="params">(k, <span class="literal">nullptr</span>)</span></span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; k; i ++) &#123;</span><br><span class="line">            <span class="type">int</span> splitsz = q;</span><br><span class="line">            <span class="keyword">if</span> (r &gt; <span class="number">0</span>) &#123;</span><br><span class="line">                splitsz ++;</span><br><span class="line">                r --;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">if</span> (splitsz == <span class="number">0</span>) <span class="keyword">break</span>;</span><br><span class="line">            splitsz --;</span><br><span class="line">            ans[i] = head;</span><br><span class="line">            <span class="keyword">while</span> (splitsz &gt; <span class="number">0</span>) &#123;</span><br><span class="line">                head = head-&gt;next;</span><br><span class="line">                splitsz --;</span><br><span class="line">            &#125;</span><br><span class="line">            ListNode* nxt = head-&gt;next;</span><br><span class="line">            head-&gt;next = <span class="literal">nullptr</span>;</span><br><span class="line">            head = nxt;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> ans;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+
+
+<h4 id="Java"><a href="#Java" class="headerlink" title="Java"></a>Java</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> ListNode[] splitListToParts(ListNode head, <span class="type">int</span> k) &#123;</span><br><span class="line">        <span class="type">int</span> <span class="variable">sz</span> <span class="operator">=</span> listSize(head);</span><br><span class="line">        <span class="type">int</span>[] szs = <span class="keyword">new</span> <span class="title class_">int</span>[k];</span><br><span class="line">        ListNode[] nds = <span class="keyword">new</span> <span class="title class_">ListNode</span>[k];</span><br><span class="line">        Arrays.fill(szs, sz / k);</span><br><span class="line">        <span class="type">int</span> <span class="variable">r</span> <span class="operator">=</span> sz - sz / k * k;</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; r; i ++) szs[i] ++;</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; nds.length; i ++) &#123;</span><br><span class="line">            <span class="keyword">if</span> (szs[i] == <span class="number">0</span>) <span class="keyword">continue</span>;</span><br><span class="line">            nds[i] = head;</span><br><span class="line">            <span class="type">ListNode</span> <span class="variable">p</span> <span class="operator">=</span> head;</span><br><span class="line">            <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">j</span> <span class="operator">=</span> <span class="number">0</span>; j &lt; szs[i] - <span class="number">1</span>; j ++) <span class="keyword">if</span> (p != <span class="literal">null</span>) p = p.next;</span><br><span class="line">            head = p.next;</span><br><span class="line">            p.next = <span class="literal">null</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> nds;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">private</span> <span class="type">int</span> <span class="title function_">listSize</span><span class="params">(ListNode head)</span> &#123;</span><br><span class="line">        <span class="type">int</span> <span class="variable">sz</span> <span class="operator">=</span> <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">while</span> (head != <span class="literal">null</span>) &#123;</span><br><span class="line">            sz ++;</span><br><span class="line">            head = head.next;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> sz;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="738-Monotone-Increasing-Digits-Greedy"><a href="#738-Monotone-Increasing-Digits-Greedy" class="headerlink" title="738. Monotone Increasing Digits [Greedy]"></a><a target="_blank" rel="noopener" href="https://leetcode.com/problems/monotone-increasing-digits/">738. Monotone Increasing Digits</a> [Greedy]</h2><h2 id="739-Daily-Temperatures-Mono-Stack"><a href="#739-Daily-Temperatures-Mono-Stack" class="headerlink" title="739. Daily Temperatures [Mono Stack]"></a><a target="_blank" rel="noopener" href="https://leetcode.com/problems/daily-temperatures/">739. Daily Temperatures</a> [Mono Stack]</h2><h2 id="746-Min-Cost-Climbing-Stairs-DP"><a href="#746-Min-Cost-Climbing-Stairs-DP" class="headerlink" title="746. Min Cost Climbing Stairs [DP]"></a><a target="_blank" rel="noopener" href="https://leetcode.com/problems/min-cost-climbing-stairs/">746. Min Cost Climbing Stairs</a> [DP]</h2><h2 id="763-Partition-Labels-Greedy"><a href="#763-Partition-Labels-Greedy" class="headerlink" title="763. Partition Labels [Greedy]"></a><a target="_blank" rel="noopener" href="https://leetcode.com/problems/partition-labels/">763. Partition Labels</a> [Greedy]</h2><h2 id="797-All-Paths-From-Source-to-Target-Graph"><a href="#797-All-Paths-From-Source-to-Target-Graph" class="headerlink" title="797. All Paths From Source to Target [Graph]"></a><a target="_blank" rel="noopener" href="https://leetcode.com/problems/all-paths-from-source-to-target/">797. All Paths From Source to Target</a> [Graph]</h2><h2 id="817-Linked-List-Components"><a href="#817-Linked-List-Components" class="headerlink" title="817. Linked List Components"></a><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/linked-list-components/">817. Linked List Components</a></h2><h4 id="C-1"><a href="#C-1" class="headerlink" title="C++"></a>C++</h4><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="type">int</span> <span class="title">numComponents</span><span class="params">(ListNode* head, vector&lt;<span class="type">int</span>&gt;&amp; nums)</span> </span>&#123;</span><br><span class="line">        unordered_set&lt;<span class="type">int</span>&gt; uset;</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> num : nums) uset.<span class="built_in">insert</span>(num);</span><br><span class="line">        <span class="type">bool</span> lastin = <span class="literal">false</span>; <span class="comment">// 记录之前的节点在不在uset中</span></span><br><span class="line">        <span class="type">int</span> cnt = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">while</span> (head) &#123;</span><br><span class="line">            <span class="keyword">if</span> (uset.<span class="built_in">find</span>(head-&gt;val) != uset.<span class="built_in">end</span>()) &#123;</span><br><span class="line">                <span class="keyword">if</span> (!lastin) &#123;</span><br><span class="line">                    cnt ++;</span><br><span class="line">                    lastin = <span class="literal">true</span>;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125; <span class="keyword">else</span> lastin = <span class="literal">false</span>;</span><br><span class="line">            head = head-&gt;next;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> cnt;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="841-Keys-and-Rooms-Graph"><a href="#841-Keys-and-Rooms-Graph" class="headerlink" title="841. Keys and Rooms [Graph]"></a><a target="_blank" rel="noopener" href="https://leetcode.com/problems/keys-and-rooms/">841. Keys and Rooms</a> [Graph]</h2><h2 id="844-Backspace-String-Compare-Array-String"><a href="#844-Backspace-String-Compare-Array-String" class="headerlink" title="844. Backspace String Compare [Array &amp; String]"></a><a target="_blank" rel="noopener" href="https://leetcode.com/problems/backspace-string-compare/">844. Backspace String Compare</a> [Array &amp; String]</h2><h2 id="860-Lemonade-Change-Greedy"><a href="#860-Lemonade-Change-Greedy" class="headerlink" title="860. Lemonade Change [Greedy]"></a><a target="_blank" rel="noopener" href="https://leetcode.com/problems/lemonade-change/">860. Lemonade Change</a> [Greedy]</h2><h2 id="874-Walking-Robot-Simulation"><a href="#874-Walking-Robot-Simulation" class="headerlink" title="874. Walking Robot Simulation"></a><a target="_blank" rel="noopener" href="https://leetcode.com/problems/walking-robot-simulation/">874. Walking Robot Simulation</a></h2><h4 id="Java-1"><a href="#Java-1" class="headerlink" title="Java"></a>Java</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="type">int</span> <span class="title function_">robotSim</span><span class="params">(<span class="type">int</span>[] commands, <span class="type">int</span>[][] obstacles)</span> &#123;</span><br><span class="line">        Set&lt;String&gt; obs = <span class="keyword">new</span> <span class="title class_">HashSet</span>&lt;&gt;();</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span>[] obstacle : obstacles) obs.add(obstacle[<span class="number">0</span>] + <span class="string">&quot; &quot;</span> + obstacle[<span class="number">1</span>]); <span class="comment">// 把坐标JSON化, 方便哈希</span></span><br><span class="line">        <span class="type">int</span> <span class="variable">ans</span> <span class="operator">=</span> <span class="number">0</span>;</span><br><span class="line">        <span class="type">int</span> <span class="variable">x</span> <span class="operator">=</span> <span class="number">0</span>, y = <span class="number">0</span>, d = <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> command : commands) &#123;</span><br><span class="line">            <span class="type">int</span>[] nxt = go(command, obs, x, y, d);</span><br><span class="line">            <span class="type">int</span> <span class="variable">nx</span> <span class="operator">=</span> nxt[<span class="number">0</span>], ny = nxt[<span class="number">1</span>], nd = nxt[<span class="number">2</span>];</span><br><span class="line">            x = nx;</span><br><span class="line">            y = ny;</span><br><span class="line">            d = nd;</span><br><span class="line">            ans = Math.max(ans, x * x + y * y);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> ans;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> <span class="type">int</span>[] dx = &#123;<span class="number">1</span>, <span class="number">0</span>, -<span class="number">1</span>, <span class="number">0</span>&#125;;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> <span class="type">int</span>[] dy = &#123;<span class="number">0</span>, <span class="number">1</span>, <span class="number">0</span>, -<span class="number">1</span>&#125;;</span><br><span class="line">    <span class="keyword">private</span> <span class="type">int</span>[] go(<span class="type">int</span> command, Set&lt;String&gt; obstacles, <span class="type">int</span> x, <span class="type">int</span> y, <span class="type">int</span> d) &#123;</span><br><span class="line">        <span class="type">int</span> <span class="variable">nx</span> <span class="operator">=</span> x, ny = y, nd = d;</span><br><span class="line">        <span class="keyword">if</span> (command &lt; <span class="number">0</span>) &#123;</span><br><span class="line">            <span class="keyword">switch</span> (command) &#123;</span><br><span class="line">                <span class="keyword">case</span> -<span class="number">1</span>: nd = (d - <span class="number">1</span> + <span class="number">4</span>) % <span class="number">4</span>; <span class="keyword">break</span>;</span><br><span class="line">                <span class="keyword">case</span> -<span class="number">2</span>: nd = (d + <span class="number">1</span>) % <span class="number">4</span>; <span class="keyword">break</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="keyword">while</span> (command &gt; <span class="number">0</span>) &#123;</span><br><span class="line">                <span class="type">int</span> <span class="variable">nnx</span> <span class="operator">=</span> x + dx[d], nny = y + dy[d];</span><br><span class="line">                <span class="type">String</span> <span class="variable">pos</span> <span class="operator">=</span> nnx + <span class="string">&quot; &quot;</span> + nny;</span><br><span class="line">                <span class="keyword">if</span> (obstacles.contains(pos)) <span class="keyword">break</span>;</span><br><span class="line">                x = nnx;</span><br><span class="line">                y = nny;</span><br><span class="line">                command --;</span><br><span class="line">            &#125;</span><br><span class="line">            nx = x;</span><br><span class="line">            ny = y;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> <span class="title class_">int</span>[] &#123;nx, ny, nd&#125;;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>事实上, Java 要是允许指针操作, 以上逻辑会更清晰</p>
+<h4 id="Go"><a href="#Go" class="headerlink" title="Go"></a>Go</h4><p>使用位运算来优化哈希</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">robotSim</span><span class="params">(commands []<span class="type">int</span>, obstacles [][]<span class="type">int</span>)</span></span> <span class="type">int</span> &#123;</span><br><span class="line">    dx, dy := [<span class="number">4</span>]<span class="type">int</span>&#123;<span class="number">0</span>, <span class="number">1</span>, <span class="number">0</span>, <span class="number">-1</span>&#125;, [<span class="number">4</span>]<span class="type">int</span>&#123;<span class="number">1</span>, <span class="number">0</span>, <span class="number">-1</span>, <span class="number">0</span>&#125;</span><br><span class="line">    d := <span class="number">0</span> <span class="comment">// 0: up, 1: right, 2: down, 3: left</span></span><br><span class="line">    mp := <span class="keyword">map</span>[<span class="type">int</span>]<span class="type">bool</span>&#123;&#125;</span><br><span class="line">    <span class="keyword">for</span> _, obstacle := <span class="keyword">range</span> obstacles &#123;</span><br><span class="line">        ox, oy := obstacle[<span class="number">0</span>], obstacle[<span class="number">1</span>]</span><br><span class="line">        mp[(ox &lt;&lt; <span class="number">15</span>) + oy] = <span class="literal">true</span></span><br><span class="line">    &#125;</span><br><span class="line">    x, y := <span class="number">0</span>, <span class="number">0</span></span><br><span class="line">    dist := <span class="number">0</span></span><br><span class="line">    <span class="keyword">for</span> _, cmd := <span class="keyword">range</span> commands &#123;</span><br><span class="line">        <span class="keyword">if</span> cmd &lt; <span class="number">0</span> &#123;</span><br><span class="line">            <span class="keyword">if</span> cmd == <span class="number">-1</span> &#123;</span><br><span class="line">                d = (d + <span class="number">1</span>) % <span class="number">4</span></span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                d = (d + <span class="number">3</span>) % <span class="number">4</span></span><br><span class="line">            &#125;</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="keyword">for</span> cmd &gt; <span class="number">0</span> &#123;</span><br><span class="line">                nx, ny := x + dx[d], y + dy[d]</span><br><span class="line">                k := (nx &lt;&lt; <span class="number">15</span>) + ny</span><br><span class="line">                <span class="keyword">if</span> ok, _ := mp[k]; ok &#123;</span><br><span class="line">                    <span class="keyword">break</span></span><br><span class="line">                &#125;</span><br><span class="line">                x = nx</span><br><span class="line">                y = ny</span><br><span class="line">                cmd --</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> x * x + y * y &gt; dist &#123;</span><br><span class="line">            dist = x * x + y * y</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> dist</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h4 id="Rust"><a href="#Rust" class="headerlink" title="Rust"></a>Rust</h4><figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">use</span> std::collections::HashSet;</span><br><span class="line"><span class="keyword">impl</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line">    <span class="keyword">pub</span> <span class="keyword">fn</span> <span class="title function_">robot_sim</span>(commands: <span class="type">Vec</span>&lt;<span class="type">i32</span>&gt;, obstacles: <span class="type">Vec</span>&lt;<span class="type">Vec</span>&lt;<span class="type">i32</span>&gt;&gt;) <span class="punctuation">-&gt;</span> <span class="type">i32</span> &#123;</span><br><span class="line">        <span class="keyword">let</span> <span class="keyword">mut </span><span class="variable">x</span>: <span class="type">i32</span> = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">let</span> <span class="keyword">mut </span><span class="variable">y</span>: <span class="type">i32</span> = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">let</span> <span class="keyword">mut </span><span class="variable">d</span>: <span class="type">usize</span> = <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">let</span> <span class="keyword">mut </span><span class="variable">obs</span>: HashSet&lt;(<span class="type">i32</span>, <span class="type">i32</span>)&gt; = HashSet::<span class="title function_ invoke__">new</span>(); <span class="comment">// rust 可用直接哈希元组</span></span><br><span class="line">        <span class="keyword">for</span> <span class="variable">obstacle</span> <span class="keyword">in</span> obstacles &#123; obs.<span class="title function_ invoke__">insert</span>((obstacle[<span class="number">0</span>], obstacle[<span class="number">1</span>])); &#125;</span><br><span class="line">        <span class="keyword">let</span> <span class="keyword">mut </span><span class="variable">dist</span>: <span class="type">i32</span> = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span> <span class="variable">command</span> <span class="keyword">in</span> commands &#123;</span><br><span class="line">            Solution::<span class="title function_ invoke__">go</span>(command, &amp;obs, &amp;<span class="keyword">mut</span> x, &amp;<span class="keyword">mut</span> y, &amp;<span class="keyword">mut</span> d);</span><br><span class="line">            dist = <span class="type">i32</span>::<span class="title function_ invoke__">max</span>(dist, x * x + y * y);</span><br><span class="line">        &#125;</span><br><span class="line">        dist</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">const</span> DX: [<span class="type">i32</span>; <span class="number">4</span>] = [<span class="number">1</span>, <span class="number">0</span>, -<span class="number">1</span>, <span class="number">0</span>]; <span class="comment">// const用蛇形大写</span></span><br><span class="line">    <span class="keyword">const</span> DY: [<span class="type">i32</span>; <span class="number">4</span>] = [<span class="number">0</span>, <span class="number">1</span>, <span class="number">0</span>, -<span class="number">1</span>];</span><br><span class="line"></span><br><span class="line">    <span class="keyword">fn</span> <span class="title function_">go</span>(command: <span class="type">i32</span>, obstacles: &amp;HashSet&lt;(<span class="type">i32</span>, <span class="type">i32</span>)&gt;, x: &amp;<span class="keyword">mut</span> <span class="type">i32</span>, y: &amp;<span class="keyword">mut</span> <span class="type">i32</span>, d: &amp;<span class="keyword">mut</span> <span class="type">usize</span>) &#123;</span><br><span class="line">        <span class="keyword">if</span> command &lt; <span class="number">0</span> &#123;</span><br><span class="line">            <span class="keyword">if</span> command == -<span class="number">1</span> &#123; *d = (*d - <span class="number">1</span> + <span class="number">4</span>) % <span class="number">4</span>; &#125;</span><br><span class="line">            <span class="keyword">else</span> &#123; *d = (*d + <span class="number">1</span>) % <span class="number">4</span>; &#125;</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="keyword">for</span> <span class="variable">_</span> <span class="keyword">in</span> <span class="number">0</span>..command &#123;</span><br><span class="line">                <span class="keyword">let</span> <span class="variable">nx</span>: <span class="type">i32</span> = *x + Solution::DX[*d];</span><br><span class="line">                <span class="keyword">let</span> <span class="variable">ny</span>: <span class="type">i32</span> = *y + Solution::DY[*d];</span><br><span class="line">                <span class="keyword">if</span> (obstacles.<span class="title function_ invoke__">contains</span>(&amp;(nx, ny))) &#123;</span><br><span class="line">                    <span class="keyword">break</span>;</span><br><span class="line">                &#125;</span><br><span class="line">                *x = nx;</span><br><span class="line">                *y = ny;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="876-Middle-of-the-Linked-List"><a href="#876-Middle-of-the-Linked-List" class="headerlink" title="876. Middle of the Linked List"></a><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/middle-of-the-linked-list/">876. Middle of the Linked List</a></h2><h4 id="Go-1"><a href="#Go-1" class="headerlink" title="Go"></a>Go</h4><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">middleNode</span><span class="params">(head *ListNode)</span></span> *ListNode &#123;</span><br><span class="line">    fast, slow := head, head</span><br><span class="line">    <span class="keyword">for</span> fast != <span class="literal">nil</span> &amp;&amp; fast.Next != <span class="literal">nil</span> &#123;</span><br><span class="line">        fast = fast.Next.Next</span><br><span class="line">        slow = slow.Next</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> slow</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="904-Fruit-Into-Baskets-Array"><a href="#904-Fruit-Into-Baskets-Array" class="headerlink" title="904. Fruit Into Baskets [Array]"></a><a target="_blank" rel="noopener" href="https://leetcode.com/problems/fruit-into-baskets/">904. Fruit Into Baskets</a> [Array]</h2><h2 id="922-Sort-Array-By-Parity-II-Array"><a href="#922-Sort-Array-By-Parity-II-Array" class="headerlink" title="922. Sort Array By Parity II [Array]"></a><a target="_blank" rel="noopener" href="https://leetcode.com/problems/sort-array-by-parity-ii/">922. Sort Array By Parity II</a> [Array]</h2><h2 id="925-Long-Pressed-Name-String"><a href="#925-Long-Pressed-Name-String" class="headerlink" title="925. Long Pressed Name [String]"></a><a target="_blank" rel="noopener" href="https://leetcode.com/problems/long-pressed-name/">925. Long Pressed Name</a> [String]</h2><h2 id="941-Valid-Mountain-Array-Array"><a href="#941-Valid-Mountain-Array-Array" class="headerlink" title="941. Valid Mountain Array [Array]"></a><a target="_blank" rel="noopener" href="https://leetcode.com/problems/valid-mountain-array/">941. Valid Mountain Array</a> [Array]</h2><h2 id="968-Binary-Tree-Cameras-Greedy"><a href="#968-Binary-Tree-Cameras-Greedy" class="headerlink" title="968. Binary Tree Cameras[Greedy]"></a><a target="_blank" rel="noopener" href="https://leetcode.com/problems/binary-tree-cameras/">968. Binary Tree Cameras</a>[Greedy]</h2><h2 id="977-Squares-of-a-Sorted-Array-Array"><a href="#977-Squares-of-a-Sorted-Array-Array" class="headerlink" title="977. Squares of a Sorted Array [Array]"></a><a target="_blank" rel="noopener" href="https://leetcode.com/problems/squares-of-a-sorted-array/">977. Squares of a Sorted Array</a> [Array]</h2>
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          
+          <div class="post-tags">
+              <a href="/tags/leetcode/" rel="tag"><i class="fa fa-tag"></i> leetcode</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/1989/06/04/algorithm/lc-51-100/" rel="prev" title="LeetCode 51-100">
+      <i class="fa fa-chevron-left"></i> LeetCode 51-100
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/1989/06/04/algorithm/lc-501-700/" rel="next" title="LeetCode 501-700">
+      LeetCode 501-700 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#701-Insert-into-a-Binary-Search-Tree-Tree"><span class="nav-number">1.</span> <span class="nav-text">701. Insert into a Binary Search Tree [Tree]</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#704-Binary-Search-Array"><span class="nav-number">2.</span> <span class="nav-text">704. Binary Search [Array]</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#707-Design-Linked-List-List"><span class="nav-number">3.</span> <span class="nav-text">707. Design Linked List [List]</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#714-Best-Time-to-Buy-and-Sell-Stock-with-Transaction-Fee-DP"><span class="nav-number">4.</span> <span class="nav-text">714. Best Time to Buy and Sell Stock with Transaction Fee [DP]</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#718-Maximum-Length-of-Repeated-Subarray-DP-Sub"><span class="nav-number">5.</span> <span class="nav-text">718. Maximum Length of Repeated Subarray [DP-Sub]</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#724-Find-Pivot-Index-Array"><span class="nav-number">6.</span> <span class="nav-text">724. Find Pivot Index [Array]</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#725-Split-Linked-List-in-Parts"><span class="nav-number">7.</span> <span class="nav-text">725. Split Linked List in Parts</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#C"><span class="nav-number">7.0.1.</span> <span class="nav-text">C++</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Java"><span class="nav-number">7.0.2.</span> <span class="nav-text">Java</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#738-Monotone-Increasing-Digits-Greedy"><span class="nav-number">8.</span> <span class="nav-text">738. Monotone Increasing Digits [Greedy]</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#739-Daily-Temperatures-Mono-Stack"><span class="nav-number">9.</span> <span class="nav-text">739. Daily Temperatures [Mono Stack]</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#746-Min-Cost-Climbing-Stairs-DP"><span class="nav-number">10.</span> <span class="nav-text">746. Min Cost Climbing Stairs [DP]</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#763-Partition-Labels-Greedy"><span class="nav-number">11.</span> <span class="nav-text">763. Partition Labels [Greedy]</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#797-All-Paths-From-Source-to-Target-Graph"><span class="nav-number">12.</span> <span class="nav-text">797. All Paths From Source to Target [Graph]</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#817-Linked-List-Components"><span class="nav-number">13.</span> <span class="nav-text">817. Linked List Components</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#C-1"><span class="nav-number">13.0.1.</span> <span class="nav-text">C++</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#841-Keys-and-Rooms-Graph"><span class="nav-number">14.</span> <span class="nav-text">841. Keys and Rooms [Graph]</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#844-Backspace-String-Compare-Array-String"><span class="nav-number">15.</span> <span class="nav-text">844. Backspace String Compare [Array &amp; String]</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#860-Lemonade-Change-Greedy"><span class="nav-number">16.</span> <span class="nav-text">860. Lemonade Change [Greedy]</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#874-Walking-Robot-Simulation"><span class="nav-number">17.</span> <span class="nav-text">874. Walking Robot Simulation</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Java-1"><span class="nav-number">17.0.1.</span> <span class="nav-text">Java</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Go"><span class="nav-number">17.0.2.</span> <span class="nav-text">Go</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Rust"><span class="nav-number">17.0.3.</span> <span class="nav-text">Rust</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#876-Middle-of-the-Linked-List"><span class="nav-number">18.</span> <span class="nav-text">876. Middle of the Linked List</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Go-1"><span class="nav-number">18.0.1.</span> <span class="nav-text">Go</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#904-Fruit-Into-Baskets-Array"><span class="nav-number">19.</span> <span class="nav-text">904. Fruit Into Baskets [Array]</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#922-Sort-Array-By-Parity-II-Array"><span class="nav-number">20.</span> <span class="nav-text">922. Sort Array By Parity II [Array]</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#925-Long-Pressed-Name-String"><span class="nav-number">21.</span> <span class="nav-text">925. Long Pressed Name [String]</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#941-Valid-Mountain-Array-Array"><span class="nav-number">22.</span> <span class="nav-text">941. Valid Mountain Array [Array]</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#968-Binary-Tree-Cameras-Greedy"><span class="nav-number">23.</span> <span class="nav-text">968. Binary Tree Cameras[Greedy]</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#977-Squares-of-a-Sorted-Array-Array"><span class="nav-number">24.</span> <span class="nav-text">977. Squares of a Sorted Array [Array]</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Perry Yao"
+      src="https://avatars.githubusercontent.com/u/126999663?v=4">
+  <p class="site-author-name" itemprop="name">Perry Yao</p>
+  <div class="site-description" itemprop="description">...</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">50</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">5</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">14</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/PerryYao-GitHub" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;PerryYao-GitHub" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:peiyouyao@gmail.com" title="E-Mail → mailto:peiyouyao@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2025</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Perry Yao</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://pisces.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a>
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>
