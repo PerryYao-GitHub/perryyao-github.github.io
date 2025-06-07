@@ -168,7 +168,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2025/05/16/tech/swagger/">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2025/06/07/tech/swagger/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="https://avatars.githubusercontent.com/u/126999663?v=4">
@@ -182,7 +182,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/2025/05/16/tech/swagger/" class="post-title-link" itemprop="url">Untitled</a>
+            <a href="/2025/06/07/tech/swagger/" class="post-title-link" itemprop="url">Untitled</a>
         </h2>
 
         <div class="post-meta">
@@ -192,8 +192,15 @@
               </span>
               <span class="post-meta-item-text">Posted on</span>
 
-              <time title="Created: 2025-05-16 18:27:15" itemprop="dateCreated datePublished" datetime="2025-05-16T18:27:15+08:00">2025-05-16</time>
+              <time title="Created: 2025-06-07 16:56:19" itemprop="dateCreated datePublished" datetime="2025-06-07T16:56:19+08:00">2025-06-07</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2025-05-04 21:37:02" itemprop="dateModified" datetime="2025-05-04T21:37:02+08:00">2025-05-04</time>
+              </span>
 
           
 
@@ -275,6 +282,292 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2025/05/20/tech/apidoc_in_microservice/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="https://avatars.githubusercontent.com/u/126999663?v=4">
+      <meta itemprop="name" content="Perry Yao">
+      <meta itemprop="description" content="...">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Perry's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2025/05/20/tech/apidoc_in_microservice/" class="post-title-link" itemprop="url">Api Doc in Microservice Project</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2025-05-20 00:00:00" itemprop="dateCreated datePublished" datetime="2025-05-20T00:00:00+08:00">2025-05-20</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2025-05-23 21:32:04" itemprop="dateModified" datetime="2025-05-23T21:32:04+08:00">2025-05-23</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/tech/" itemprop="url" rel="index"><span itemprop="name">tech</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p><strong>微服务文档聚合配置模板（基于 Spring Boot 2.7.6 + Spring Cloud Gateway + Knife4j 4.3.0 + Nacos）</strong>：</p>
+<hr>
+<h2 id="🧱-1-父项目-pom-xml-中版本管理"><a href="#🧱-1-父项目-pom-xml-中版本管理" class="headerlink" title="🧱 1. 父项目 pom.xml 中版本管理"></a>🧱 1. 父项目 <code>pom.xml</code> 中版本管理</h2><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">properties</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">spring-boot.version</span>&gt;</span>2.7.6<span class="tag">&lt;/<span class="name">spring-boot.version</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">spring-cloud.version</span>&gt;</span>2021.0.6<span class="tag">&lt;/<span class="name">spring-cloud.version</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">knife4j.version</span>&gt;</span>4.3.0<span class="tag">&lt;/<span class="name">knife4j.version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">properties</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">dependencyManagement</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">dependencies</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-dependencies<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">version</span>&gt;</span>$&#123;spring-boot.version&#125;<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">type</span>&gt;</span>pom<span class="tag">&lt;/<span class="name">type</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">scope</span>&gt;</span>import<span class="tag">&lt;/<span class="name">scope</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line"></span><br><span class="line">        <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.cloud<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-cloud-dependencies<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">version</span>&gt;</span>$&#123;spring-cloud.version&#125;<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">type</span>&gt;</span>pom<span class="tag">&lt;/<span class="name">type</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">scope</span>&gt;</span>import<span class="tag">&lt;/<span class="name">scope</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line"></span><br><span class="line">        <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>com.github.xiaoymin<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>knife4j-gateway-spring-boot-starter<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">version</span>&gt;</span>$&#123;knife4j.version&#125;<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">dependencies</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependencyManagement</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="🚪-2-Gateway-项目依赖"><a href="#🚪-2-Gateway-项目依赖" class="headerlink" title="🚪 2. Gateway 项目依赖"></a>🚪 2. Gateway 项目依赖</h2><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependencies</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.cloud<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-cloud-starter-gateway<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>com.alibaba.cloud<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-cloud-starter-alibaba-nacos-discovery<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>com.github.xiaoymin<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>knife4j-gateway-spring-boot-starter<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependencies</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="⚙️-3-Gateway-application-yml-配置（核心）"><a href="#⚙️-3-Gateway-application-yml-配置（核心）" class="headerlink" title="⚙️ 3. Gateway application.yml 配置（核心）"></a>⚙️ 3. Gateway <code>application.yml</code> 配置（核心）</h2><figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">server:</span></span><br><span class="line">  <span class="attr">port:</span> <span class="number">8080</span></span><br><span class="line"></span><br><span class="line"><span class="attr">spring:</span></span><br><span class="line">  <span class="attr">application:</span></span><br><span class="line">    <span class="attr">name:</span> <span class="string">pyoj-backend-gateway</span></span><br><span class="line">  <span class="attr">cloud:</span></span><br><span class="line">    <span class="attr">nacos:</span></span><br><span class="line">      <span class="attr">discovery:</span></span><br><span class="line">        <span class="attr">server-addr:</span> <span class="number">127.0</span><span class="number">.0</span><span class="number">.1</span><span class="string">:8848</span></span><br><span class="line">    <span class="attr">gateway:</span></span><br><span class="line">      <span class="attr">routes:</span></span><br><span class="line">        <span class="bullet">-</span> <span class="attr">id:</span> <span class="string">pyoj-backend-user-service</span></span><br><span class="line">          <span class="attr">uri:</span> <span class="string">lb://pyoj-backend-user-service</span></span><br><span class="line">          <span class="attr">predicates:</span></span><br><span class="line">            <span class="bullet">-</span> <span class="string">Path=/api/user/**</span></span><br><span class="line">        <span class="bullet">-</span> <span class="attr">id:</span> <span class="string">pyoj-backend-question-service</span></span><br><span class="line">          <span class="attr">uri:</span> <span class="string">lb://pyoj-backend-question-service</span></span><br><span class="line">          <span class="attr">predicates:</span></span><br><span class="line">            <span class="bullet">-</span> <span class="string">Path=/api/question/**</span></span><br><span class="line">        <span class="bullet">-</span> <span class="attr">id:</span> <span class="string">pyoj-backend-submit-service</span></span><br><span class="line">          <span class="attr">uri:</span> <span class="string">lb://pyoj-backend-submit-service</span></span><br><span class="line">          <span class="attr">predicates:</span></span><br><span class="line">            <span class="bullet">-</span> <span class="string">Path=/api/submit/**</span></span><br><span class="line">        <span class="bullet">-</span> <span class="attr">id:</span> <span class="string">pyoj-backend-judge-service</span></span><br><span class="line">          <span class="attr">uri:</span> <span class="string">lb://pyoj-backend-judge-service</span></span><br><span class="line">          <span class="attr">predicates:</span></span><br><span class="line">            <span class="bullet">-</span> <span class="string">Path=/api/judge/**</span></span><br><span class="line"></span><br><span class="line"><span class="attr">knife4j:</span></span><br><span class="line">  <span class="attr">gateway:</span></span><br><span class="line">    <span class="attr">enabled:</span> <span class="literal">true</span></span><br><span class="line">    <span class="attr">strategy:</span> <span class="string">manual</span></span><br><span class="line">    <span class="attr">routes:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">用户服务</span></span><br><span class="line">        <span class="attr">service-name:</span> <span class="string">pyoj-backend-user-service</span></span><br><span class="line">        <span class="attr">url:</span> <span class="string">/api/user/v3/api-docs</span></span><br><span class="line">      <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">题目服务</span></span><br><span class="line">        <span class="attr">service-name:</span> <span class="string">pyoj-backend-question-service</span></span><br><span class="line">        <span class="attr">url:</span> <span class="string">/api/question/v3/api-docs</span></span><br><span class="line">      <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">提交服务</span></span><br><span class="line">        <span class="attr">service-name:</span> <span class="string">pyoj-backend-submit-service</span></span><br><span class="line">        <span class="attr">url:</span> <span class="string">/api/submit/v3/api-docs</span></span><br><span class="line">      <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">判题服务</span></span><br><span class="line">        <span class="attr">service-name:</span> <span class="string">pyoj-backend-judge-service</span></span><br><span class="line">        <span class="attr">url:</span> <span class="string">/api/judge/v3/api-docs</span></span><br></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="📦-4-子服务通用依赖（user-question-submit-judge）"><a href="#📦-4-子服务通用依赖（user-question-submit-judge）" class="headerlink" title="📦 4. 子服务通用依赖（user &#x2F; question &#x2F; submit &#x2F; judge）"></a>📦 4. 子服务通用依赖（user &#x2F; question &#x2F; submit &#x2F; judge）</h2><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!-- OpenAPI 文档生成 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springdoc<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>springdoc-openapi-ui<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">&lt;!-- Knife4j 增强支持（可选） --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>com.github.xiaoymin<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>knife4j-openapi3-spring-boot-starter<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="📝-5-子服务通用配置（application-yml）"><a href="#📝-5-子服务通用配置（application-yml）" class="headerlink" title="📝 5. 子服务通用配置（application.yml）"></a>📝 5. 子服务通用配置（application.yml）</h2><figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">springdoc:</span></span><br><span class="line">  <span class="attr">api-docs:</span></span><br><span class="line">    <span class="attr">enabled:</span> <span class="literal">true</span></span><br><span class="line">  <span class="attr">swagger-ui:</span></span><br><span class="line">    <span class="attr">enabled:</span> <span class="literal">true</span></span><br><span class="line"></span><br><span class="line"><span class="attr">knife4j:</span></span><br><span class="line">  <span class="attr">enable:</span> <span class="literal">true</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 若需要 context-path，需配合 gateway 路由写好前缀</span></span><br><span class="line"><span class="attr">server:</span></span><br><span class="line">  <span class="attr">port:</span> <span class="number">8081</span></span><br><span class="line">  <span class="attr">servlet:</span></span><br><span class="line">    <span class="attr">context-path:</span> <span class="string">/api/user</span>  <span class="comment"># 不同服务改不同前缀</span></span><br></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="📍-6-访问地址"><a href="#📍-6-访问地址" class="headerlink" title="📍 6. 访问地址"></a>📍 6. 访问地址</h2><ul>
+<li><p>聚合入口（统一访问）：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http://localhost:8080/knife4j</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>单服务 Swagger UI：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">http://localhost:8081/api/user/swagger-ui/index.html # openapi</span><br><span class="line">http://localhost:8081/api/user/doc.html  # Knife4j UI</span><br></pre></td></tr></table></figure></li>
+</ul>
+<hr>
+<h2 id="✅-附：快速排错建议"><a href="#✅-附：快速排错建议" class="headerlink" title="✅ 附：快速排错建议"></a>✅ 附：快速排错建议</h2><table>
+<thead>
+<tr>
+<th>问题</th>
+<th>原因</th>
+<th>解决</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>文档请求异常</td>
+<td>gateway 未配置 route</td>
+<td>补上该服务的 route</td>
+</tr>
+<tr>
+<td>聚合失败</td>
+<td>manual 模式未写正确 url</td>
+<td>补 <code>/api/**/v3/api-docs</code> 路径</td>
+</tr>
+<tr>
+<td>Knife4j 页面白屏</td>
+<td>controller 参数未加注解 &#x2F; path 错误</td>
+<td>加 <code>@RequestParam</code>, 避免 <code>@RequestMapping(&quot;&quot;)</code></td>
+</tr>
+<tr>
+<td>无法识别接口</td>
+<td>没加 <code>springdoc-openapi-ui</code></td>
+<td>所有服务都要加 openapi 依赖</td>
+</tr>
+</tbody></table>
+<p><strong>注</strong>: 对于内部api(XXXInnerController), 可以打上</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">@io.swagger.v3.oas.annotations.Hidden</span><br></pre></td></tr></table></figure>
+
+<p>注解, 使其不暴露在接口文档中. </p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2025/04/23/tech/wsl2_clash_proxy_docker/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="https://avatars.githubusercontent.com/u/126999663?v=4">
+      <meta itemprop="name" content="Perry Yao">
+      <meta itemprop="description" content="...">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Perry's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2025/04/23/tech/wsl2_clash_proxy_docker/" class="post-title-link" itemprop="url">Clash in Win, proxy in wsl</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2025-04-23 00:00:00" itemprop="dateCreated datePublished" datetime="2025-04-23T00:00:00+08:00">2025-04-23</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2025-06-07 16:52:56" itemprop="dateModified" datetime="2025-06-07T16:52:56+08:00">2025-06-07</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/tech/" itemprop="url" rel="index"><span itemprop="name">tech</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="🐧-使用-Clash-WSL-安装并配置-Docker-代理访问外网的完整指南"><a href="#🐧-使用-Clash-WSL-安装并配置-Docker-代理访问外网的完整指南" class="headerlink" title="🐧 使用 Clash + WSL 安装并配置 Docker 代理访问外网的完整指南"></a>🐧 使用 Clash + WSL 安装并配置 Docker 代理访问外网的完整指南</h1><blockquote>
+<p>本笔记记录了在 Windows 主机上使用 Clash 实现代理，并在 WSL 中配置代理环境与 Docker 访问 Docker Hub 的全过程。</p>
+</blockquote>
+<hr>
+<h2 id="🧱-系统环境"><a href="#🧱-系统环境" class="headerlink" title="🧱 系统环境"></a>🧱 系统环境</h2><ul>
+<li>Windows 主机已安装 <strong>Clash for Windows</strong>（英文版）</li>
+<li>使用 <strong>WSL2</strong>（Ubuntu 发行版）</li>
+<li>在 <strong>WSL 中独立安装了 Docker Engine</strong>（无 Docker Desktop）</li>
+</ul>
+<hr>
+<h2 id="📦-步骤一：Windows-上配置-Clash-for-Windows"><a href="#📦-步骤一：Windows-上配置-Clash-for-Windows" class="headerlink" title="📦 步骤一：Windows 上配置 Clash for Windows"></a>📦 步骤一：Windows 上配置 Clash for Windows</h2><h3 id="1-下载并安装-Clash-for-Windows"><a href="#1-下载并安装-Clash-for-Windows" class="headerlink" title="1. 下载并安装 Clash for Windows"></a>1. 下载并安装 Clash for Windows</h3><p>从 GitHub 下载最新版：<a target="_blank" rel="noopener" href="https://github.com/Fndroid/clash_for_windows_pkg">https://github.com/Fndroid/clash_for_windows_pkg</a></p>
+<h3 id="2-导入订阅配置"><a href="#2-导入订阅配置" class="headerlink" title="2. 导入订阅配置"></a>2. 导入订阅配置</h3><ul>
+<li>打开 Clash</li>
+<li>菜单栏点击 <strong>Profiles</strong></li>
+<li>点击 <code>Import</code> → <code>Subscription</code></li>
+<li>粘贴你的订阅链接 → 下载并激活</li>
+</ul>
+<h3 id="3-设置代理模式与端口"><a href="#3-设置代理模式与端口" class="headerlink" title="3. 设置代理模式与端口"></a>3. 设置代理模式与端口</h3><ul>
+<li>点击 <strong>General</strong> 标签页<ul>
+<li><code>Allow LAN</code>: ✅ 开启</li>
+<li><code>Mixed Port</code>: 默认 <code>7890</code>，保留</li>
+<li><code>Mode</code>: 推荐选 <strong>Global</strong>（全局代理）</li>
+<li><code>System Proxy</code>: 可选开关（影响 Windows 浏览器）</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h2 id="🌐-步骤二：在-WSL-中设置-Clash-代理"><a href="#🌐-步骤二：在-WSL-中设置-Clash-代理" class="headerlink" title="🌐 步骤二：在 WSL 中设置 Clash 代理"></a>🌐 步骤二：在 WSL 中设置 Clash 代理</h2><h3 id="1-添加以下函数到-bashrc"><a href="#1-添加以下函数到-bashrc" class="headerlink" title="1. 添加以下函数到 ~/.bashrc"></a>1. 添加以下函数到 <code>~/.bashrc</code></h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 获取 Windows 主机 IP</span></span><br><span class="line"><span class="function"><span class="title">get_proxy_host</span></span>() &#123;</span><br><span class="line">  ip route | grep default | awk <span class="string">&#x27;&#123;print $3&#125;&#x27;</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment"># 开启代理</span></span><br><span class="line"><span class="function"><span class="title">proxy_on</span></span>() &#123;</span><br><span class="line">  WIN_PROXY_HOST=$(get_proxy_host)</span><br><span class="line">  WIN_PROXY_PORT=7890</span><br><span class="line">  <span class="built_in">export</span> http_proxy=http://<span class="variable">$&#123;WIN_PROXY_HOST&#125;</span>:<span class="variable">$&#123;WIN_PROXY_PORT&#125;</span></span><br><span class="line">  <span class="built_in">export</span> https_proxy=http://<span class="variable">$&#123;WIN_PROXY_HOST&#125;</span>:<span class="variable">$&#123;WIN_PROXY_PORT&#125;</span></span><br><span class="line">  <span class="built_in">export</span> all_proxy=socks5://<span class="variable">$&#123;WIN_PROXY_HOST&#125;</span>:<span class="variable">$&#123;WIN_PROXY_PORT&#125;</span></span><br><span class="line">  <span class="built_in">echo</span> <span class="string">&quot;⚠️  Make sure Clash is running in Windows first.&quot;</span></span><br><span class="line">  <span class="built_in">echo</span> <span class="string">&quot;✅ Proxy set to <span class="variable">$WIN_PROXY_HOST</span>:<span class="variable">$WIN_PROXY_PORT</span>&quot;</span></span><br><span class="line">  <span class="built_in">echo</span> <span class="string">&quot;----------------------------------------&quot;</span></span><br><span class="line">  curl -s cip.cc || <span class="built_in">echo</span> <span class="string">&quot;❌ curl failed. Clash may not be running or port is blocked.&quot;</span></span><br><span class="line">  <span class="built_in">echo</span> <span class="string">&quot;----------------------------------------&quot;</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment"># 关闭代理</span></span><br><span class="line"><span class="function"><span class="title">proxy_off</span></span>() &#123;</span><br><span class="line">  <span class="built_in">unset</span> http_proxy</span><br><span class="line">  <span class="built_in">unset</span> https_proxy</span><br><span class="line">  <span class="built_in">unset</span> all_proxy</span><br><span class="line">  <span class="built_in">echo</span> <span class="string">&quot;Proxy disabled&quot;</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="2-启用代理"><a href="#2-启用代理" class="headerlink" title="2. 启用代理"></a>2. 启用代理</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">source</span> ~/.bashrc</span><br><span class="line">proxy_on</span><br></pre></td></tr></table></figure>
+
+<p>确认返回 IP 地址为代理出口地址。</p>
+<hr>
+<h2 id="🐳-步骤三：在-WSL-中运行-Docker-并使用代理拉镜像"><a href="#🐳-步骤三：在-WSL-中运行-Docker-并使用代理拉镜像" class="headerlink" title="🐳 步骤三：在 WSL 中运行 Docker 并使用代理拉镜像"></a>🐳 步骤三：在 WSL 中运行 Docker 并使用代理拉镜像</h2><h3 id="情况：你未启用-systemd，需手动启动-Docker-Daemon"><a href="#情况：你未启用-systemd，需手动启动-Docker-Daemon" class="headerlink" title="情况：你未启用 systemd，需手动启动 Docker Daemon"></a>情况：你未启用 <code>systemd</code>，需手动启动 Docker Daemon</h3><h4 id="1-使用代理启动-Docker-Daemon："><a href="#1-使用代理启动-Docker-Daemon：" class="headerlink" title="1. 使用代理启动 Docker Daemon："></a>1. 使用代理启动 Docker Daemon：</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="title">start_docker_with_proxy</span></span>() &#123;</span><br><span class="line">  <span class="built_in">echo</span> <span class="string">&quot;🚀 Starting Docker daemon with proxy...&quot;</span></span><br><span class="line">  WIN_PROXY_HOST=$(get_proxy_host)</span><br><span class="line">  WIN_PROXY_PORT=7890</span><br><span class="line">  <span class="built_in">sudo</span> HTTP_PROXY=http://<span class="variable">$&#123;WIN_PROXY_HOST&#125;</span>:<span class="variable">$&#123;WIN_PROXY_PORT&#125;</span> \</span><br><span class="line">       HTTPS_PROXY=http://<span class="variable">$&#123;WIN_PROXY_HOST&#125;</span>:<span class="variable">$&#123;WIN_PROXY_PORT&#125;</span> \</span><br><span class="line">       dockerd &gt; /tmp/dockerd.log 2&gt;&amp;1 &amp;</span><br><span class="line">  <span class="built_in">sleep</span> 2</span><br><span class="line">  docker info &gt; /dev/null 2&gt;&amp;1 &amp;&amp; <span class="built_in">echo</span> <span class="string">&quot;✅ Docker started&quot;</span> || <span class="built_in">echo</span> <span class="string">&quot;❌ Failed to start Docker&quot;</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="2-或使用非代理方式启动（适用于无需翻墙时）"><a href="#2-或使用非代理方式启动（适用于无需翻墙时）" class="headerlink" title="2. 或使用非代理方式启动（适用于无需翻墙时）"></a>2. 或使用非代理方式启动（适用于无需翻墙时）</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="title">start_docker</span></span>() &#123;</span><br><span class="line">  <span class="built_in">echo</span> <span class="string">&quot;🚀 Starting Docker daemon without proxy...&quot;</span></span><br><span class="line">  <span class="built_in">sudo</span> dockerd &gt; /tmp/dockerd.log 2&gt;&amp;1 &amp;</span><br><span class="line">  <span class="built_in">sleep</span> 2</span><br><span class="line">  docker info &gt; /dev/null 2&gt;&amp;1 &amp;&amp; <span class="built_in">echo</span> <span class="string">&quot;✅ Docker started&quot;</span> || <span class="built_in">echo</span> <span class="string">&quot;❌ Failed to start Docker&quot;</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="3-停止-Docker"><a href="#3-停止-Docker" class="headerlink" title="3. 停止 Docker"></a>3. 停止 Docker</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="title">stop_docker</span></span>() &#123;</span><br><span class="line">  <span class="built_in">echo</span> <span class="string">&quot;🛑 Stopping Docker daemon...&quot;</span></span><br><span class="line">  <span class="built_in">sudo</span> pkill dockerd &amp;&amp; <span class="built_in">echo</span> <span class="string">&quot;✅ Docker daemon stopped&quot;</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="📁-步骤四：使用-docker-compose-启动-Consul-服务"><a href="#📁-步骤四：使用-docker-compose-启动-Consul-服务" class="headerlink" title="📁 步骤四：使用 docker compose 启动 Consul 服务"></a>📁 步骤四：使用 <code>docker compose</code> 启动 Consul 服务</h2><h3 id="1-项目结构"><a href="#1-项目结构" class="headerlink" title="1. 项目结构"></a>1. 项目结构</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">~/code/projects/gorder/</span><br><span class="line">└── docker-compose.yml</span><br></pre></td></tr></table></figure>
+
+<h3 id="2-示例-docker-compose-yml"><a href="#2-示例-docker-compose-yml" class="headerlink" title="2. 示例 docker-compose.yml"></a>2. 示例 <code>docker-compose.yml</code></h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">version: <span class="string">&quot;3.9&quot;</span></span><br><span class="line">services:</span><br><span class="line">  consul:</span><br><span class="line">    image: hashicorp/consul</span><br><span class="line">    container_name: consul-server</span><br><span class="line">    <span class="built_in">command</span>: agent -server -ui -node=server-1 -bootstrap-expect=1 -client=0.0.0.0</span><br><span class="line">    ports:</span><br><span class="line">      - <span class="string">&quot;8500:8500&quot;</span></span><br><span class="line">      - <span class="string">&quot;8600:8600/udp&quot;</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="3-快捷函数或-alias-启动-Consul"><a href="#3-快捷函数或-alias-启动-Consul" class="headerlink" title="3. 快捷函数或 alias 启动 Consul"></a>3. 快捷函数或 alias 启动 Consul</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="title">start_consul</span></span>() &#123;</span><br><span class="line">  <span class="built_in">cd</span> ~/code/projects/gorder</span><br><span class="line">  docker compose up -d</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="built_in">alias</span> consulup=<span class="string">&#x27;cd ~/code/projects/gorder &amp;&amp; docker compose up -d&#x27;</span></span><br><span class="line"><span class="built_in">alias</span> consuldn=<span class="string">&#x27;cd ~/code/projects/gorder &amp;&amp; docker compose down&#x27;</span></span><br></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="🔁-一键启动全流程（推荐顺序）"><a href="#🔁-一键启动全流程（推荐顺序）" class="headerlink" title="🔁 一键启动全流程（推荐顺序）"></a>🔁 一键启动全流程（推荐顺序）</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">proxy_on                     <span class="comment"># 开启 Clash 网络代理</span></span><br><span class="line">start_docker_with_proxy      <span class="comment"># 启动 Docker Daemon 使用代理</span></span><br><span class="line">start_consul                 <span class="comment"># 启动 Consul 服务</span></span><br></pre></td></tr></table></figure>
+
+<p>关闭时：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">consuldn                     <span class="comment"># 停止容器</span></span><br><span class="line">stop_docker                  <span class="comment"># 停止 Docker Daemon</span></span><br><span class="line">proxy_off                    <span class="comment"># 关闭代理</span></span><br></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="✅-常见问题"><a href="#✅-常见问题" class="headerlink" title="✅ 常见问题"></a>✅ 常见问题</h2><table>
+<thead>
+<tr>
+<th>问题</th>
+<th>原因</th>
+<th>解决方法</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>curl</code> 能用但 <code>docker pull</code> 失败</td>
+<td>Docker daemon 没有使用代理</td>
+<td>用 <code>HTTP_PROXY=... dockerd</code> 启动</td>
+</tr>
+<tr>
+<td><code>127.0.0.1:7890</code> 无法连接</td>
+<td>WSL 的 localhost ≠ Windows localhost</td>
+<td>使用 <code>ip route</code> 获取宿主机地址</td>
+</tr>
+<tr>
+<td><code>docker compose</code> 找不到文件</td>
+<td>文件名应为 <code>docker-compose.yml</code></td>
+<td>使用标准命名或 <code>-f</code> 指定文件</td>
+</tr>
+<tr>
+<td><code>systemctl</code> 无法使用</td>
+<td>WSL 未启用 systemd</td>
+<td>添加 <code>/etc/wsl.conf</code> 并重启 WSL</td>
+</tr>
+</tbody></table>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
     <link itemprop="mainEntityOfPage" href="http://example.com/2025/04/23/tech/wsl2_docker_install_guide/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -298,16 +591,10 @@
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">Posted on</span>
+              
 
-              <time title="Created: 2025-04-23 00:00:00" itemprop="dateCreated datePublished" datetime="2025-04-23T00:00:00+08:00">2025-04-23</time>
+              <time title="Created: 2025-04-23 00:00:00 / Modified: 13:10:26" itemprop="dateCreated datePublished" datetime="2025-04-23T00:00:00+08:00">2025-04-23</time>
             </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2025-05-16 18:27:15" itemprop="dateModified" datetime="2025-05-16T18:27:15+08:00">2025-05-16</time>
-              </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="far fa-folder"></i>
@@ -482,7 +769,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2025-05-16 18:27:15" itemprop="dateModified" datetime="2025-05-16T18:27:15+08:00">2025-05-16</time>
+                <time title="Modified: 2025-04-17 18:17:26" itemprop="dateModified" datetime="2025-04-17T18:17:26+08:00">2025-04-17</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -632,16 +919,10 @@
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">Posted on</span>
+              
 
-              <time title="Created: 2025-04-12 00:00:00" itemprop="dateCreated datePublished" datetime="2025-04-12T00:00:00+08:00">2025-04-12</time>
+              <time title="Created: 2025-04-12 00:00:00 / Modified: 20:49:56" itemprop="dateCreated datePublished" datetime="2025-04-12T00:00:00+08:00">2025-04-12</time>
             </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2025-05-16 18:27:15" itemprop="dateModified" datetime="2025-05-16T18:27:15+08:00">2025-05-16</time>
-              </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="far fa-folder"></i>
@@ -837,16 +1118,10 @@
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">Posted on</span>
+              
 
-              <time title="Created: 2025-04-12 00:00:00" itemprop="dateCreated datePublished" datetime="2025-04-12T00:00:00+08:00">2025-04-12</time>
+              <time title="Created: 2025-04-12 00:00:00 / Modified: 20:53:18" itemprop="dateCreated datePublished" datetime="2025-04-12T00:00:00+08:00">2025-04-12</time>
             </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2025-05-16 18:27:15" itemprop="dateModified" datetime="2025-05-16T18:27:15+08:00">2025-05-16</time>
-              </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="far fa-folder"></i>
@@ -996,7 +1271,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2025-05-16 18:27:15" itemprop="dateModified" datetime="2025-05-16T18:27:15+08:00">2025-05-16</time>
+                <time title="Modified: 2025-04-12 19:54:52" itemprop="dateModified" datetime="2025-04-12T19:54:52+08:00">2025-04-12</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -1303,7 +1578,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2025-05-16 18:27:15" itemprop="dateModified" datetime="2025-05-16T18:27:15+08:00">2025-05-16</time>
+                <time title="Modified: 2025-04-12 19:54:52" itemprop="dateModified" datetime="2025-04-12T19:54:52+08:00">2025-04-12</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -1394,7 +1669,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2025-05-16 18:27:15" itemprop="dateModified" datetime="2025-05-16T18:27:15+08:00">2025-05-16</time>
+                <time title="Modified: 2025-04-12 19:54:52" itemprop="dateModified" datetime="2025-04-12T19:54:52+08:00">2025-04-12</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -1523,288 +1798,6 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2024/09/13/algorithm/15-bitwise/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="https://avatars.githubusercontent.com/u/126999663?v=4">
-      <meta itemprop="name" content="Perry Yao">
-      <meta itemprop="description" content="...">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Perry's Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2024/09/13/algorithm/15-bitwise/" class="post-title-link" itemprop="url">Bitwise Operate</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2024-09-13 00:00:00" itemprop="dateCreated datePublished" datetime="2024-09-13T00:00:00+08:00">2024-09-13</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2025-05-16 18:27:15" itemprop="dateModified" datetime="2025-05-16T18:27:15+08:00">2025-05-16</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/algorithm/" itemprop="url" rel="index"><span itemprop="name">algorithm</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <hr>
-<h1 id="基本概念"><a href="#基本概念" class="headerlink" title="基本概念"></a>基本概念</h1><p>Java 中的 <code>int</code> 类型是一个 32 位的有符号整数，使用补码（two’s complement）表示法来存储。了解 <code>int</code> 类型的 bit 表示和位运算是深入理解 Java 中整数操作的重要基础。</p>
-<h3 id="1-int-类型的二进制表示"><a href="#1-int-类型的二进制表示" class="headerlink" title="1. int 类型的二进制表示"></a>1. <code>int</code> 类型的二进制表示</h3><p>在 Java 中，<code>int</code> 类型是一个 32 位的有符号整数，存储范围从 <code>-2^31</code> 到 <code>2^31 - 1</code>，即从 <code>-2147483648</code> 到 <code>2147483647</code>。具体的二进制表示是使用 <strong>补码</strong> 方式。补码表示法的特点是负数的表示是其绝对值的二进制表示取反加一。</p>
-<h4 id="正数的二进制表示"><a href="#正数的二进制表示" class="headerlink" title="正数的二进制表示"></a>正数的二进制表示</h4><ul>
-<li><p>正数的二进制表示就是它的绝对值的二进制形式，最高位为 0（表示正数）。</p>
-<p>例如，5 在 32 位的二进制表示为：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">00000000 00000000 00000000 00000101</span><br></pre></td></tr></table></figure></li>
-</ul>
-<h4 id="负数的二进制表示"><a href="#负数的二进制表示" class="headerlink" title="负数的二进制表示"></a>负数的二进制表示</h4><ul>
-<li><p>负数的二进制表示是其绝对值的二进制表示取反再加一，最高位为 1（表示负数）。</p>
-<p>例如，-5 的补码表示：</p>
-<ol>
-<li>先写出 <code>5</code> 的二进制： <code>00000000 00000000 00000000 00000101</code></li>
-<li>取反： <code>11111111 11111111 11111111 11111010</code></li>
-<li>加一： <code>11111111 11111111 11111111 11111011</code>，即 <code>-5</code> 的补码表示：</li>
-</ol>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">11111111 11111111 11111111 11111011</span><br></pre></td></tr></table></figure></li>
-</ul>
-<h4 id="特殊值："><a href="#特殊值：" class="headerlink" title="特殊值："></a>特殊值：</h4><ul>
-<li><p>0 的二进制表示为：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">00000000 00000000 00000000 00000000</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>最大值 2147483647 (2^31 - 1) 的二进制表示为：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">01111111 11111111 11111111 11111111</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>最小值 -2147483648 (-2^31) 的二进制表示为：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">10000000 00000000 00000000 00000000</span><br></pre></td></tr></table></figure></li>
-</ul>
-<h3 id="2-位运算"><a href="#2-位运算" class="headerlink" title="2. 位运算"></a>2. 位运算</h3><p>位运算是直接对整数的二进制位进行操作的运算，常见的位运算包括 AND (<code>&amp;</code>)、OR (<code>|</code>)、XOR (<code>^</code>)、NOT (<code>~</code>)、左移 (<code>&lt;&lt;</code>)、右移 (<code>&gt;&gt;</code>)、无符号右移 (<code>&gt;&gt;&gt;</code>) 等。</p>
-<h4 id="2-1-位与运算"><a href="#2-1-位与运算" class="headerlink" title="2.1. 位与运算 (&amp;)"></a>2.1. 位与运算 (<code>&amp;</code>)</h4><ul>
-<li><p><code>&amp;</code> 是按位与运算符，两个对应的二进制位都为 <code>1</code> 时，结果才为 <code>1</code>，否则为 <code>0</code>。</p>
-<p>例如：<code>5 &amp; 3</code>：</p>
-<ul>
-<li><code>5</code> 的二进制： <code>00000000 00000000 00000000 00000101</code></li>
-<li><code>3</code> 的二进制： <code>00000000 00000000 00000000 00000011</code></li>
-<li>结果： <code>00000000 00000000 00000000 00000001</code>（即 <code>1</code>）</li>
-</ul>
-</li>
-</ul>
-<h4 id="2-2-位或运算"><a href="#2-2-位或运算" class="headerlink" title="2.2. 位或运算 (|)"></a>2.2. 位或运算 (<code>|</code>)</h4><ul>
-<li><p><code>|</code> 是按位或运算符，两个对应的二进制位至少有一个为 <code>1</code> 时，结果为 <code>1</code>。</p>
-<p>例如：<code>5 | 3</code>：</p>
-<ul>
-<li><code>5</code> 的二进制： <code>00000000 00000000 00000000 00000101</code></li>
-<li><code>3</code> 的二进制： <code>00000000 00000000 00000000 00000011</code></li>
-<li>结果： <code>00000000 00000000 00000000 00000111</code>（即 <code>7</code>）</li>
-</ul>
-</li>
-</ul>
-<h4 id="2-3-位异或运算"><a href="#2-3-位异或运算" class="headerlink" title="2.3. 位异或运算 (^)"></a>2.3. 位异或运算 (<code>^</code>)</h4><ul>
-<li><p><code>^</code> 是按位异或运算符，两个对应的二进制位相异时，结果为 <code>1</code>，否则为 <code>0</code>。</p>
-<p>例如：<code>5 ^ 3</code>：</p>
-<ul>
-<li><code>5</code> 的二进制： <code>00000000 00000000 00000000 00000101</code></li>
-<li><code>3</code> 的二进制： <code>00000000 00000000 00000000 00000011</code></li>
-<li>结果： <code>00000000 00000000 00000000 00000110</code>（即 <code>6</code>）</li>
-</ul>
-</li>
-</ul>
-<h4 id="2-4-位取反运算"><a href="#2-4-位取反运算" class="headerlink" title="2.4. 位取反运算 (~)"></a>2.4. 位取反运算 (<code>~</code>)</h4><ul>
-<li><p><code>~</code> 是按位取反运算符，0 变成 1，1 变成 0。</p>
-<p>例如：<code>~5</code>：</p>
-<ul>
-<li><code>5</code> 的二进制： <code>00000000 00000000 00000000 00000101</code></li>
-<li>结果： <code>11111111 11111111 11111111 11111010</code>（即 <code>-6</code>）</li>
-</ul>
-</li>
-</ul>
-<h4 id="2-5-左移运算"><a href="#2-5-左移运算" class="headerlink" title="2.5. 左移运算 (&lt;&lt;)"></a>2.5. 左移运算 (<code>&lt;&lt;</code>)</h4><ul>
-<li><p><code>&lt;&lt;</code> 是左移运算符，操作数的每一位都会向左移动指定的位数，右侧空出的位置用 <code>0</code> 填充。</p>
-<p>例如：<code>5 &lt;&lt; 1</code>：</p>
-<ul>
-<li><code>5</code> 的二进制： <code>00000000 00000000 00000000 00000101</code></li>
-<li>结果： <code>00000000 00000000 00000000 00001010</code>（即 <code>10</code>）</li>
-</ul>
-</li>
-</ul>
-<h4 id="2-6-右移运算"><a href="#2-6-右移运算" class="headerlink" title="2.6. 右移运算 (&gt;&gt;)"></a>2.6. 右移运算 (<code>&gt;&gt;</code>)</h4><ul>
-<li><p><code>&gt;&gt;</code> 是算术右移运算符，操作数的每一位都会向右移动指定的位数，左侧的空位根据符号位填充（如果是正数，用 <code>0</code> 填充；如果是负数，用 <code>1</code> 填充）。</p>
-<p>例如：<code>5 &gt;&gt; 1</code>：</p>
-<ul>
-<li><code>5</code> 的二进制： <code>00000000 00000000 00000000 00000101</code></li>
-<li>结果： <code>00000000 00000000 00000000 00000010</code>（即 <code>2</code>）</li>
-</ul>
-</li>
-</ul>
-<h4 id="2-7-无符号右移运算"><a href="#2-7-无符号右移运算" class="headerlink" title="2.7. 无符号右移运算 (&gt;&gt;&gt;)"></a>2.7. 无符号右移运算 (<code>&gt;&gt;&gt;</code>)</h4><ul>
-<li><p><code>&gt;&gt;&gt;</code> 是无符号右移运算符，操作数的每一位都会向右移动指定的位数，左侧空位总是填充 <code>0</code>，即使是负数，也不使用符号扩展。</p>
-<p>例如：<code>-5 &gt;&gt;&gt; 1</code>：</p>
-<ul>
-<li><code>-5</code> 的二进制补码表示为： <code>11111111 11111111 11111111 11111011</code></li>
-<li>结果： <code>01111111 11111111 11111111 11111101</code>（即 <code>2147483642</code>）</li>
-</ul>
-</li>
-</ul>
-<h3 id="3-位运算应用"><a href="#3-位运算应用" class="headerlink" title="3. 位运算应用"></a>3. 位运算应用</h3><p>位运算常常用于高效的数值计算和一些优化问题中，以下是几个常见的应用：</p>
-<h4 id="3-1-检查一个数的奇偶性"><a href="#3-1-检查一个数的奇偶性" class="headerlink" title="3.1. 检查一个数的奇偶性"></a>3.1. 检查一个数的奇偶性</h4><p>通过检查最低位来判断一个数是否为偶数或奇数：</p>
-<ul>
-<li><code>n &amp; 1 == 0</code> 表示 <code>n</code> 是偶数</li>
-<li><code>n &amp; 1 == 1</code> 表示 <code>n</code> 是奇数</li>
-</ul>
-<h4 id="3-2-设置、清除、切换某一位"><a href="#3-2-设置、清除、切换某一位" class="headerlink" title="3.2. 设置、清除、切换某一位"></a>3.2. 设置、清除、切换某一位</h4><ul>
-<li>设置某一位：<code>n |= (1 &lt;&lt; k)</code>，将第 <code>k</code> 位设置为 1。</li>
-<li>清除某一位：<code>n &amp;= ~(1 &lt;&lt; k)</code>，将第 <code>k</code> 位设置为 0。</li>
-<li>切换某一位：<code>n ^= (1 &lt;&lt; k)</code>，将第 <code>k</code> 位的值取反。</li>
-</ul>
-<h4 id="3-3-判断一个数是否为-2-的幂"><a href="#3-3-判断一个数是否为-2-的幂" class="headerlink" title="3.3. 判断一个数是否为 2 的幂"></a>3.3. 判断一个数是否为 2 的幂</h4><ul>
-<li>一个数是 2 的幂当且仅当它的二进制表示只有一个 <code>1</code>，可以使用 <code>(n &amp; (n - 1)) == 0</code> 来判断。</li>
-</ul>
-<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>位运算在 Java 中非常高效，因为它直接操作二进制位，通常比常规的算术运算和逻辑运算更快。理解 <code>int</code> 的二进制表示和位运算的知识对于解决很多编程问题，特别是算法和优化问题非常有帮助。</p>
-<h1 id="常用方法"><a href="#常用方法" class="headerlink" title="常用方法"></a>常用方法</h1><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">左移( &lt;&lt; )</span><br><span class="line">右移( &gt;&gt; )  // 正数用 0 补位, 负数用 1 补位</span><br><span class="line">无符号右移( &gt;&gt;&gt; )  // 不管正数负数, 统统用 0 补位</span><br><span class="line">位与( &amp; )</span><br><span class="line">位或( | )</span><br><span class="line">位非( ~ )</span><br><span class="line">位异或( ^ )</span><br><span class="line">除了位非( ~ )是一元操作符外, 其它的都是二元操作符. </span><br><span class="line">对于 int n, n != 0, n 与 -n 的 1 之和为 33</span><br></pre></td></tr></table></figure>
-
-
-
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">BitOperation</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">        <span class="type">Solution</span> <span class="variable">s</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Solution</span>();</span><br><span class="line">        System.out.println(s.showBits(<span class="number">5</span>));</span><br><span class="line">        System.out.println(s.showBits(-<span class="number">5</span>));</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> String <span class="title function_">showBits</span><span class="params">(<span class="type">int</span> num)</span> &#123;</span><br><span class="line">        <span class="type">StringBuilder</span> <span class="variable">sb</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">StringBuilder</span>();</span><br><span class="line">        <span class="keyword">while</span> (num != <span class="number">0</span>) &#123;</span><br><span class="line">            sb.append(num &amp; <span class="number">1</span>);</span><br><span class="line">            num &gt;&gt;&gt;= <span class="number">1</span>;  <span class="comment">// 这里必须使用无符号右移</span></span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> sb.reverse().toString();  <span class="comment">// 记得翻转</span></span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">private</span> <span class="type">int</span> <span class="title function_">countBits</span><span class="params">(<span class="type">int</span> num)</span> &#123;</span><br><span class="line">        <span class="type">int</span> <span class="variable">cnt</span> <span class="operator">=</span> <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">while</span> (num != <span class="number">0</span>) &#123;</span><br><span class="line">            <span class="keyword">if</span> ((num &amp; <span class="number">1</span>) <span class="comment">/* &amp; 运算的括号不能少 */</span> == <span class="number">1</span>) cnt ++;</span><br><span class="line">            num &gt;&gt;&gt;=<span class="number">1</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> cnt;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">private</span> <span class="type">int</span> <span class="title function_">countBits1</span><span class="params">(<span class="type">int</span> num)</span> &#123;</span><br><span class="line">        <span class="type">int</span> <span class="variable">cnt</span> <span class="operator">=</span> <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">while</span> (num != <span class="number">0</span>) &#123;</span><br><span class="line">            num &amp;= (num - <span class="number">1</span>);  <span class="comment">// 清除最低位的 1</span></span><br><span class="line">            cnt ++;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> cnt;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-
-
-<h1 id="例题"><a href="#例题" class="headerlink" title="例题"></a>例题</h1><h2 id="1356-Sort-Integers-by-The-Number-of-1-Bits"><a href="#1356-Sort-Integers-by-The-Number-of-1-Bits" class="headerlink" title="1356. Sort Integers by The Number of 1 Bits"></a><a target="_blank" rel="noopener" href="https://leetcode.com/problems/sort-integers-by-the-number-of-1-bits/">1356. Sort Integers by The Number of 1 Bits</a></h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="type">int</span>[] sortByBits(<span class="type">int</span>[] arr) &#123;</span><br><span class="line">        Integer[] arr1 = Arrays.stream(arr).boxed().toArray(Integer[]::<span class="keyword">new</span>);</span><br><span class="line">        Arrays.sort(arr1, (x, y) -&gt; &#123;</span><br><span class="line">            <span class="type">int</span> <span class="variable">xbs</span> <span class="operator">=</span> cntBits(x), ybs = cntBits(y);</span><br><span class="line">            <span class="keyword">if</span> (xbs != ybs) <span class="keyword">return</span> xbs - ybs;</span><br><span class="line">            <span class="keyword">return</span> x - y;</span><br><span class="line">        &#125;);</span><br><span class="line">        <span class="keyword">return</span> Arrays.stream(arr1).mapToInt(Integer::intValue).toArray();</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">private</span> <span class="type">int</span> <span class="title function_">cntBits</span><span class="params">(<span class="type">int</span> n)</span> &#123;</span><br><span class="line">        <span class="type">int</span> <span class="variable">cnt</span> <span class="operator">=</span> <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">while</span> (n &gt; <span class="number">0</span>) &#123;</span><br><span class="line">            cnt += (n &amp; <span class="number">1</span>);</span><br><span class="line">            n &gt;&gt;= <span class="number">1</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> cnt;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p><code>Arrays.sort()</code> 若要使用 Lambda 表达式, 必须先装箱</p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2024/08/23/algorithm/14-simulation/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="https://avatars.githubusercontent.com/u/126999663?v=4">
-      <meta itemprop="name" content="Perry Yao">
-      <meta itemprop="description" content="...">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Perry's Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2024/08/23/algorithm/14-simulation/" class="post-title-link" itemprop="url">Simulate</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2024-08-23 00:00:00" itemprop="dateCreated datePublished" datetime="2024-08-23T00:00:00+08:00">2024-08-23</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2025-05-16 18:27:15" itemprop="dateModified" datetime="2025-05-16T18:27:15+08:00">2025-05-16</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/algorithm/" itemprop="url" rel="index"><span itemprop="name">algorithm</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <hr>
-<h1 id="Examples"><a href="#Examples" class="headerlink" title="Examples"></a>Examples</h1><h2 id="657-Robot-Return-to-Origin"><a href="#657-Robot-Return-to-Origin" class="headerlink" title="657. Robot Return to Origin"></a><a target="_blank" rel="noopener" href="https://leetcode.com/problems/robot-return-to-origin/">657. Robot Return to Origin</a></h2><h4 id="Java"><a href="#Java" class="headerlink" title="Java"></a>Java</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="type">boolean</span> <span class="title function_">judgeCircle</span><span class="params">(String moves)</span> &#123;</span><br><span class="line">        <span class="type">int</span> <span class="variable">xOffset</span> <span class="operator">=</span> <span class="number">0</span>, yOffset = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">char</span> move : moves.toCharArray()) &#123;</span><br><span class="line">            <span class="keyword">switch</span> (move) &#123;</span><br><span class="line">                <span class="keyword">case</span> <span class="string">&#x27;U&#x27;</span>: yOffset ++; <span class="keyword">break</span>;</span><br><span class="line">                <span class="keyword">case</span> <span class="string">&#x27;D&#x27;</span>: yOffset --; <span class="keyword">break</span>;</span><br><span class="line">                <span class="keyword">case</span> <span class="string">&#x27;R&#x27;</span>: xOffset ++; <span class="keyword">break</span>;</span><br><span class="line">                <span class="keyword">case</span> <span class="string">&#x27;L&#x27;</span>: xOffset --; <span class="keyword">break</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> xOffset == <span class="number">0</span> &amp;&amp; yOffset == <span class="number">0</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h4 id="Rust"><a href="#Rust" class="headerlink" title="Rust"></a>Rust</h4><figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">impl</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line">    <span class="keyword">pub</span> <span class="keyword">fn</span> <span class="title function_">judge_circle</span>(moves: <span class="type">String</span>) <span class="punctuation">-&gt;</span> <span class="type">bool</span> &#123;</span><br><span class="line">        <span class="keyword">let</span> <span class="keyword">mut </span><span class="variable">x_offset</span> = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">let</span> <span class="keyword">mut </span><span class="variable">y_offset</span> = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span> <span class="variable">ch</span> <span class="keyword">in</span> moves.<span class="title function_ invoke__">chars</span>() &#123;</span><br><span class="line">            <span class="keyword">match</span> ch &#123;</span><br><span class="line">                <span class="string">&#x27;U&#x27;</span> =&gt; y_offset += <span class="number">1</span>,</span><br><span class="line">                <span class="string">&#x27;D&#x27;</span> =&gt; y_offset -= <span class="number">1</span>,</span><br><span class="line">                <span class="string">&#x27;R&#x27;</span> =&gt; x_offset += <span class="number">1</span>,</span><br><span class="line">                <span class="string">&#x27;L&#x27;</span> =&gt; x_offset -= <span class="number">1</span>,</span><br><span class="line">                _ =&gt; (),</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        x_offset == <span class="number">0</span> &amp;&amp; y_offset == <span class="number">0</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-
-
-
-
-<h2 id="31-Next-Permutation"><a href="#31-Next-Permutation" class="headerlink" title="31. Next Permutation"></a><a target="_blank" rel="noopener" href="https://leetcode.com/problems/next-permutation/">31. Next Permutation</a></h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">void</span> <span class="title function_">swap</span><span class="params">(<span class="type">int</span>[] nums, <span class="type">int</span> i, <span class="type">int</span> j)</span> &#123;</span><br><span class="line">        <span class="type">int</span> <span class="variable">t</span> <span class="operator">=</span> nums[i]; nums[i] = nums[j]; nums[j] = t;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">void</span> <span class="title function_">reverse</span><span class="params">(<span class="type">int</span>[] nums, <span class="type">int</span> i, <span class="type">int</span> j)</span> &#123;</span><br><span class="line">        <span class="keyword">while</span> (i &lt; j) &#123;</span><br><span class="line">            swap(nums, i, j); i ++; j--;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">nextPermutation</span><span class="params">(<span class="type">int</span>[] nums)</span> &#123;</span><br><span class="line">        <span class="type">int</span> <span class="variable">len</span> <span class="operator">=</span> nums.length;</span><br><span class="line">        </span><br><span class="line">        <span class="comment">// 计算 breakIdx</span></span><br><span class="line">        <span class="type">int</span> <span class="variable">breakIdx</span> <span class="operator">=</span> len - <span class="number">2</span>;</span><br><span class="line">        <span class="keyword">while</span> (breakIdx &gt; -<span class="number">1</span>) &#123;</span><br><span class="line">            <span class="keyword">if</span> (nums[breakIdx] &lt; nums[breakIdx + <span class="number">1</span>]) <span class="keyword">break</span>;</span><br><span class="line">            breakIdx --;</span><br><span class="line">        &#125;  <span class="comment">// breakIdx 定义: 从尾到头, 一次出现 nums[i] &lt; nums[i + 1] 的位置 (i)</span></span><br><span class="line">		</span><br><span class="line">        <span class="comment">// 当 breakIdx == -1, 也就是数列是单调递减时, 直接reverse breakIdx 右边的部分 (整个数列)</span></span><br><span class="line">        <span class="keyword">if</span> (breakIdx == -<span class="number">1</span>) &#123;</span><br><span class="line">            reverse(nums, <span class="number">0</span>, len - <span class="number">1</span>);</span><br><span class="line">            <span class="keyword">return</span>;</span><br><span class="line">        &#125;</span><br><span class="line">		</span><br><span class="line">        <span class="comment">// 当 breakIdx&gt;-1, 寻找breakIdx右边 &gt;breakVal 的最小值的位置 (swapIdx), 交换二者的位置, 再翻转 breakIdx 右边</span></span><br><span class="line">        <span class="type">int</span> <span class="variable">breakVal</span> <span class="operator">=</span> nums[breakIdx];</span><br><span class="line">        <span class="type">int</span> <span class="variable">swapIdx</span> <span class="operator">=</span> breakIdx + <span class="number">1</span>;</span><br><span class="line">        <span class="type">int</span> <span class="variable">swapVal</span> <span class="operator">=</span> nums[swapIdx];  <span class="comment">// 根据 breakIdx 定义, 当前 swapVal 一定 &gt; breakVal</span></span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> breakIdx + <span class="number">1</span>; i &lt; len; i ++) &#123;</span><br><span class="line">            <span class="keyword">if</span> (nums[i] &lt;= breakVal) <span class="keyword">continue</span>; <span class="comment">// breakVal 前提要 &gt; breakVal 才考虑</span></span><br><span class="line">            <span class="keyword">if</span> (nums[i] &lt;= swapVal) &#123;  <span class="comment">// 要使用 &lt;= , swapIdx 要尽量靠近尾部</span></span><br><span class="line">                swapIdx = i;</span><br><span class="line">                swapVal = nums[i];</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        swap(nums, breakIdx, swapIdx);</span><br><span class="line">        reverse(nums, breakIdx + <span class="number">1</span>, len - <span class="number">1</span>);</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h2 id="463-Island-Perimeter"><a href="#463-Island-Perimeter" class="headerlink" title="463. Island Perimeter"></a><a target="_blank" rel="noopener" href="https://leetcode.com/problems/island-perimeter/">463. Island Perimeter</a></h2><h4 id="Java-1"><a href="#Java-1" class="headerlink" title="Java"></a>Java</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="type">int</span> <span class="title function_">delta</span><span class="params">(<span class="type">int</span>[][] grid, <span class="type">int</span> i, <span class="type">int</span> j)</span> &#123;</span><br><span class="line">        <span class="type">int</span> <span class="variable">rows</span> <span class="operator">=</span> grid.length;</span><br><span class="line">        <span class="type">int</span> <span class="variable">cols</span> <span class="operator">=</span> grid[<span class="number">0</span>].length;</span><br><span class="line">        <span class="type">int</span> <span class="variable">res</span> <span class="operator">=</span> <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">if</span> (i == <span class="number">0</span>      || grid[i-<span class="number">1</span>][j] == <span class="number">0</span>) res ++;</span><br><span class="line">        <span class="keyword">if</span> (i == rows-<span class="number">1</span> || grid[i+<span class="number">1</span>][j] == <span class="number">0</span>) res ++;</span><br><span class="line">        <span class="keyword">if</span> (j == <span class="number">0</span>      || grid[i][j-<span class="number">1</span>] == <span class="number">0</span>) res ++;</span><br><span class="line">        <span class="keyword">if</span> (j == cols-<span class="number">1</span> || grid[i][j+<span class="number">1</span>] == <span class="number">0</span>) res ++;</span><br><span class="line">        <span class="keyword">return</span> res;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="type">int</span> <span class="title function_">islandPerimeter</span><span class="params">(<span class="type">int</span>[][] grid)</span> &#123;</span><br><span class="line">        <span class="type">int</span> <span class="variable">cnt</span> <span class="operator">=</span> <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; grid.length; i ++) &#123;</span><br><span class="line">            <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">j</span> <span class="operator">=</span> <span class="number">0</span>; j &lt; grid[<span class="number">0</span>].length; j ++) &#123;</span><br><span class="line">                <span class="keyword">if</span> (grid[i][j] == <span class="number">0</span>) <span class="keyword">continue</span>;</span><br><span class="line">                cnt += delta(grid, i, j);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> cnt;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h4 id="Rust-1"><a href="#Rust-1" class="headerlink" title="Rust"></a>Rust</h4><figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">impl</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line">    <span class="keyword">pub</span> <span class="keyword">fn</span> <span class="title function_">island_perimeter</span>(grid: <span class="type">Vec</span>&lt;<span class="type">Vec</span>&lt;<span class="type">i32</span>&gt;&gt;) <span class="punctuation">-&gt;</span> <span class="type">i32</span> &#123;</span><br><span class="line">        <span class="keyword">let</span> <span class="variable">m</span> = grid.<span class="title function_ invoke__">len</span>();</span><br><span class="line">        <span class="keyword">let</span> <span class="variable">n</span> = grid[<span class="number">0</span>].<span class="title function_ invoke__">len</span>();</span><br><span class="line">        <span class="keyword">let</span> <span class="keyword">mut </span><span class="variable">cnt</span> = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span> <span class="variable">i</span> <span class="keyword">in</span> <span class="number">0</span>..m &#123;</span><br><span class="line">            <span class="keyword">for</span> <span class="variable">j</span> <span class="keyword">in</span> <span class="number">0</span>..n &#123;</span><br><span class="line">                <span class="keyword">if</span> grid[i][j] == <span class="number">1</span> &#123;</span><br><span class="line">                    cnt += </span><br><span class="line">                    <span class="keyword">if</span> i <span class="keyword">as</span> <span class="type">i32</span> - <span class="number">1</span> == -<span class="number">1</span> || grid[i - <span class="number">1</span>][j] == <span class="number">0</span> &#123; <span class="number">1</span> &#125; <span class="keyword">else</span> &#123; <span class="number">0</span> &#125; + </span><br><span class="line">                    <span class="keyword">if</span> i + <span class="number">1</span> == m || grid[i + <span class="number">1</span>][j] == <span class="number">0</span> &#123; <span class="number">1</span> &#125; <span class="keyword">else</span> &#123; <span class="number">0</span> &#125; + </span><br><span class="line">                    <span class="keyword">if</span> j <span class="keyword">as</span> <span class="type">i32</span> - <span class="number">1</span> == -<span class="number">1</span> || grid[i][j - <span class="number">1</span>] == <span class="number">0</span> &#123; <span class="number">1</span> &#125; <span class="keyword">else</span> &#123; <span class="number">0</span> &#125; + </span><br><span class="line">                    <span class="keyword">if</span> j + <span class="number">1</span> == n || grid[i][j + <span class="number">1</span>] == <span class="number">0</span> &#123; <span class="number">1</span> &#125; <span class="keyword">else</span> &#123; <span class="number">0</span> &#125;;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        cnt</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -1876,7 +1869,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">53</span>
+          <span class="site-state-item-count">56</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
@@ -1889,7 +1882,7 @@
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">15</span>
+        <span class="site-state-item-count">17</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>

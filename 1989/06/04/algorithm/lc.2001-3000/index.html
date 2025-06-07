@@ -1,0 +1,549 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 7.3.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="2028. Find Missing Observations123456789101112131415161718192021class Solution &#123;    public int[] missingRolls(int[] rolls, int mean, int n) &#123;        int m &#x3D; rolls.length;        int tar &#x3D; me">
+<meta property="og:type" content="article">
+<meta property="og:title" content="LeetCode 2001-3000">
+<meta property="og:url" content="http://example.com/1989/06/04/algorithm/lc.2001-3000/index.html">
+<meta property="og:site_name" content="Perry&#39;s Blog">
+<meta property="og:description" content="2028. Find Missing Observations123456789101112131415161718192021class Solution &#123;    public int[] missingRolls(int[] rolls, int mean, int n) &#123;        int m &#x3D; rolls.length;        int tar &#x3D; me">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="1989-06-03T15:00:00.000Z">
+<meta property="article:modified_time" content="2025-04-28T15:13:16.000Z">
+<meta property="article:author" content="Perry Yao">
+<meta property="article:tag" content="leetcode">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://example.com/1989/06/04/algorithm/lc.2001-3000/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'en'
+  };
+</script>
+
+  <title>LeetCode 2001-3000 | Perry's Blog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Perry's Blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">tech & muse & sleep</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
+
+  </li>
+        <li class="menu-item menu-item-schedule">
+
+    <a href="/schedule/" rel="section"><i class="fa fa-calendar fa-fw"></i>Schedule</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://example.com/1989/06/04/algorithm/lc.2001-3000/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="https://avatars.githubusercontent.com/u/126999663?v=4">
+      <meta itemprop="name" content="Perry Yao">
+      <meta itemprop="description" content="...">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Perry's Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          LeetCode 2001-3000
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 1989-06-04 00:00:00" itemprop="dateCreated datePublished" datetime="1989-06-04T00:00:00+09:00">1989-06-04</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2025-04-28 23:13:16" itemprop="dateModified" datetime="2025-04-28T23:13:16+08:00">2025-04-28</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/algorithm/" itemprop="url" rel="index"><span itemprop="name">algorithm</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h2 id="2028-Find-Missing-Observations"><a href="#2028-Find-Missing-Observations" class="headerlink" title="2028. Find Missing Observations"></a><a target="_blank" rel="noopener" href="https://leetcode.com/problems/find-missing-observations/">2028. Find Missing Observations</a></h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="type">int</span>[] missingRolls(<span class="type">int</span>[] rolls, <span class="type">int</span> mean, <span class="type">int</span> n) &#123;</span><br><span class="line">        <span class="type">int</span> <span class="variable">m</span> <span class="operator">=</span> rolls.length;</span><br><span class="line">        <span class="type">int</span> <span class="variable">tar</span> <span class="operator">=</span> mean * (m + n) - Arrays.stream(rolls).sum();</span><br><span class="line">        <span class="keyword">return</span> foo(tar, n);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">private</span> <span class="type">int</span>[] foo(<span class="type">int</span> tar, <span class="type">int</span> n) &#123;</span><br><span class="line">        <span class="keyword">if</span> (tar &lt; n * <span class="number">1</span> || tar &gt; n * <span class="number">6</span>) <span class="keyword">return</span> <span class="keyword">new</span> <span class="title class_">int</span>[<span class="number">0</span>];</span><br><span class="line">        <span class="type">int</span>[] ret = <span class="keyword">new</span> <span class="title class_">int</span>[n];</span><br><span class="line">        <span class="type">int</span> <span class="variable">q</span> <span class="operator">=</span> tar / n;</span><br><span class="line">        <span class="type">int</span> <span class="variable">r</span> <span class="operator">=</span> tar - n * q;</span><br><span class="line">        Arrays.fill(ret, q);</span><br><span class="line">        <span class="type">int</span> <span class="variable">idx</span> <span class="operator">=</span> <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">while</span> (r &gt; <span class="number">0</span>) &#123;</span><br><span class="line">            ret[idx] ++;</span><br><span class="line">            r --;</span><br><span class="line">            idx ++;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> ret;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="2058-Find-the-Minimum-and-Maximum-Number-of-Nodes-Between-Critical-Points"><a href="#2058-Find-the-Minimum-and-Maximum-Number-of-Nodes-Between-Critical-Points" class="headerlink" title="2058. Find the Minimum and Maximum Number of Nodes Between Critical Points"></a><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/find-the-minimum-and-maximum-number-of-nodes-between-critical-points/">2058. Find the Minimum and Maximum Number of Nodes Between Critical Points</a></h2><h4 id="C"><a href="#C" class="headerlink" title="C++"></a>C++</h4><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function">vector&lt;<span class="type">int</span>&gt; <span class="title">nodesBetweenCriticalPoints</span><span class="params">(ListNode* head)</span> </span>&#123;</span><br><span class="line">        <span class="type">int</span> minDist = INT_MAX;</span><br><span class="line">        <span class="type">int</span> maxDist = <span class="number">-1</span>;</span><br><span class="line">        <span class="type">int</span> firstPos = <span class="number">-1</span>, lastPos = <span class="number">-1</span>;</span><br><span class="line">        <span class="type">int</span> pos = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">while</span> (head &amp;&amp; head-&gt;next &amp;&amp; head-&gt;next-&gt;next) &#123;</span><br><span class="line">            <span class="type">int</span> p = head-&gt;val;</span><br><span class="line">            <span class="type">int</span> c = head-&gt;next-&gt;val;</span><br><span class="line">            <span class="type">int</span> n = head-&gt;next-&gt;next-&gt;val;</span><br><span class="line">            <span class="keyword">if</span> (c &lt; p &amp;&amp; c &lt; n || c &gt; p &amp;&amp; c &gt; n) &#123;</span><br><span class="line">                <span class="keyword">if</span> (firstPos == <span class="number">-1</span>) firstPos = pos;</span><br><span class="line">                <span class="keyword">else</span> minDist = <span class="built_in">min</span>(minDist, pos - lastPos);</span><br><span class="line">                lastPos = pos;</span><br><span class="line">            &#125;</span><br><span class="line">            head = head-&gt;next;</span><br><span class="line">            pos ++;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> (minDist == INT_MAX) <span class="keyword">return</span> &#123;<span class="number">-1</span>, <span class="number">-1</span>&#125;;</span><br><span class="line">        maxDist = lastPos - firstPos;</span><br><span class="line">        <span class="keyword">return</span> &#123;minDist, maxDist&#125;;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="2074-Reverse-Nodes-in-Even-Length-Groups"><a href="#2074-Reverse-Nodes-in-Even-Length-Groups" class="headerlink" title="2074. Reverse Nodes in Even Length Groups"></a><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/reverse-nodes-in-even-length-groups/">2074. Reverse Nodes in Even Length Groups</a></h2><h4 id="C-1"><a href="#C-1" class="headerlink" title="C++"></a>C++</h4><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line">    <span class="function"><span class="type">void</span> <span class="title">revlst</span><span class="params">(ListNode* head, ListNode* l, ListNode* r)</span> </span>&#123; <span class="comment">// 原地翻转l,r之间的链表(不包括l,r)</span></span><br><span class="line">        <span class="keyword">if</span> (!l || !l-&gt;next) <span class="keyword">return</span>;</span><br><span class="line">        ListNode* rev = l;</span><br><span class="line">        ListNode* p = l-&gt;next;</span><br><span class="line">        <span class="keyword">while</span> (p != r) &#123;</span><br><span class="line">            ListNode* t = p-&gt;next;</span><br><span class="line">            p-&gt;next = rev;</span><br><span class="line">            rev = p;</span><br><span class="line">            p = t;</span><br><span class="line">        &#125;</span><br><span class="line">        l-&gt;next-&gt;next = r;</span><br><span class="line">        l-&gt;next = rev;</span><br><span class="line">    &#125;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function">ListNode* <span class="title">reverseEvenLengthGroups</span><span class="params">(ListNode* head)</span> </span>&#123;</span><br><span class="line">        ListNode* dummy = <span class="keyword">new</span> <span class="built_in">ListNode</span>(<span class="number">0</span>, head);</span><br><span class="line">        ListNode* l = dummy;</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> gsz = <span class="number">1</span>; l; gsz ++) &#123;</span><br><span class="line">            ListNode* r = l-&gt;next;</span><br><span class="line">            <span class="type">int</span> sz = <span class="number">0</span>;</span><br><span class="line">            <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; gsz; i ++) &#123;</span><br><span class="line">                <span class="keyword">if</span> (!r) <span class="keyword">break</span>;</span><br><span class="line">                sz ++;</span><br><span class="line">                r = r-&gt;next;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">if</span> ((sz &amp; <span class="number">1</span>) == <span class="number">0</span>) <span class="built_in">revlst</span>(dummy, l, r);</span><br><span class="line">            <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; gsz; i ++) &#123;</span><br><span class="line">                <span class="keyword">if</span> (!l) <span class="keyword">break</span>;</span><br><span class="line">                l = l-&gt;next;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        ListNode* ans = dummy-&gt;next;</span><br><span class="line">        <span class="keyword">delete</span> dummy;</span><br><span class="line">        <span class="keyword">return</span> ans;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+
+
+<h4 id="Go"><a href="#Go" class="headerlink" title="Go"></a>Go</h4><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">reverseEvenLengthGroups</span><span class="params">(head *ListNode)</span></span> *ListNode &#123;</span><br><span class="line">    revlst := <span class="function"><span class="keyword">func</span><span class="params">(head, l, r *ListNode)</span></span> &#123;</span><br><span class="line">        <span class="keyword">if</span> l == <span class="literal">nil</span> || l.Next == <span class="literal">nil</span> &#123;</span><br><span class="line">            <span class="keyword">return</span></span><br><span class="line">        &#125;</span><br><span class="line">        rev := l</span><br><span class="line">        p := l.Next</span><br><span class="line">        <span class="keyword">for</span> p != r &#123;</span><br><span class="line">            nxt := p.Next</span><br><span class="line">            p.Next = rev</span><br><span class="line">            rev = p</span><br><span class="line">            p = nxt</span><br><span class="line">        &#125;</span><br><span class="line">        l.Next.Next = r</span><br><span class="line">        l.Next = rev</span><br><span class="line">    &#125;</span><br><span class="line">    dummy := &amp;ListNode&#123;<span class="number">0</span>, head&#125;</span><br><span class="line">    l := dummy</span><br><span class="line">    <span class="keyword">for</span> gsz := <span class="number">1</span>; l != <span class="literal">nil</span>; gsz ++ &#123;</span><br><span class="line">        r := l.Next</span><br><span class="line">        sz := <span class="number">0</span></span><br><span class="line">        <span class="keyword">for</span> i := <span class="number">0</span>; i &lt; gsz; i ++ &#123;</span><br><span class="line">            <span class="keyword">if</span> r == <span class="literal">nil</span> &#123;</span><br><span class="line">                <span class="keyword">break</span></span><br><span class="line">            &#125;</span><br><span class="line">            sz ++</span><br><span class="line">            r = r.Next</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> sz &amp; <span class="number">1</span> == <span class="number">0</span> &#123;</span><br><span class="line">            revlst(dummy, l, r)</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">for</span> i := <span class="number">0</span>; i &lt; gsz; i ++ &#123;</span><br><span class="line">            <span class="keyword">if</span> l == <span class="literal">nil</span> &#123;</span><br><span class="line">                <span class="keyword">break</span></span><br><span class="line">            &#125;</span><br><span class="line">            l = l.Next</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> dummy.Next</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+<h2 id="2090-K-Radius-Subarray-Averages"><a href="#2090-K-Radius-Subarray-Averages" class="headerlink" title="2090. K Radius Subarray Averages"></a><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/k-radius-subarray-averages/">2090. K Radius Subarray Averages</a></h2><h4 id="Go-1"><a href="#Go-1" class="headerlink" title="Go"></a>Go</h4><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">getAverages</span><span class="params">(nums []<span class="type">int</span>, k <span class="type">int</span>)</span></span> []<span class="type">int</span> &#123;</span><br><span class="line">    avgs := <span class="built_in">make</span>([]<span class="type">int</span>, <span class="built_in">len</span>(nums))</span><br><span class="line">    <span class="keyword">for</span> i := <span class="keyword">range</span> avgs &#123;</span><br><span class="line">        avgs[i] = <span class="number">-1</span></span><br><span class="line">    &#125;</span><br><span class="line">    sum := <span class="number">0</span></span><br><span class="line">    <span class="keyword">for</span> i, num := <span class="keyword">range</span> nums &#123;</span><br><span class="line">        sum += num</span><br><span class="line">        <span class="keyword">if</span> i - (<span class="number">2</span> * k) &gt;=<span class="number">0</span> &#123;</span><br><span class="line">            avgs[i - k] = sum / (<span class="number">2</span> * k + <span class="number">1</span>)</span><br><span class="line">            sum -= nums[i - (<span class="number">2</span> * k)]</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> avgs</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="2095-Delete-the-Middle-Node-of-a-Linked-List"><a href="#2095-Delete-the-Middle-Node-of-a-Linked-List" class="headerlink" title="2095. Delete the Middle Node of a Linked List"></a><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/delete-the-middle-node-of-a-linked-list/">2095. Delete the Middle Node of a Linked List</a></h2><h4 id="C-2"><a href="#C-2" class="headerlink" title="C++"></a>C++</h4><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function">ListNode* <span class="title">deleteMiddle</span><span class="params">(ListNode* head)</span> </span>&#123;</span><br><span class="line">        ListNode* dummy = <span class="keyword">new</span> <span class="built_in">ListNode</span>(<span class="number">0</span>, head);</span><br><span class="line">        ListNode* slow = dummy;</span><br><span class="line">        ListNode* fast = dummy-&gt;next;</span><br><span class="line">        <span class="keyword">while</span> (fast &amp;&amp; fast-&gt;next) &#123;</span><br><span class="line">            slow = slow-&gt;next;</span><br><span class="line">            fast = fast-&gt;next-&gt;next;</span><br><span class="line">        &#125;</span><br><span class="line">        ListNode* del = slow-&gt;next;</span><br><span class="line">        slow-&gt;next = del-&gt;next;</span><br><span class="line">        <span class="comment">// delete del;</span></span><br><span class="line">        head = dummy-&gt;next;</span><br><span class="line">        <span class="keyword">delete</span> dummy;</span><br><span class="line">        <span class="keyword">return</span> head;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="2130-Maximum-Twin-Sum-of-a-Linked-List"><a href="#2130-Maximum-Twin-Sum-of-a-Linked-List" class="headerlink" title="2130. Maximum Twin Sum of a Linked List"></a><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/maximum-twin-sum-of-a-linked-list/">2130. Maximum Twin Sum of a Linked List</a></h2><h4 id="Go-2"><a href="#Go-2" class="headerlink" title="Go"></a>Go</h4><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">pairSum</span><span class="params">(head *ListNode)</span></span> <span class="type">int</span> &#123;</span><br><span class="line">    s, f := head, head.Next</span><br><span class="line">    <span class="keyword">for</span> f != <span class="literal">nil</span> &amp;&amp; f.Next != <span class="literal">nil</span> &#123;</span><br><span class="line">        s = s.Next</span><br><span class="line">        f = f.Next.Next</span><br><span class="line">    &#125;</span><br><span class="line">    back := s.Next</span><br><span class="line">    s.Next = <span class="literal">nil</span></span><br><span class="line">    <span class="keyword">var</span> rev *ListNode = <span class="literal">nil</span></span><br><span class="line">    <span class="keyword">for</span> back != <span class="literal">nil</span> &#123;</span><br><span class="line">        nxt := back.Next</span><br><span class="line">        back.Next = rev</span><br><span class="line">        rev = back</span><br><span class="line">        back = nxt</span><br><span class="line">    &#125;</span><br><span class="line">    ans := <span class="number">0</span></span><br><span class="line">    <span class="keyword">for</span> head != <span class="literal">nil</span> &#123;</span><br><span class="line">        <span class="keyword">if</span> head.Val + rev.Val &gt; ans &#123;</span><br><span class="line">            ans = head.Val + rev.Val</span><br><span class="line">        &#125;</span><br><span class="line">        head = head.Next</span><br><span class="line">        rev = rev.Next</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> ans</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="2181-Merge-Nodes-in-Between-Zeros"><a href="#2181-Merge-Nodes-in-Between-Zeros" class="headerlink" title="2181. Merge Nodes in Between Zeros"></a><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/merge-nodes-in-between-zeros/">2181. Merge Nodes in Between Zeros</a></h2><h4 id="C-3"><a href="#C-3" class="headerlink" title="C++"></a>C++</h4><p>新建链表, 慢</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function">ListNode* <span class="title">mergeNodes</span><span class="params">(ListNode* head)</span> </span>&#123;</span><br><span class="line">        head = head-&gt;next;</span><br><span class="line">        ListNode* ans = <span class="keyword">new</span> <span class="built_in">ListNode</span>();</span><br><span class="line">        ListNode* p = ans;</span><br><span class="line">        <span class="type">int</span> sum = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">while</span> (head) &#123;</span><br><span class="line">            <span class="keyword">if</span> (head-&gt;val == <span class="number">0</span>) &#123;</span><br><span class="line">                p-&gt;next = <span class="keyword">new</span> <span class="built_in">ListNode</span>(sum);</span><br><span class="line">                p = p-&gt;next;</span><br><span class="line">                sum = <span class="number">0</span>;</span><br><span class="line">            &#125; <span class="keyword">else</span> sum += head-&gt;val;</span><br><span class="line">            head = head-&gt;next;</span><br><span class="line">        &#125;</span><br><span class="line">        p = ans-&gt;next;</span><br><span class="line">        ans-&gt;next = <span class="literal">nullptr</span>;</span><br><span class="line">        <span class="keyword">delete</span> ans;</span><br><span class="line">        <span class="keyword">return</span> p;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<p>原地修改, 快</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function">ListNode* <span class="title">mergeNodes</span><span class="params">(ListNode* head)</span> </span>&#123;</span><br><span class="line">        ListNode* p = head-&gt;next;</span><br><span class="line">        ListNode* p0 = head;</span><br><span class="line">        <span class="type">int</span> sum = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">while</span> (p) &#123;</span><br><span class="line">            <span class="keyword">if</span> (p-&gt;val == <span class="number">0</span>) &#123;</span><br><span class="line">                p-&gt;val = sum;</span><br><span class="line">                p0-&gt;next = p;</span><br><span class="line">                p0 = p;</span><br><span class="line">                sum = <span class="number">0</span>;</span><br><span class="line">            &#125; <span class="keyword">else</span> sum += p-&gt;val;</span><br><span class="line">            p = p-&gt;next;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> head-&gt;next;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+<h2 id="2220-Minimum-Bit-Flips-to-Convert-Number"><a href="#2220-Minimum-Bit-Flips-to-Convert-Number" class="headerlink" title="2220. Minimum Bit Flips to Convert Number"></a><a target="_blank" rel="noopener" href="https://leetcode.com/problems/minimum-bit-flips-to-convert-number/">2220. Minimum Bit Flips to Convert Number</a></h2><p>同 <a target="_blank" rel="noopener" href="https://leetcode.com/problems/hamming-distance/">461. Hamming Distance</a> 汉明距离</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="type">int</span> <span class="title function_">minBitFlips</span><span class="params">(<span class="type">int</span> start, <span class="type">int</span> goal)</span> &#123;</span><br><span class="line">        <span class="type">int</span> <span class="variable">xor</span> <span class="operator">=</span> start ^ goal;</span><br><span class="line">        <span class="type">int</span> <span class="variable">cnt</span> <span class="operator">=</span> <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; <span class="number">32</span>; i ++) &#123;</span><br><span class="line">            cnt += ((xor &gt;&gt;&gt; i) &amp; <span class="number">1</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> cnt;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="2265-Count-Nodes-Equal-to-Average-of-Subtree"><a href="#2265-Count-Nodes-Equal-to-Average-of-Subtree" class="headerlink" title="2265. Count Nodes Equal to Average of Subtree"></a><a target="_blank" rel="noopener" href="https://leetcode.com/problems/count-nodes-equal-to-average-of-subtree/">2265. Count Nodes Equal to Average of Subtree</a></h2><h4 id="Go-3"><a href="#Go-3" class="headerlink" title="Go"></a>Go</h4><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">averageOfSubtree</span><span class="params">(root *TreeNode)</span></span> <span class="type">int</span> &#123;</span><br><span class="line">    ans := <span class="number">0</span></span><br><span class="line">    <span class="keyword">var</span> dfs <span class="function"><span class="keyword">func</span><span class="params">(*TreeNode)</span></span> (<span class="type">int</span>, <span class="type">int</span>)</span><br><span class="line">    dfs = <span class="function"><span class="keyword">func</span><span class="params">(root *TreeNode)</span></span> (cnt, sum <span class="type">int</span>) &#123;</span><br><span class="line">        cnt = <span class="number">0</span></span><br><span class="line">        sum = <span class="number">0</span></span><br><span class="line">        <span class="keyword">if</span> root == <span class="literal">nil</span> &#123; <span class="keyword">return</span> &#125;</span><br><span class="line">        lcnt, lsum := dfs(root.Left)</span><br><span class="line">        rcnt, rsum := dfs(root.Right)</span><br><span class="line">        cnt = lcnt + rcnt + <span class="number">1</span></span><br><span class="line">        sum = lsum + rsum + root.Val</span><br><span class="line">        <span class="keyword">if</span> root.Val == sum / cnt &#123; ans ++ &#125;</span><br><span class="line">        <span class="keyword">return</span></span><br><span class="line">    &#125;</span><br><span class="line">    dfs(root)</span><br><span class="line">    <span class="keyword">return</span> ans</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="2266-Count-Number-of-Texts"><a href="#2266-Count-Number-of-Texts" class="headerlink" title="2266. Count Number of Texts"></a><a target="_blank" rel="noopener" href="https://leetcode.com/problems/count-number-of-texts/">2266. Count Number of Texts</a></h2><p><em>Math + DP</em></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">结果无法是一些 dp[i_&#123;1&#125;] * dp[i_&#123;2&#125;] * ... * dp[i_&#123;s&#125;]</span><br><span class="line">每一个 dp[i_&#123;a&#125;] 又可以写成一些 dp[i_&#123;a, 1&#125;] + dp[i_&#123;a, 2&#125;] + ... + dp[i_&#123;a, t&#125;] 相加</span><br><span class="line"></span><br><span class="line">因此事实上, 结果就是一些 dp[i] 相乘或相加</span><br><span class="line"></span><br><span class="line">只要说明</span><br><span class="line"></span><br><span class="line">(a % M) + (b % M) = (a + b) % M</span><br><span class="line">(a % M) * (b % M) = (a*b) % M</span><br><span class="line"></span><br><span class="line">即可</span><br></pre></td></tr></table></figure>
+
+
+
+<h4 id="Java"><a href="#Java" class="headerlink" title="Java"></a>Java</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="type">int</span> <span class="title function_">countTexts</span><span class="params">(String pressedKeys)</span> &#123;</span><br><span class="line">        <span class="type">int</span> <span class="variable">M</span> <span class="operator">=</span> <span class="number">1000000007</span>;</span><br><span class="line">        <span class="type">int</span> <span class="variable">L</span> <span class="operator">=</span> Math.max(pressedKeys.length(), <span class="number">4</span>); <span class="comment">// 生成足够的 DP 数组长度</span></span><br><span class="line">        <span class="type">long</span>[] dp3 = <span class="keyword">new</span> <span class="title class_">long</span>[L + <span class="number">1</span>]; <span class="comment">// 1. 使用 long; 2. 注意 L + 1</span></span><br><span class="line">        dp3[<span class="number">0</span>] = <span class="number">1L</span>; dp3[<span class="number">1</span>] = <span class="number">1L</span>; dp3[<span class="number">2</span>] = <span class="number">2L</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">3</span>; i &lt;= L; i ++) &#123;</span><br><span class="line">            dp3[i] = dp3[i - <span class="number">3</span>] + dp3[i - <span class="number">2</span>] + dp3[i - <span class="number">1</span>];</span><br><span class="line">            dp3[i] %= M; <span class="comment">// 这里要取模</span></span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="type">long</span>[] dp4 = <span class="keyword">new</span> <span class="title class_">long</span>[L + <span class="number">1</span>];</span><br><span class="line">        dp4[<span class="number">0</span>] = <span class="number">1L</span>; dp4[<span class="number">1</span>] = <span class="number">1L</span>; dp4[<span class="number">2</span>] = <span class="number">2L</span>; dp4[<span class="number">3</span>] = <span class="number">4L</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">4</span>; i &lt;= L; i ++) &#123;</span><br><span class="line">            dp4[i] = dp4[i - <span class="number">4</span>] + dp4[i - <span class="number">3</span>] + dp4[i - <span class="number">2</span>] + dp4[i - <span class="number">1</span>];</span><br><span class="line">            dp4[i] %= M;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="type">int</span> <span class="variable">cnt</span> <span class="operator">=</span> <span class="number">0</span>;</span><br><span class="line">        <span class="type">long</span> <span class="variable">ans</span> <span class="operator">=</span> <span class="number">1</span>; <span class="comment">// 使用 long</span></span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; pressedKeys.length(); i ++) &#123;</span><br><span class="line">            cnt ++;</span><br><span class="line">            <span class="keyword">if</span> (i == pressedKeys.length() - <span class="number">1</span> || pressedKeys.charAt(i) != pressedKeys.charAt(i + <span class="number">1</span>)) &#123;</span><br><span class="line">                <span class="keyword">if</span> (pressedKeys.charAt(i) == <span class="string">&#x27;7&#x27;</span> || pressedKeys.charAt(i) == <span class="string">&#x27;9&#x27;</span>) ans *= dp4[cnt];</span><br><span class="line">                <span class="keyword">else</span> ans *= dp3[cnt];</span><br><span class="line">                ans %= M; <span class="comment">// 这里也要取模</span></span><br><span class="line">                cnt = <span class="number">0</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> (<span class="type">int</span>)ans;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h4 id="Go-4"><a href="#Go-4" class="headerlink" title="Go"></a>Go</h4><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">countTexts</span><span class="params">(s <span class="type">string</span>)</span></span> <span class="type">int</span> &#123;</span><br><span class="line">    <span class="keyword">var</span> (</span><br><span class="line">        M <span class="type">int64</span> = <span class="number">1000000007</span></span><br><span class="line">        L = <span class="built_in">len</span>(s)</span><br><span class="line">        ans <span class="type">int64</span> = <span class="number">1</span></span><br><span class="line">    )</span><br><span class="line">    <span class="keyword">if</span> L &lt; <span class="number">4</span> &#123;</span><br><span class="line">        L = <span class="number">4</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    dp3 := <span class="built_in">make</span>([]<span class="type">int64</span>, L + <span class="number">1</span>)</span><br><span class="line">    dp3[<span class="number">0</span>] = <span class="number">1</span></span><br><span class="line">    dp3[<span class="number">1</span>] = <span class="number">1</span></span><br><span class="line">    dp3[<span class="number">2</span>] = <span class="number">2</span></span><br><span class="line">    <span class="keyword">for</span> i := <span class="number">3</span>; i &lt;= L; i ++ &#123;</span><br><span class="line">        dp3[i] = dp3[i - <span class="number">1</span>] + dp3[i - <span class="number">2</span>] + dp3[i - <span class="number">3</span>]</span><br><span class="line">        dp3[i] %= M</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    dp4 := <span class="built_in">make</span>([]<span class="type">int64</span>, L + <span class="number">1</span>)</span><br><span class="line">    dp4[<span class="number">0</span>] = <span class="number">1</span></span><br><span class="line">    dp4[<span class="number">1</span>] = <span class="number">1</span></span><br><span class="line">    dp4[<span class="number">2</span>] = <span class="number">2</span></span><br><span class="line">    dp4[<span class="number">3</span>] = <span class="number">4</span></span><br><span class="line">    <span class="keyword">for</span> i := <span class="number">4</span>; i &lt;= L; i ++ &#123;</span><br><span class="line">        dp4[i] = dp4[i - <span class="number">1</span>] + dp4[i - <span class="number">2</span>] + dp4[i - <span class="number">3</span>] + dp4[i - <span class="number">4</span>]</span><br><span class="line">        dp4[i] %= M</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    cnt := <span class="number">0</span></span><br><span class="line">    <span class="keyword">for</span> i := <span class="number">0</span>; i &lt; <span class="built_in">len</span>(s); i ++ &#123;</span><br><span class="line">        cnt ++</span><br><span class="line">        <span class="keyword">if</span> i == <span class="built_in">len</span>(s) - <span class="number">1</span> || s[i] != s[i + <span class="number">1</span>] &#123;</span><br><span class="line">            <span class="keyword">if</span> s[i] == <span class="string">&#x27;7&#x27;</span> || s[i] == <span class="string">&#x27;9&#x27;</span> &#123;</span><br><span class="line">                ans *= dp4[cnt]</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                ans *= dp3[cnt]</span><br><span class="line">            &#125;</span><br><span class="line">            ans %= M</span><br><span class="line">            cnt = <span class="number">0</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="type">int</span>(ans)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="2326-Spiral-Matrix-IV"><a href="#2326-Spiral-Matrix-IV" class="headerlink" title="2326. Spiral Matrix IV"></a><a target="_blank" rel="noopener" href="https://leetcode.com/problems/spiral-matrix-iv/">2326. Spiral Matrix IV</a></h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="type">int</span>[][] spiralMatrix(<span class="type">int</span> m, <span class="type">int</span> n, ListNode head) &#123;</span><br><span class="line">        <span class="type">int</span>[][] ans = <span class="keyword">new</span> <span class="title class_">int</span>[m][n];</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span>[] row : ans) Arrays.fill(row, -<span class="number">1</span>);</span><br><span class="line">        <span class="type">int</span>[] di = &#123;<span class="number">0</span>, <span class="number">1</span>, <span class="number">0</span>, -<span class="number">1</span>&#125;, dj = &#123;<span class="number">1</span>, <span class="number">0</span>, -<span class="number">1</span>, <span class="number">0</span>&#125;;</span><br><span class="line">        <span class="type">int</span> <span class="variable">d</span> <span class="operator">=</span> <span class="number">0</span>;</span><br><span class="line">        <span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>, j = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">while</span> (head != <span class="literal">null</span>) &#123;</span><br><span class="line">            ans[i][j] = head.val;</span><br><span class="line">            head = head.next;</span><br><span class="line">            <span class="type">int</span> <span class="variable">ni</span> <span class="operator">=</span> i + di[d], nj = j + dj[d];</span><br><span class="line">            <span class="keyword">if</span> (ni == -<span class="number">1</span> || ni == m || nj == -<span class="number">1</span> || nj == n || ans[ni][nj] != -<span class="number">1</span>) &#123;</span><br><span class="line">                d = (d + <span class="number">1</span>) % <span class="number">4</span>;</span><br><span class="line">                ni = i + di[d];</span><br><span class="line">                nj = j + dj[d];</span><br><span class="line">            &#125;</span><br><span class="line">            i = ni;</span><br><span class="line">            j = nj;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> ans;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h6 id="Rust"><a href="#Rust" class="headerlink" title="Rust"></a>Rust</h6><figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">impl</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line">    <span class="keyword">pub</span> <span class="keyword">fn</span> <span class="title function_">spiral_matrix</span>(m: <span class="type">i32</span>, n: <span class="type">i32</span>, <span class="keyword">mut</span> head: <span class="type">Option</span>&lt;<span class="type">Box</span>&lt;ListNode&gt;&gt;) <span class="punctuation">-&gt;</span> <span class="type">Vec</span>&lt;<span class="type">Vec</span>&lt;<span class="type">i32</span>&gt;&gt; &#123;</span><br><span class="line">        <span class="keyword">let</span> <span class="keyword">mut </span><span class="variable">ans</span>: <span class="type">Vec</span>&lt;<span class="type">Vec</span>&lt;<span class="type">i32</span>&gt;&gt; = <span class="built_in">vec!</span>[<span class="built_in">vec!</span>[-<span class="number">1</span>; n <span class="keyword">as</span> <span class="type">usize</span>]; m <span class="keyword">as</span> <span class="type">usize</span>];</span><br><span class="line">        <span class="keyword">let</span> <span class="variable">di</span>: [<span class="type">i32</span>; <span class="number">4</span>] = [<span class="number">0</span>, <span class="number">1</span>, <span class="number">0</span>, -<span class="number">1</span>];</span><br><span class="line">        <span class="keyword">let</span> <span class="variable">dj</span>: [<span class="type">i32</span>; <span class="number">4</span>] = [<span class="number">1</span>, <span class="number">0</span>, -<span class="number">1</span>, <span class="number">0</span>];</span><br><span class="line">        <span class="keyword">let</span> <span class="keyword">mut </span><span class="variable">i</span>: <span class="type">i32</span> = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">let</span> <span class="keyword">mut </span><span class="variable">j</span>: <span class="type">i32</span> = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">let</span> <span class="keyword">mut </span><span class="variable">d</span>: <span class="type">i32</span> = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">while</span> head.<span class="title function_ invoke__">as_ref</span>().<span class="title function_ invoke__">is_some</span>() &#123;</span><br><span class="line">            ans[i <span class="keyword">as</span> <span class="type">usize</span>][j <span class="keyword">as</span> <span class="type">usize</span>] = head.<span class="title function_ invoke__">as_ref</span>().<span class="title function_ invoke__">unwrap</span>().val;</span><br><span class="line">            head = head.<span class="title function_ invoke__">unwrap</span>().next;</span><br><span class="line">            <span class="keyword">let</span> <span class="keyword">mut </span><span class="variable">ni</span> = i + di[d <span class="keyword">as</span> <span class="type">usize</span>];</span><br><span class="line">            <span class="keyword">let</span> <span class="keyword">mut </span><span class="variable">nj</span> = j + dj[d <span class="keyword">as</span> <span class="type">usize</span>];</span><br><span class="line">            <span class="keyword">if</span> ni == -<span class="number">1</span> || ni == m || nj == -<span class="number">1</span> || nj == n || ans[ni <span class="keyword">as</span> <span class="type">usize</span>][nj <span class="keyword">as</span> <span class="type">usize</span>] != -<span class="number">1</span> &#123;</span><br><span class="line">                d = (d + <span class="number">1</span>) % <span class="number">4</span>;</span><br><span class="line">                ni = i + di[d <span class="keyword">as</span> <span class="type">usize</span>];</span><br><span class="line">                nj = j + dj[d <span class="keyword">as</span> <span class="type">usize</span>];</span><br><span class="line">            &#125;</span><br><span class="line">            i = ni;</span><br><span class="line">            j = nj;</span><br><span class="line">        &#125;</span><br><span class="line">        ans</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="2331-Evaluate-Boolean-Binary-Tree"><a href="#2331-Evaluate-Boolean-Binary-Tree" class="headerlink" title="2331. Evaluate Boolean Binary Tree"></a><a target="_blank" rel="noopener" href="https://leetcode.com/problems/evaluate-boolean-binary-tree/">2331. Evaluate Boolean Binary Tree</a></h2><h4 id="C-4"><a href="#C-4" class="headerlink" title="C++"></a>C++</h4><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="type">bool</span> <span class="title">evaluateTree</span><span class="params">(TreeNode* root)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (root-&gt;val == <span class="number">0</span>) <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">if</span> (root-&gt;val == <span class="number">1</span>) <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">        <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="type">bool</span> left = <span class="built_in">evaluateTree</span>(root-&gt;left);</span><br><span class="line">            <span class="type">bool</span> right = <span class="built_in">evaluateTree</span>(root-&gt;right);</span><br><span class="line">            <span class="keyword">if</span> (root-&gt;val == <span class="number">2</span>) <span class="keyword">return</span> left || right;</span><br><span class="line">            <span class="keyword">else</span> <span class="keyword">return</span> left &amp;&amp; right;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="2379-Minimum-Recolors-to-Get-K-Consecutive-Black-Blocks"><a href="#2379-Minimum-Recolors-to-Get-K-Consecutive-Black-Blocks" class="headerlink" title="2379. Minimum Recolors to Get K Consecutive Black Blocks"></a><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/minimum-recolors-to-get-k-consecutive-black-blocks/">2379. Minimum Recolors to Get K Consecutive Black Blocks</a></h2><h4 id="Go-5"><a href="#Go-5" class="headerlink" title="Go"></a>Go</h4><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">minimumRecolors</span><span class="params">(blocks <span class="type">string</span>, k <span class="type">int</span>)</span></span> <span class="type">int</span> &#123;</span><br><span class="line">    cnt := <span class="number">0</span></span><br><span class="line">    maxCnt := <span class="number">0</span></span><br><span class="line">    <span class="keyword">for</span> i, c := <span class="keyword">range</span> blocks &#123;</span><br><span class="line">        <span class="keyword">if</span> c == <span class="string">&#x27;B&#x27;</span> &#123;</span><br><span class="line">            cnt ++</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> i &gt;= k - <span class="number">1</span> &#123;</span><br><span class="line">            <span class="keyword">if</span> maxCnt &lt; cnt &#123;</span><br><span class="line">                maxCnt = cnt</span><br><span class="line">                <span class="keyword">if</span> maxCnt == k &#123;</span><br><span class="line">                    <span class="keyword">return</span> <span class="number">0</span></span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">if</span> blocks[i - (k - <span class="number">1</span>)] == <span class="string">&#x27;B&#x27;</span> &amp;&amp; cnt &gt; <span class="number">0</span> &#123;</span><br><span class="line">                cnt --</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> k - maxCnt</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="2419-Longest-Subarray-With-Maximum-Bitwise-AND"><a href="#2419-Longest-Subarray-With-Maximum-Bitwise-AND" class="headerlink" title="2419. Longest Subarray With Maximum Bitwise AND"></a><a target="_blank" rel="noopener" href="https://leetcode.com/problems/longest-subarray-with-maximum-bitwise-and/">2419. Longest Subarray With Maximum Bitwise AND</a></h2><blockquote>
+<p><strong>原理</strong>: </p>
+<p>按位与运算只会让数字越来越小</p>
+<p>所以按位与结果最大的子串, 必然是一个连续的, 重复元素的子串</p>
+<p>而其中的元素就是 nums 中的最大值 (max)</p>
+<p>故算法只要确定max 连续出现的最大次数即可</p>
+<p>以下一两种方法确定连续元素出现的最大次数</p>
+</blockquote>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="type">int</span> <span class="title function_">longestSubarray</span><span class="params">(<span class="type">int</span>[] nums)</span> &#123;</span><br><span class="line">        <span class="type">int</span> <span class="variable">max</span> <span class="operator">=</span> Arrays.stream(nums).max().getAsInt();</span><br><span class="line">        <span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> -<span class="number">1</span>, j = <span class="number">0</span>;</span><br><span class="line">        <span class="type">int</span> <span class="variable">ans</span> <span class="operator">=</span> <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">for</span> (; j &lt; nums.length; j ++) &#123;</span><br><span class="line">            <span class="keyword">if</span> (nums[j] != max) &#123;</span><br><span class="line">                ans = Math.max(ans, j - i - <span class="number">1</span>);</span><br><span class="line">                i = j;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        ans = Math.max(ans, j - i - <span class="number">1</span>);</span><br><span class="line">        <span class="keyword">return</span> ans;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="type">int</span> <span class="title function_">longestSubarray</span><span class="params">(<span class="type">int</span>[] nums)</span> &#123;</span><br><span class="line">        <span class="type">int</span> <span class="variable">max</span> <span class="operator">=</span> Arrays.stream(nums).max().getAsInt();</span><br><span class="line">        <span class="type">int</span> <span class="variable">cnt</span> <span class="operator">=</span> <span class="number">0</span>, res = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; nums.length; i ++) &#123;</span><br><span class="line">            <span class="keyword">if</span> (nums[i] == max) &#123;</span><br><span class="line">                cnt ++;</span><br><span class="line">                res = Math.max(cnt, res);</span><br><span class="line">            &#125; <span class="keyword">else</span> cnt = <span class="number">0</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> res;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="2487-Remove-Nodes-From-Linked-List"><a href="#2487-Remove-Nodes-From-Linked-List" class="headerlink" title="2487. Remove Nodes From Linked List"></a><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/remove-nodes-from-linked-list/">2487. Remove Nodes From Linked List</a></h2><h4 id="C-5"><a href="#C-5" class="headerlink" title="C++"></a>C++</h4><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function">ListNode* <span class="title">removeNodes</span><span class="params">(ListNode* head)</span> </span>&#123;</span><br><span class="line">        vector&lt;ListNode*&gt; stk;</span><br><span class="line">        <span class="keyword">while</span> (head) &#123;</span><br><span class="line">            <span class="keyword">while</span> (!stk.<span class="built_in">empty</span>() &amp;&amp; stk.<span class="built_in">back</span>()-&gt;val &lt; head-&gt;val) &#123;</span><br><span class="line">                <span class="comment">// delete stk.back();</span></span><br><span class="line">                stk.<span class="built_in">pop_back</span>();</span><br><span class="line">            &#125;</span><br><span class="line">            stk.<span class="built_in">push_back</span>(head);</span><br><span class="line">            head = head-&gt;next;</span><br><span class="line">        &#125;</span><br><span class="line">        ListNode* p = stk[<span class="number">0</span>];</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">1</span>; i &lt; stk.<span class="built_in">size</span>(); i ++) &#123;</span><br><span class="line">            p-&gt;next = stk[i];</span><br><span class="line">            p = p-&gt;next;</span><br><span class="line">        &#125;</span><br><span class="line">        p-&gt;next = <span class="literal">nullptr</span>;</span><br><span class="line">        <span class="keyword">return</span> stk[<span class="number">0</span>];</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+
+
+<h4 id="Go-6"><a href="#Go-6" class="headerlink" title="Go"></a>Go</h4><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">removeNodes</span><span class="params">(head *ListNode)</span></span> *ListNode &#123;</span><br><span class="line">    stk := []*ListNode&#123;&#125;</span><br><span class="line">    <span class="keyword">for</span> head != <span class="literal">nil</span> &#123;</span><br><span class="line">        <span class="keyword">for</span> <span class="built_in">len</span>(stk) &gt; <span class="number">0</span> &amp;&amp; stk[ <span class="built_in">len</span>(stk)<span class="number">-1</span> ].Val &lt; head.Val &#123;</span><br><span class="line">            stk = stk[: <span class="built_in">len</span>(stk)<span class="number">-1</span> ]</span><br><span class="line">        &#125;</span><br><span class="line">        stk = <span class="built_in">append</span>(stk, head)</span><br><span class="line">        head = head.Next</span><br><span class="line">    &#125;</span><br><span class="line">    p := stk[<span class="number">0</span>]</span><br><span class="line">    <span class="keyword">for</span> i := <span class="number">1</span>; i &lt; <span class="built_in">len</span>(stk); i ++ &#123;</span><br><span class="line">        p.Next = stk[i]</span><br><span class="line">        p = p.Next</span><br><span class="line">    &#125;</span><br><span class="line">    p.Next = <span class="literal">nil</span></span><br><span class="line">    <span class="keyword">return</span> stk[<span class="number">0</span>]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="2807-Insert-Greatest-Common-Divisors-in-Linked-List"><a href="#2807-Insert-Greatest-Common-Divisors-in-Linked-List" class="headerlink" title="2807. Insert Greatest Common Divisors in Linked List"></a><a target="_blank" rel="noopener" href="https://leetcode.com/problems/insert-greatest-common-divisors-in-linked-list/">2807. Insert Greatest Common Divisors in Linked List</a></h2><h4 id="Java-1"><a href="#Java-1" class="headerlink" title="Java"></a>Java</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> ListNode <span class="title function_">insertGreatestCommonDivisors</span><span class="params">(ListNode head)</span> &#123;</span><br><span class="line">        <span class="keyword">if</span> (head == <span class="literal">null</span> || head.next == <span class="literal">null</span>) <span class="keyword">return</span> head;</span><br><span class="line">        <span class="type">ListNode</span> <span class="variable">p</span> <span class="operator">=</span> head;</span><br><span class="line">        <span class="keyword">while</span> (p != <span class="literal">null</span> &amp;&amp; p.next != <span class="literal">null</span>) &#123;</span><br><span class="line">            insert(p, p.next);</span><br><span class="line">            p = p.next.next;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> head;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">void</span> <span class="title function_">insert</span><span class="params">(ListNode p, ListNode q)</span> &#123;</span><br><span class="line">        <span class="type">ListNode</span> <span class="variable">node</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">ListNode</span>(gcd(p.val, q.val), q);</span><br><span class="line">        p.next = node;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="type">int</span> <span class="title function_">gcd</span><span class="params">(<span class="type">int</span> x, <span class="type">int</span> y)</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> y &gt; <span class="number">0</span> ? gcd(y, x % y) : x;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="Rust-1"><a href="#Rust-1" class="headerlink" title="Rust"></a>Rust</h4><figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">impl</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line">    <span class="keyword">pub</span> <span class="keyword">fn</span> <span class="title function_">insert_greatest_common_divisors</span>(</span><br><span class="line">        <span class="keyword">mut</span> head: <span class="type">Option</span>&lt;<span class="type">Box</span>&lt;ListNode&gt;&gt;,</span><br><span class="line">    ) <span class="punctuation">-&gt;</span> <span class="type">Option</span>&lt;<span class="type">Box</span>&lt;ListNode&gt;&gt; &#123;</span><br><span class="line">        <span class="keyword">let</span> <span class="keyword">mut </span><span class="variable">p</span> = &amp;<span class="keyword">mut</span> head;</span><br><span class="line">        <span class="keyword">while</span> p.<span class="title function_ invoke__">as_ref</span>().<span class="title function_ invoke__">is_some</span>() &amp;&amp; p.<span class="title function_ invoke__">as_ref</span>().<span class="title function_ invoke__">unwrap</span>().next.<span class="title function_ invoke__">is_some</span>() &#123;</span><br><span class="line">            Solution::<span class="title function_ invoke__">insert_node</span>(p);</span><br><span class="line">            p = &amp;<span class="keyword">mut</span> p.<span class="title function_ invoke__">as_mut</span>().<span class="title function_ invoke__">unwrap</span>().next.<span class="title function_ invoke__">as_mut</span>().<span class="title function_ invoke__">unwrap</span>().next;</span><br><span class="line">        &#125;</span><br><span class="line">        head</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">fn</span> <span class="title function_">insert_node</span>(cur: &amp;<span class="keyword">mut</span> <span class="type">Option</span>&lt;<span class="type">Box</span>&lt;ListNode&gt;&gt;) &#123;</span><br><span class="line">        <span class="keyword">if</span> <span class="keyword">let</span> <span class="variable">Some</span>(cur) = cur &#123;</span><br><span class="line">            <span class="keyword">if</span> <span class="keyword">let</span> <span class="variable">Some</span>(nxt) = &amp;<span class="keyword">mut</span> cur.next &#123;</span><br><span class="line">                <span class="keyword">let</span> <span class="variable">gcd_val</span>: <span class="type">i32</span> = Solution::<span class="title function_ invoke__">gcd</span>(cur.val, nxt.val);</span><br><span class="line">                <span class="keyword">let</span> <span class="variable">new</span>: <span class="type">Option</span>&lt;<span class="type">Box</span>&lt;ListNode&gt;&gt; = <span class="title function_ invoke__">Some</span>(<span class="type">Box</span>::<span class="title function_ invoke__">new</span>(ListNode &#123;</span><br><span class="line">                    val: gcd_val,</span><br><span class="line">                    next: cur.next.<span class="title function_ invoke__">take</span>(),</span><br><span class="line">                &#125;));</span><br><span class="line">                cur.next = new;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">fn</span> <span class="title function_">gcd</span>(x: <span class="type">i32</span>, y: <span class="type">i32</span>) <span class="punctuation">-&gt;</span> <span class="type">i32</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">if</span> y == <span class="number">0</span> &#123; x &#125; <span class="keyword">else</span> &#123; Solution::<span class="title function_ invoke__">gcd</span>(y, x % y) &#125;;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="2816-Double-a-Number-Represented-as-a-Linked-List"><a href="#2816-Double-a-Number-Represented-as-a-Linked-List" class="headerlink" title="2816. Double a Number Represented as a Linked List"></a><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/double-a-number-represented-as-a-linked-list/">2816. Double a Number Represented as a Linked List</a></h2><h4 id="Go-7"><a href="#Go-7" class="headerlink" title="Go"></a>Go</h4><p>后序遍历, 避免翻转, 类似<a target="_blank" rel="noopener" href="https://leetcode.com/problems/add-two-numbers-ii/">445. Add Two Numbers II</a> </p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">doubleIt</span><span class="params">(head *ListNode)</span></span> *ListNode &#123;</span><br><span class="line">    <span class="keyword">var</span> foo <span class="function"><span class="keyword">func</span><span class="params">(*ListNode)</span></span> <span class="type">int</span></span><br><span class="line">    foo = <span class="function"><span class="keyword">func</span><span class="params">(head *ListNode)</span></span> <span class="type">int</span> &#123;</span><br><span class="line">        <span class="keyword">if</span> head == <span class="literal">nil</span> &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="number">0</span></span><br><span class="line">        &#125;</span><br><span class="line">        carry := foo(head.Next)</span><br><span class="line">        head.Val *= <span class="number">2</span></span><br><span class="line">        head.Val += carry</span><br><span class="line">        carry = head.Val / <span class="number">10</span></span><br><span class="line">        head.Val %= <span class="number">10</span></span><br><span class="line">        <span class="keyword">return</span> carry</span><br><span class="line">    &#125;</span><br><span class="line">    carry := foo(head)</span><br><span class="line">    <span class="keyword">if</span> carry &gt; <span class="number">0</span> &#123;</span><br><span class="line">        head = &amp;ListNode&#123;carry, head&#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> head</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="2841-Maximum-Sum-of-Almost-Unique-Subarray"><a href="#2841-Maximum-Sum-of-Almost-Unique-Subarray" class="headerlink" title="2841. Maximum Sum of Almost Unique Subarray"></a><a target="_blank" rel="noopener" href="https://leetcode.com/problems/maximum-sum-of-almost-unique-subarray/">2841. Maximum Sum of Almost Unique Subarray</a></h2><h4 id="Go-8"><a href="#Go-8" class="headerlink" title="Go"></a>Go</h4><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">maxSum</span><span class="params">(nums []<span class="type">int</span>, m <span class="type">int</span>, k <span class="type">int</span>)</span></span> (ms <span class="type">int64</span>) &#123;</span><br><span class="line">    mp := <span class="keyword">map</span>[<span class="type">int</span>]<span class="type">int</span>&#123;&#125;</span><br><span class="line">    ms = <span class="number">0</span></span><br><span class="line">    s := <span class="number">0</span></span><br><span class="line">    <span class="keyword">for</span> i, num := <span class="keyword">range</span> nums &#123;</span><br><span class="line">        mp[num] ++</span><br><span class="line">        s += num</span><br><span class="line">        <span class="keyword">if</span> i &gt;= k - <span class="number">1</span> &#123;</span><br><span class="line">            <span class="keyword">if</span> <span class="type">int64</span>(s) &gt; ms &amp;&amp; <span class="built_in">len</span>(mp) &gt;= m &#123;</span><br><span class="line">                ms = <span class="type">int64</span>(s)</span><br><span class="line">            &#125;</span><br><span class="line">            mp[nums[i - (k - <span class="number">1</span>)]] --</span><br><span class="line">            <span class="keyword">if</span> mp[nums[i - (k - <span class="number">1</span>)]] == <span class="number">0</span> &#123;</span><br><span class="line">                <span class="built_in">delete</span>(mp, nums[i - (k - <span class="number">1</span>)])</span><br><span class="line">            &#125;</span><br><span class="line">            s -= nums[i - (k - <span class="number">1</span>)]</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          
+          <div class="post-tags">
+              <a href="/tags/leetcode/" rel="tag"><i class="fa fa-tag"></i> leetcode</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/1989/06/04/algorithm/lc.151-200/" rel="prev" title="LeetCode 151-200">
+      <i class="fa fa-chevron-left"></i> LeetCode 151-200
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/1989/06/04/algorithm/lc.1501-2000/" rel="next" title="LeetCode 1501-2000">
+      LeetCode 1501-2000 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#2028-Find-Missing-Observations"><span class="nav-number">1.</span> <span class="nav-text">2028. Find Missing Observations</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2058-Find-the-Minimum-and-Maximum-Number-of-Nodes-Between-Critical-Points"><span class="nav-number">2.</span> <span class="nav-text">2058. Find the Minimum and Maximum Number of Nodes Between Critical Points</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#C"><span class="nav-number">2.0.1.</span> <span class="nav-text">C++</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2074-Reverse-Nodes-in-Even-Length-Groups"><span class="nav-number">3.</span> <span class="nav-text">2074. Reverse Nodes in Even Length Groups</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#C-1"><span class="nav-number">3.0.1.</span> <span class="nav-text">C++</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Go"><span class="nav-number">3.0.2.</span> <span class="nav-text">Go</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2090-K-Radius-Subarray-Averages"><span class="nav-number">4.</span> <span class="nav-text">2090. K Radius Subarray Averages</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Go-1"><span class="nav-number">4.0.1.</span> <span class="nav-text">Go</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2095-Delete-the-Middle-Node-of-a-Linked-List"><span class="nav-number">5.</span> <span class="nav-text">2095. Delete the Middle Node of a Linked List</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#C-2"><span class="nav-number">5.0.1.</span> <span class="nav-text">C++</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2130-Maximum-Twin-Sum-of-a-Linked-List"><span class="nav-number">6.</span> <span class="nav-text">2130. Maximum Twin Sum of a Linked List</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Go-2"><span class="nav-number">6.0.1.</span> <span class="nav-text">Go</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2181-Merge-Nodes-in-Between-Zeros"><span class="nav-number">7.</span> <span class="nav-text">2181. Merge Nodes in Between Zeros</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#C-3"><span class="nav-number">7.0.1.</span> <span class="nav-text">C++</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2220-Minimum-Bit-Flips-to-Convert-Number"><span class="nav-number">8.</span> <span class="nav-text">2220. Minimum Bit Flips to Convert Number</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2265-Count-Nodes-Equal-to-Average-of-Subtree"><span class="nav-number">9.</span> <span class="nav-text">2265. Count Nodes Equal to Average of Subtree</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Go-3"><span class="nav-number">9.0.1.</span> <span class="nav-text">Go</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2266-Count-Number-of-Texts"><span class="nav-number">10.</span> <span class="nav-text">2266. Count Number of Texts</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Java"><span class="nav-number">10.0.1.</span> <span class="nav-text">Java</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Go-4"><span class="nav-number">10.0.2.</span> <span class="nav-text">Go</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2326-Spiral-Matrix-IV"><span class="nav-number">11.</span> <span class="nav-text">2326. Spiral Matrix IV</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#Rust"><span class="nav-number">11.0.0.0.1.</span> <span class="nav-text">Rust</span></a></li></ol></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2331-Evaluate-Boolean-Binary-Tree"><span class="nav-number">12.</span> <span class="nav-text">2331. Evaluate Boolean Binary Tree</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#C-4"><span class="nav-number">12.0.1.</span> <span class="nav-text">C++</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2379-Minimum-Recolors-to-Get-K-Consecutive-Black-Blocks"><span class="nav-number">13.</span> <span class="nav-text">2379. Minimum Recolors to Get K Consecutive Black Blocks</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Go-5"><span class="nav-number">13.0.1.</span> <span class="nav-text">Go</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2419-Longest-Subarray-With-Maximum-Bitwise-AND"><span class="nav-number">14.</span> <span class="nav-text">2419. Longest Subarray With Maximum Bitwise AND</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2487-Remove-Nodes-From-Linked-List"><span class="nav-number">15.</span> <span class="nav-text">2487. Remove Nodes From Linked List</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#C-5"><span class="nav-number">15.0.1.</span> <span class="nav-text">C++</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Go-6"><span class="nav-number">15.0.2.</span> <span class="nav-text">Go</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2807-Insert-Greatest-Common-Divisors-in-Linked-List"><span class="nav-number">16.</span> <span class="nav-text">2807. Insert Greatest Common Divisors in Linked List</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Java-1"><span class="nav-number">16.0.1.</span> <span class="nav-text">Java</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Rust-1"><span class="nav-number">16.0.2.</span> <span class="nav-text">Rust</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2816-Double-a-Number-Represented-as-a-Linked-List"><span class="nav-number">17.</span> <span class="nav-text">2816. Double a Number Represented as a Linked List</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Go-7"><span class="nav-number">17.0.1.</span> <span class="nav-text">Go</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2841-Maximum-Sum-of-Almost-Unique-Subarray"><span class="nav-number">18.</span> <span class="nav-text">2841. Maximum Sum of Almost Unique Subarray</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Go-8"><span class="nav-number">18.0.1.</span> <span class="nav-text">Go</span></a></li></ol></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Perry Yao"
+      src="https://avatars.githubusercontent.com/u/126999663?v=4">
+  <p class="site-author-name" itemprop="name">Perry Yao</p>
+  <div class="site-description" itemprop="description">...</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">56</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">5</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">17</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/PerryYao-GitHub" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;PerryYao-GitHub" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:peiyouyao@gmail.com" title="E-Mail → mailto:peiyouyao@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2025</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Perry Yao</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://pisces.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a>
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

@@ -1,0 +1,506 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 7.3.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="501. Find Mode in Binary Search Tree [Tree]503. Next Greater Element II [Mono Stack]508. Most Frequent Subtree SumC++12345678910111213141516171819202122class Solution &#123;    unordered_map&lt;int,">
+<meta property="og:type" content="article">
+<meta property="og:title" content="LeetCode 501-700">
+<meta property="og:url" content="http://example.com/1989/06/04/algorithm/lc.501-700/index.html">
+<meta property="og:site_name" content="Perry&#39;s Blog">
+<meta property="og:description" content="501. Find Mode in Binary Search Tree [Tree]503. Next Greater Element II [Mono Stack]508. Most Frequent Subtree SumC++12345678910111213141516171819202122class Solution &#123;    unordered_map&lt;int,">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="1989-06-03T15:00:00.000Z">
+<meta property="article:modified_time" content="2025-05-19T09:00:24.000Z">
+<meta property="article:author" content="Perry Yao">
+<meta property="article:tag" content="leetcode">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://example.com/1989/06/04/algorithm/lc.501-700/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'en'
+  };
+</script>
+
+  <title>LeetCode 501-700 | Perry's Blog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Perry's Blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">tech & muse & sleep</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
+
+  </li>
+        <li class="menu-item menu-item-schedule">
+
+    <a href="/schedule/" rel="section"><i class="fa fa-calendar fa-fw"></i>Schedule</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://example.com/1989/06/04/algorithm/lc.501-700/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="https://avatars.githubusercontent.com/u/126999663?v=4">
+      <meta itemprop="name" content="Perry Yao">
+      <meta itemprop="description" content="...">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Perry's Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          LeetCode 501-700
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 1989-06-04 00:00:00" itemprop="dateCreated datePublished" datetime="1989-06-04T00:00:00+09:00">1989-06-04</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2025-05-19 17:00:24" itemprop="dateModified" datetime="2025-05-19T17:00:24+08:00">2025-05-19</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/algorithm/" itemprop="url" rel="index"><span itemprop="name">algorithm</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <hr>
+<h2 id="501-Find-Mode-in-Binary-Search-Tree-Tree"><a href="#501-Find-Mode-in-Binary-Search-Tree-Tree" class="headerlink" title="501. Find Mode in Binary Search Tree [Tree]"></a><a target="_blank" rel="noopener" href="https://leetcode.com/problems/find-mode-in-binary-search-tree/">501. Find Mode in Binary Search Tree</a> [Tree]</h2><h2 id="503-Next-Greater-Element-II-Mono-Stack"><a href="#503-Next-Greater-Element-II-Mono-Stack" class="headerlink" title="503. Next Greater Element II [Mono Stack]"></a><a target="_blank" rel="noopener" href="https://leetcode.com/problems/next-greater-element-ii/">503. Next Greater Element II</a> [Mono Stack]</h2><h2 id="508-Most-Frequent-Subtree-Sum"><a href="#508-Most-Frequent-Subtree-Sum" class="headerlink" title="508. Most Frequent Subtree Sum"></a><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/most-frequent-subtree-sum/">508. Most Frequent Subtree Sum</a></h2><h4 id="C"><a href="#C" class="headerlink" title="C++"></a>C++</h4><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line">    unordered_map&lt;<span class="type">int</span>, <span class="type">int</span>&gt; sumFreqMap;</span><br><span class="line"></span><br><span class="line">    <span class="type">int</span> maxFreq = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="type">int</span> <span class="title">dfs</span><span class="params">(TreeNode* root)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (!root) <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">        <span class="type">int</span> subtreeSum = <span class="built_in">dfs</span>(root-&gt;left) + <span class="built_in">dfs</span>(root-&gt;right) + root-&gt;val;</span><br><span class="line">        sumFreqMap[subtreeSum] ++;</span><br><span class="line">        maxFreq = <span class="built_in">max</span>(maxFreq, sumFreqMap[subtreeSum]);</span><br><span class="line">        <span class="keyword">return</span> subtreeSum;</span><br><span class="line">    &#125;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function">vector&lt;<span class="type">int</span>&gt; <span class="title">findFrequentTreeSum</span><span class="params">(TreeNode* root)</span> </span>&#123;</span><br><span class="line">        <span class="built_in">dfs</span>(root);</span><br><span class="line">        vector&lt;<span class="type">int</span>&gt; ans;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">auto</span> it : sumFreqMap) &#123;</span><br><span class="line">            <span class="keyword">if</span> (it.second == maxFreq) ans.<span class="built_in">push_back</span>(it.first);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> ans;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+
+
+<h4 id="Go"><a href="#Go" class="headerlink" title="Go"></a>Go</h4><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">findFrequentTreeSum</span><span class="params">(root *TreeNode)</span></span> []<span class="type">int</span> &#123;</span><br><span class="line">    mp := <span class="keyword">map</span>[<span class="type">int</span>]<span class="type">int</span>&#123;&#125;</span><br><span class="line">    maxfreq := <span class="number">0</span></span><br><span class="line">    <span class="keyword">var</span> dfs <span class="function"><span class="keyword">func</span><span class="params">(*TreeNode)</span></span> <span class="type">int</span></span><br><span class="line">    dfs = <span class="function"><span class="keyword">func</span><span class="params">(root *TreeNode)</span></span> <span class="type">int</span> &#123;</span><br><span class="line">        <span class="keyword">if</span> root == <span class="literal">nil</span> &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="number">0</span></span><br><span class="line">        &#125;</span><br><span class="line">        sum := dfs(root.Left) + dfs(root.Right) + root.Val</span><br><span class="line">        mp[sum] ++</span><br><span class="line">        <span class="keyword">if</span> mp[sum] &gt; maxfreq &#123;</span><br><span class="line">            maxfreq = mp[sum]</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> sum</span><br><span class="line">    &#125;</span><br><span class="line">    dfs(root)</span><br><span class="line">    ans := []<span class="type">int</span>&#123;&#125;</span><br><span class="line">    <span class="keyword">for</span> sum, freq := <span class="keyword">range</span> mp &#123;</span><br><span class="line">        <span class="keyword">if</span> freq == maxfreq &#123;</span><br><span class="line">            ans = <span class="built_in">append</span>(ans, sum)</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> ans</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="509-Fibonacci-Number-DP"><a href="#509-Fibonacci-Number-DP" class="headerlink" title="509. Fibonacci Number [DP]"></a><a target="_blank" rel="noopener" href="https://leetcode.com/problems/fibonacci-number/">509. Fibonacci Number</a> [DP]</h2><h2 id="513-Find-Bottom-Left-Tree-Value-Tree"><a href="#513-Find-Bottom-Left-Tree-Value-Tree" class="headerlink" title="513. Find Bottom Left Tree Value [Tree]"></a><a target="_blank" rel="noopener" href="https://leetcode.com/problems/find-bottom-left-tree-value/">513. Find Bottom Left Tree Value</a> [Tree]</h2><h2 id="515-Find-Largest-Value-in-Each-Tree-Row-Tree"><a href="#515-Find-Largest-Value-in-Each-Tree-Row-Tree" class="headerlink" title="515. Find Largest Value in Each Tree Row [Tree]"></a><a target="_blank" rel="noopener" href="https://leetcode.com/problems/find-largest-value-in-each-tree-row/">515. Find Largest Value in Each Tree Row</a> [Tree]</h2><h2 id="516-Longest-Palindromic-Subsequence-DP-Sub"><a href="#516-Longest-Palindromic-Subsequence-DP-Sub" class="headerlink" title="516. Longest Palindromic Subsequence [DP-Sub]"></a><a target="_blank" rel="noopener" href="https://leetcode.com/problems/longest-palindromic-subsequence/">516. Longest Palindromic Subsequence</a> [DP-Sub]</h2><h2 id="518-Coin-Change-II-DP-Knapsack"><a href="#518-Coin-Change-II-DP-Knapsack" class="headerlink" title="518. Coin Change II [DP-Knapsack]"></a><a target="_blank" rel="noopener" href="https://leetcode.com/problems/coin-change-ii/">518. Coin Change II</a> [DP-Knapsack]</h2><h2 id="530-Minimum-Absolute-Difference-in-BST-Tree"><a href="#530-Minimum-Absolute-Difference-in-BST-Tree" class="headerlink" title="530. Minimum Absolute Difference in BST [Tree]"></a><a target="_blank" rel="noopener" href="https://leetcode.com/problems/minimum-absolute-difference-in-bst/">530. Minimum Absolute Difference in BST</a> [Tree]</h2><h2 id="538-Convert-BST-to-Greater-Tree-Tree"><a href="#538-Convert-BST-to-Greater-Tree-Tree" class="headerlink" title="538. Convert BST to Greater Tree [Tree]"></a><a target="_blank" rel="noopener" href="https://leetcode.com/problems/convert-bst-to-greater-tree/">538. Convert BST to Greater Tree</a> [Tree]</h2><h2 id="539-Minimum-Time-Difference"><a href="#539-Minimum-Time-Difference" class="headerlink" title="539. Minimum Time Difference"></a><a target="_blank" rel="noopener" href="https://leetcode.com/problems/minimum-time-difference/">539. Minimum Time Difference</a></h2><h6 id="Java"><a href="#Java" class="headerlink" title="Java"></a>Java</h6><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="type">int</span> <span class="title function_">findMinDifference</span><span class="params">(List&lt;String&gt; timePoints)</span> &#123;</span><br><span class="line">        <span class="type">int</span>[] times = timePoints.stream().map(s -&gt; toMinutes(s)).mapToInt(x-&gt;x).toArray();</span><br><span class="line">        Arrays.sort(times);</span><br><span class="line">        System.out.println(Arrays.toString(times));</span><br><span class="line">        <span class="type">int</span> <span class="variable">dist</span> <span class="operator">=</span> <span class="number">12</span> * <span class="number">60</span>;</span><br><span class="line">        <span class="type">int</span> <span class="variable">d</span> <span class="operator">=</span> <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; times.length - <span class="number">1</span>; i ++) &#123;</span><br><span class="line">            <span class="type">int</span> <span class="variable">mm1</span> <span class="operator">=</span> times[i];</span><br><span class="line">            <span class="type">int</span> <span class="variable">mm2</span> <span class="operator">=</span> times[i + <span class="number">1</span>];</span><br><span class="line">            d = timeDist(mm1, mm2);</span><br><span class="line">            dist = Math.min(dist, d);</span><br><span class="line">            <span class="keyword">if</span> (dist == <span class="number">0</span>) <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        d = timeDist(times[times.length - <span class="number">1</span>], times[<span class="number">0</span>]); <span class="comment">// 不要忘了比较头尾两个元素, 这本质上是一个环</span></span><br><span class="line">        dist = Math.min(dist, d);</span><br><span class="line">        <span class="keyword">return</span> dist;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">private</span> <span class="type">int</span> <span class="title function_">timeDist</span><span class="params">(<span class="type">int</span> mm1, <span class="type">int</span> mm2)</span> &#123;</span><br><span class="line">        <span class="type">int</span> <span class="variable">abs</span> <span class="operator">=</span> Math.abs(mm2 - mm1);</span><br><span class="line">        <span class="keyword">return</span> Math.min(abs, <span class="number">24</span> * <span class="number">60</span> - abs);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">private</span> <span class="type">int</span> <span class="title function_">toMinutes</span><span class="params">(String time)</span> &#123;</span><br><span class="line">        String[] tmp = time.split(<span class="string">&quot;:&quot;</span>);</span><br><span class="line">        <span class="type">int</span> <span class="variable">h</span> <span class="operator">=</span> Integer.parseInt(tmp[<span class="number">0</span>]);</span><br><span class="line">        <span class="type">int</span> <span class="variable">m</span> <span class="operator">=</span> Integer.parseInt(tmp[<span class="number">1</span>]);</span><br><span class="line">        <span class="keyword">return</span> h * <span class="number">60</span> + m;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="541-Reverse-String-II-String"><a href="#541-Reverse-String-II-String" class="headerlink" title="541. Reverse String II [String]"></a><a target="_blank" rel="noopener" href="https://leetcode.com/problems/reverse-string-ii/">541. Reverse String II</a> [String]</h2><h2 id="543-Diameter-of-Binary-Tree"><a href="#543-Diameter-of-Binary-Tree" class="headerlink" title="543. Diameter of Binary Tree"></a><a target="_blank" rel="noopener" href="https://leetcode.com/problems/diameter-of-binary-tree/">543. Diameter of Binary Tree</a></h2><p>与 <a target="_blank" rel="noopener" href="https://leetcode.com/problems/binary-tree-maximum-path-sum/">124. Binary Tree Maximum Path Sum</a> 类似</p>
+<h4 id="Java-1"><a href="#Java-1" class="headerlink" title="Java"></a>Java</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="type">int</span> <span class="title function_">diameterOfBinaryTree</span><span class="params">(TreeNode root)</span> &#123;</span><br><span class="line">        diameter = <span class="number">0</span>;</span><br><span class="line">        <span class="type">int</span> <span class="variable">gain</span> <span class="operator">=</span> traversal(root);</span><br><span class="line">        <span class="keyword">return</span> Math.max(diameter, gain) - <span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">private</span> <span class="type">int</span> diameter;</span><br><span class="line">    <span class="keyword">private</span> <span class="type">int</span> <span class="title function_">traversal</span><span class="params">(TreeNode root)</span> &#123;</span><br><span class="line">        <span class="keyword">if</span> (root == <span class="literal">null</span>) <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">        <span class="type">int</span> <span class="variable">gainL</span> <span class="operator">=</span> traversal(root.left);</span><br><span class="line">        <span class="type">int</span> <span class="variable">gainR</span> <span class="operator">=</span> traversal(root.right);</span><br><span class="line">        diameter = Math.max(diameter, gainL + gainR + <span class="number">1</span>);</span><br><span class="line">        <span class="keyword">return</span> Math.max(gainL, gainR) + <span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h4 id="C-1"><a href="#C-1" class="headerlink" title="C++"></a>C++</h4><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line">    <span class="type">int</span> diameter;</span><br><span class="line">    <span class="function"><span class="type">int</span> <span class="title">dfs</span><span class="params">(TreeNode* root)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (!root) <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">        <span class="type">int</span> l = <span class="built_in">dfs</span>(root-&gt;left), r = <span class="built_in">dfs</span>(root-&gt;right);</span><br><span class="line">        diameter = <span class="built_in">max</span>(diameter, <span class="number">1</span> + l + r);</span><br><span class="line">        <span class="keyword">return</span> <span class="number">1</span> + <span class="built_in">max</span>(l, r);</span><br><span class="line">    &#125;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="type">int</span> <span class="title">diameterOfBinaryTree</span><span class="params">(TreeNode* root)</span> </span>&#123;</span><br><span class="line">        diameter = <span class="number">0</span>;</span><br><span class="line">        <span class="built_in">dfs</span>(root);</span><br><span class="line">        <span class="keyword">return</span> diameter - <span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="559-Maximum-Depth-of-N-ary-Tree"><a href="#559-Maximum-Depth-of-N-ary-Tree" class="headerlink" title="559. Maximum Depth of N-ary Tree"></a><a target="_blank" rel="noopener" href="https://leetcode.com/problems/maximum-depth-of-n-ary-tree/">559. Maximum Depth of N-ary Tree</a></h2><h2 id="563-Binary-Tree-Tilt"><a href="#563-Binary-Tree-Tilt" class="headerlink" title="563. Binary Tree Tilt"></a><a target="_blank" rel="noopener" href="https://leetcode.com/problems/binary-tree-tilt/">563. Binary Tree Tilt</a></h2><h4 id="Go-1"><a href="#Go-1" class="headerlink" title="Go"></a>Go</h4><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">abs</span> <span class="params">(x <span class="type">int</span>)</span></span> <span class="type">int</span> &#123;</span><br><span class="line">    <span class="keyword">if</span> x &lt; <span class="number">0</span> &#123; x *= <span class="number">-1</span> &#125;</span><br><span class="line">    <span class="keyword">return</span> x</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">findTilt</span><span class="params">(root *TreeNode)</span></span> <span class="type">int</span> &#123;</span><br><span class="line">    sumTitle := <span class="number">0</span></span><br><span class="line">    <span class="keyword">var</span> dfs <span class="function"><span class="keyword">func</span><span class="params">(*TreeNode)</span></span> <span class="type">int</span></span><br><span class="line">    dfs = <span class="function"><span class="keyword">func</span><span class="params">(root *TreeNode)</span></span> <span class="type">int</span> &#123;</span><br><span class="line">        <span class="keyword">if</span> root == <span class="literal">nil</span> &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="number">0</span></span><br><span class="line">        &#125;</span><br><span class="line">        sumLeft := dfs(root.Left)</span><br><span class="line">        sumRight := dfs(root.Right)</span><br><span class="line">        sumTitle += abs(sumLeft - sumRight)</span><br><span class="line">        <span class="keyword">return</span> root.Val + sumLeft + sumRight</span><br><span class="line">    &#125;</span><br><span class="line">    dfs(root)</span><br><span class="line">    <span class="keyword">return</span> sumTitle</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="572-Subtree-of-Another-Tree"><a href="#572-Subtree-of-Another-Tree" class="headerlink" title="572. Subtree of Another Tree"></a><a target="_blank" rel="noopener" href="https://leetcode.com/problems/subtree-of-another-tree/">572. Subtree of Another Tree</a></h2><h4 id="Go-2"><a href="#Go-2" class="headerlink" title="Go"></a>Go</h4><p>暴力匹配</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">isSameTree</span><span class="params">(root1, root2 *TreeNode)</span></span> <span class="type">bool</span> &#123;</span><br><span class="line">    <span class="keyword">if</span> root1 == <span class="literal">nil</span> &amp;&amp; root2 == <span class="literal">nil</span> &#123; </span><br><span class="line">        <span class="keyword">return</span> <span class="literal">true</span> </span><br><span class="line">    &#125; <span class="keyword">else</span> <span class="keyword">if</span> root1 == <span class="literal">nil</span> &amp;&amp; root2 != <span class="literal">nil</span> || root1 != <span class="literal">nil</span> &amp;&amp; root2 == <span class="literal">nil</span> &#123; </span><br><span class="line">        <span class="keyword">return</span> <span class="literal">false</span> </span><br><span class="line">    &#125; <span class="keyword">else</span> <span class="keyword">if</span> root1.Val != root2.Val &#123; </span><br><span class="line">        <span class="keyword">return</span> <span class="literal">false</span> </span><br><span class="line">    &#125; <span class="keyword">else</span> &#123; </span><br><span class="line">        <span class="keyword">return</span> isSameTree(root1.Left, root2.Left) &amp;&amp; isSameTree(root1.Right, root2.Right) </span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">isSubtree</span><span class="params">(root *TreeNode, subRoot *TreeNode)</span></span> <span class="type">bool</span> &#123;</span><br><span class="line">    <span class="keyword">if</span> root == <span class="literal">nil</span> &amp;&amp; subRoot == <span class="literal">nil</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">true</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> root == <span class="literal">nil</span> &amp;&amp; subRoot != <span class="literal">nil</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">false</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> isSameTree(root, subRoot) &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">true</span> </span><br><span class="line">    &#125; <span class="keyword">else</span> &#123; </span><br><span class="line">        <span class="keyword">return</span> isSubtree(root.Left, subRoot) || isSubtree(root.Right, subRoot) </span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<p>加入高度判断搜索, 减少<code>isSameTree</code>调用次数</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">treeHeight</span><span class="params">(root *TreeNode)</span></span> <span class="type">int</span> &#123;</span><br><span class="line">    <span class="keyword">if</span> root == <span class="literal">nil</span> &#123; <span class="keyword">return</span> <span class="number">0</span> &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">1</span> + max(treeHeight(root.Left), treeHeight(root.Right))</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">isSameTree</span><span class="params">(p, q *TreeNode)</span></span> <span class="type">bool</span> &#123;</span><br><span class="line">    <span class="keyword">if</span> p == <span class="literal">nil</span> || q == <span class="literal">nil</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> p == q</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> p.Val == q.Val &amp;&amp; isSameTree(p.Left, q.Left) &amp;&amp; isSameTree(p.Right, q.Right)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">isSubtree</span><span class="params">(root *TreeNode, subRoot *TreeNode)</span></span> <span class="type">bool</span> &#123;</span><br><span class="line">    h := treeHeight(subRoot)</span><br><span class="line">    <span class="keyword">var</span> dfs <span class="function"><span class="keyword">func</span><span class="params">(*TreeNode)</span></span> (<span class="type">bool</span>, <span class="type">int</span>)</span><br><span class="line">    dfs = <span class="function"><span class="keyword">func</span><span class="params">(root *TreeNode)</span></span> (found <span class="type">bool</span>, height <span class="type">int</span>) &#123;</span><br><span class="line">        found = <span class="literal">false</span></span><br><span class="line">        height = <span class="number">0</span></span><br><span class="line">        <span class="keyword">if</span> root == <span class="literal">nil</span> &#123; <span class="keyword">return</span> &#125;</span><br><span class="line">        leftFound, leftHeight := dfs(root.Left)</span><br><span class="line">        rightFound, rightHeight := dfs(root.Right)</span><br><span class="line">        found = leftFound || rightFound</span><br><span class="line">        height = <span class="number">1</span> + max(leftHeight, rightHeight)</span><br><span class="line">        <span class="keyword">if</span> found &#123; <span class="keyword">return</span> &#125;</span><br><span class="line">        <span class="keyword">if</span> height == h &amp;&amp; isSameTree(root, subRoot) &#123; found = <span class="literal">true</span> &#125;</span><br><span class="line">        <span class="keyword">return</span></span><br><span class="line">    &#125;</span><br><span class="line">    found, _ := dfs(root)</span><br><span class="line">    <span class="keyword">return</span> found</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+<h2 id="583-Delete-Operation-for-Two-Strings-DP-Sub"><a href="#583-Delete-Operation-for-Two-Strings-DP-Sub" class="headerlink" title="583. Delete Operation for Two Strings [DP-Sub]"></a><a target="_blank" rel="noopener" href="https://leetcode.com/problems/delete-operation-for-two-strings/">583. Delete Operation for Two Strings</a> [DP-Sub]</h2><h2 id="606-Construct-String-from-Binary-Tree"><a href="#606-Construct-String-from-Binary-Tree" class="headerlink" title="606. Construct String from Binary Tree"></a><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/construct-string-from-binary-tree/">606. Construct String from Binary Tree</a></h2><h4 id="C-2"><a href="#C-2" class="headerlink" title="C++"></a>C++</h4><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line">    string ans;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="type">void</span> <span class="title">dfs</span><span class="params">(TreeNode* root)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (!root) <span class="keyword">return</span>;</span><br><span class="line">        ans += std::<span class="built_in">to_string</span>(root-&gt;val);</span><br><span class="line">        <span class="keyword">if</span> (!root-&gt;left &amp;&amp; !root-&gt;right) <span class="keyword">return</span>;</span><br><span class="line">        ans += <span class="string">&quot;(&quot;</span>;</span><br><span class="line">        <span class="built_in">dfs</span>(root-&gt;left);</span><br><span class="line">        ans += <span class="string">&quot;)&quot;</span>;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (!root-&gt;right) <span class="keyword">return</span>;</span><br><span class="line"></span><br><span class="line">        ans += <span class="string">&quot;(&quot;</span>;</span><br><span class="line">        <span class="built_in">dfs</span>(root-&gt;right);</span><br><span class="line">        ans += <span class="string">&quot;)&quot;</span>;</span><br><span class="line">    &#125;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function">string <span class="title">tree2str</span><span class="params">(TreeNode* root)</span> </span>&#123;</span><br><span class="line">        <span class="built_in">dfs</span>(root);</span><br><span class="line">        <span class="keyword">return</span> ans;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+
+
+<h4 id="Go-3"><a href="#Go-3" class="headerlink" title="Go"></a>Go</h4><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">tree2str</span><span class="params">(root *TreeNode)</span></span> (ans <span class="type">string</span>) &#123;</span><br><span class="line">    ans = <span class="string">&quot;&quot;</span></span><br><span class="line">    <span class="keyword">var</span> dfs <span class="function"><span class="keyword">func</span><span class="params">(*TreeNode)</span></span></span><br><span class="line">    dfs = <span class="function"><span class="keyword">func</span><span class="params">(root *TreeNode)</span></span> &#123;</span><br><span class="line">        <span class="keyword">if</span> root == <span class="literal">nil</span> &#123; <span class="keyword">return</span> &#125;</span><br><span class="line">        ans += strconv.Itoa(root.Val)</span><br><span class="line">        <span class="keyword">if</span> root.Left == <span class="literal">nil</span> &amp;&amp; root.Right == <span class="literal">nil</span> &#123; <span class="keyword">return</span> &#125;</span><br><span class="line">        ans += <span class="string">&quot;(&quot;</span></span><br><span class="line">        dfs(root.Left)</span><br><span class="line">        ans += <span class="string">&quot;)&quot;</span></span><br><span class="line">        <span class="keyword">if</span> root.Right == <span class="literal">nil</span> &#123; <span class="keyword">return</span> &#125;</span><br><span class="line">        ans += <span class="string">&quot;(&quot;</span></span><br><span class="line">        dfs(root.Right)</span><br><span class="line">        ans += <span class="string">&quot;)&quot;</span></span><br><span class="line">    &#125;</span><br><span class="line">    dfs(root)</span><br><span class="line">    <span class="keyword">return</span> ans</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="617-Merge-Two-Binary-Trees-Tree"><a href="#617-Merge-Two-Binary-Trees-Tree" class="headerlink" title="617. Merge Two Binary Trees [Tree]"></a><a target="_blank" rel="noopener" href="https://leetcode.com/problems/merge-two-binary-trees/">617. Merge Two Binary Trees</a> [Tree]</h2><h2 id="623-Add-One-Row-to-Tree"><a href="#623-Add-One-Row-to-Tree" class="headerlink" title="623. Add One Row to Tree"></a><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/add-one-row-to-tree/">623. Add One Row to Tree</a></h2><h4 id="C-3"><a href="#C-3" class="headerlink" title="C++"></a>C++</h4><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function">TreeNode* <span class="title">addOneRow</span><span class="params">(TreeNode* root, <span class="type">int</span> val, <span class="type">int</span> depth)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (depth == <span class="number">1</span>) &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">new</span> <span class="built_in">TreeNode</span>(val, root, <span class="literal">nullptr</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        deque&lt;TreeNode*&gt; levelq;</span><br><span class="line">        levelq.<span class="built_in">push_back</span>(root);</span><br><span class="line">        <span class="type">int</span> lvlcnt = <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">while</span> (lvlcnt &lt; depth - <span class="number">1</span>) &#123;</span><br><span class="line">            <span class="type">int</span> lvlsz = levelq.<span class="built_in">size</span>();</span><br><span class="line">            <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; lvlsz; i ++ ) &#123;</span><br><span class="line">                TreeNode* cur = levelq.<span class="built_in">front</span>(); levelq.<span class="built_in">pop_front</span>();</span><br><span class="line">                <span class="keyword">if</span> (cur-&gt;left) levelq.<span class="built_in">push_back</span>(cur-&gt;left);</span><br><span class="line">                <span class="keyword">if</span> (cur-&gt;right) levelq.<span class="built_in">push_back</span>(cur-&gt;right);</span><br><span class="line">            &#125;</span><br><span class="line">            lvlcnt ++;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">auto</span> node : levelq) &#123;</span><br><span class="line">            node-&gt;left = <span class="keyword">new</span> <span class="built_in">TreeNode</span>(val, node-&gt;left, <span class="literal">nullptr</span>);</span><br><span class="line">            node-&gt;right = <span class="keyword">new</span> <span class="built_in">TreeNode</span>(val, <span class="literal">nullptr</span>, node-&gt;right);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> root;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+
+
+<h4 id="Go-4"><a href="#Go-4" class="headerlink" title="Go"></a>Go</h4><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">addOneRow</span><span class="params">(root *TreeNode, val <span class="type">int</span>, depth <span class="type">int</span>)</span></span> *TreeNode &#123;</span><br><span class="line">    <span class="keyword">if</span> depth == <span class="number">1</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> &amp;TreeNode&#123;val, root, <span class="literal">nil</span>&#125;</span><br><span class="line">    &#125;</span><br><span class="line">    lvlq := []*TreeNode&#123;root&#125;</span><br><span class="line">    lvlcnt := <span class="number">1</span></span><br><span class="line">    <span class="keyword">for</span> lvlcnt &lt; depth - <span class="number">1</span> &#123;</span><br><span class="line">        lvlsz := <span class="built_in">len</span>(lvlq)</span><br><span class="line">        <span class="keyword">for</span> i := <span class="number">0</span>; i &lt; lvlsz; i ++ &#123;</span><br><span class="line">            cur := lvlq[<span class="number">0</span>]; lvlq = lvlq[<span class="number">1</span>:]</span><br><span class="line">            <span class="keyword">if</span> cur.Left != <span class="literal">nil</span> &#123;</span><br><span class="line">                lvlq = <span class="built_in">append</span>(lvlq, cur.Left)</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">if</span> cur.Right != <span class="literal">nil</span> &#123;</span><br><span class="line">                lvlq = <span class="built_in">append</span>(lvlq, cur.Right)</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        lvlcnt ++</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span> _, node := <span class="keyword">range</span> lvlq &#123;</span><br><span class="line">        node.Left = &amp;TreeNode&#123;val, node.Left, <span class="literal">nil</span>&#125;</span><br><span class="line">        node.Right = &amp;TreeNode&#123;val, <span class="literal">nil</span>, node.Right&#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> root</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="637-Average-of-Levels-in-Binary-Tree-Tree"><a href="#637-Average-of-Levels-in-Binary-Tree-Tree" class="headerlink" title="637. Average of Levels in Binary Tree [Tree]"></a><a target="_blank" rel="noopener" href="https://leetcode.com/problems/average-of-levels-in-binary-tree/">637. Average of Levels in Binary Tree</a> [Tree]</h2><h2 id="643-Maximum-Average-Subarray-I"><a href="#643-Maximum-Average-Subarray-I" class="headerlink" title="643. Maximum Average Subarray I"></a><a target="_blank" rel="noopener" href="https://leetcode.com/problems/maximum-average-subarray-i/">643. Maximum Average Subarray I</a></h2><h4 id="Go-5"><a href="#Go-5" class="headerlink" title="Go"></a>Go</h4><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">findMaxAverage</span><span class="params">(nums []<span class="type">int</span>, k <span class="type">int</span>)</span></span> <span class="type">float64</span> &#123;</span><br><span class="line">    maxSum := math.MinInt</span><br><span class="line">    sum := <span class="number">0</span></span><br><span class="line">    l := <span class="number">0</span></span><br><span class="line">    <span class="keyword">for</span> r := <span class="number">0</span>; r &lt; <span class="built_in">len</span>(nums); r ++ &#123;</span><br><span class="line">        sum += nums[r]</span><br><span class="line">        <span class="keyword">if</span> r - l + <span class="number">1</span> == k &#123;</span><br><span class="line">            <span class="keyword">if</span> maxSum &lt; sum &#123;</span><br><span class="line">                maxSum = sum</span><br><span class="line">            &#125;</span><br><span class="line">            sum -= nums[l]</span><br><span class="line">            l ++</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="type">float64</span>(maxSum) / <span class="type">float64</span>(k)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="647-Palindromic-Substrings-DP-Sub"><a href="#647-Palindromic-Substrings-DP-Sub" class="headerlink" title="647. Palindromic Substrings [DP-Sub]"></a><a target="_blank" rel="noopener" href="https://leetcode.com/problems/palindromic-substrings/">647. Palindromic Substrings</a> [DP-Sub]</h2><h2 id="649-Dota2-Senate-Greedy"><a href="#649-Dota2-Senate-Greedy" class="headerlink" title="649. Dota2 Senate [Greedy]"></a><a target="_blank" rel="noopener" href="https://leetcode.com/problems/dota2-senate/">649. Dota2 Senate</a> [Greedy]</h2><h2 id="654-Maximum-Binary-Tree-Tree"><a href="#654-Maximum-Binary-Tree-Tree" class="headerlink" title="654. Maximum Binary Tree [Tree]"></a><a target="_blank" rel="noopener" href="https://leetcode.com/problems/maximum-binary-tree/">654. Maximum Binary Tree</a> [Tree]</h2><h2 id="657-Robot-Return-to-Origin-Simulation"><a href="#657-Robot-Return-to-Origin-Simulation" class="headerlink" title="657. Robot Return to Origin [Simulation]"></a><a target="_blank" rel="noopener" href="https://leetcode.com/problems/robot-return-to-origin/">657. Robot Return to Origin</a> [Simulation]</h2><h2 id="669-Trim-a-Binary-Search-Tree-Tree"><a href="#669-Trim-a-Binary-Search-Tree-Tree" class="headerlink" title="669. Trim a Binary Search Tree [Tree]"></a><a target="_blank" rel="noopener" href="https://leetcode.com/problems/trim-a-binary-search-tree/">669. Trim a Binary Search Tree</a> [Tree]</h2><h2 id="671-Second-Minimum-Node-In-a-Binary-Tree"><a href="#671-Second-Minimum-Node-In-a-Binary-Tree" class="headerlink" title="671. Second Minimum Node In a Binary Tree"></a><a target="_blank" rel="noopener" href="https://leetcode.com/problems/second-minimum-node-in-a-binary-tree/">671. Second Minimum Node In a Binary Tree</a></h2><h4 id="Go-6"><a href="#Go-6" class="headerlink" title="Go"></a>Go</h4><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">findSecondMinimumValue</span><span class="params">(root *TreeNode)</span></span> <span class="type">int</span> &#123;</span><br><span class="line">    firstMin := <span class="number">-1</span></span><br><span class="line">    secondMin := <span class="number">-1</span></span><br><span class="line">    <span class="keyword">var</span> foo <span class="function"><span class="keyword">func</span><span class="params">(*TreeNode)</span></span></span><br><span class="line">    foo = <span class="function"><span class="keyword">func</span><span class="params">(root *TreeNode)</span></span> &#123;</span><br><span class="line">        <span class="keyword">if</span> root == <span class="literal">nil</span> &#123;</span><br><span class="line">            <span class="keyword">return</span></span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        v := root.Val</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> firstMin == <span class="number">-1</span> || firstMin &gt; v &#123;</span><br><span class="line">            secondMin = firstMin</span><br><span class="line">            firstMin = v</span><br><span class="line">        &#125; <span class="keyword">else</span> <span class="keyword">if</span> (secondMin == <span class="number">-1</span> || secondMin &gt; v) &amp;&amp; v != firstMin &#123;</span><br><span class="line">            secondMin = v</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        foo(root.Left)</span><br><span class="line">        foo(root.Right)</span><br><span class="line">    &#125;</span><br><span class="line">    foo(root)</span><br><span class="line">    <span class="keyword">return</span> secondMin</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="673-Number-of-Longest-Increasing-Subsequence-DP-Sub"><a href="#673-Number-of-Longest-Increasing-Subsequence-DP-Sub" class="headerlink" title="673. Number of Longest Increasing Subsequence [DP-Sub]"></a><a target="_blank" rel="noopener" href="https://leetcode.com/problems/number-of-longest-increasing-subsequence/">673. Number of Longest Increasing Subsequence</a> [DP-Sub]</h2><p>参考 <a target="_blank" rel="noopener" href="https://leetcode.com/problems/longest-increasing-subsequence/">300. Longest Increasing Subsequence</a></p>
+<h2 id="674-Longest-Continuous-Increasing-Subsequence-DP-Sub"><a href="#674-Longest-Continuous-Increasing-Subsequence-DP-Sub" class="headerlink" title="674. Longest Continuous Increasing Subsequence [DP-Sub]"></a><a target="_blank" rel="noopener" href="https://leetcode.com/problems/longest-continuous-increasing-subsequence/">674. Longest Continuous Increasing Subsequence</a> [DP-Sub]</h2><h2 id="687-Longest-Univalue-Path"><a href="#687-Longest-Univalue-Path" class="headerlink" title="687. Longest Univalue Path"></a><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/longest-univalue-path/">687. Longest Univalue Path</a></h2><h4 id="C-4"><a href="#C-4" class="headerlink" title="C++"></a>C++</h4><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line">    <span class="function"><span class="type">int</span> <span class="title">dfs</span><span class="params">(TreeNode* root, <span class="type">int</span>&amp; longest)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (!root) <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">        <span class="type">int</span> l = <span class="built_in">dfs</span>(root-&gt;left, longest);</span><br><span class="line">        <span class="keyword">if</span> (root-&gt;left &amp;&amp; root-&gt;val != root-&gt;left-&gt;val) l = <span class="number">0</span>;</span><br><span class="line">        <span class="type">int</span> r = <span class="built_in">dfs</span>(root-&gt;right, longest);</span><br><span class="line">        <span class="keyword">if</span> (root-&gt;right &amp;&amp; root-&gt;val != root-&gt;right-&gt;val) r = <span class="number">0</span>;</span><br><span class="line">        longest = <span class="built_in">max</span>(longest, <span class="number">1</span> + l + r);</span><br><span class="line">        <span class="keyword">return</span> <span class="number">1</span> + <span class="built_in">max</span>(l, r);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="type">int</span> <span class="title">longestUnivaluePath</span><span class="params">(TreeNode* root)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (!root) <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">        <span class="type">int</span> longest = <span class="number">0</span>;</span><br><span class="line">        <span class="built_in">dfs</span>(root, longest);</span><br><span class="line">        <span class="keyword">return</span> longest - <span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+
+
+<h4 id="Go-7"><a href="#Go-7" class="headerlink" title="Go"></a>Go</h4><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">longestUnivaluePath</span><span class="params">(root *TreeNode)</span></span> <span class="type">int</span> &#123;</span><br><span class="line">    longestSz := <span class="number">0</span></span><br><span class="line">    <span class="keyword">if</span> root == <span class="literal">nil</span> &#123; <span class="keyword">return</span> longestSz &#125;</span><br><span class="line">    <span class="keyword">var</span> dfs <span class="function"><span class="keyword">func</span><span class="params">(*TreeNode)</span></span> <span class="type">int</span></span><br><span class="line">    dfs = <span class="function"><span class="keyword">func</span><span class="params">(root *TreeNode)</span></span> <span class="type">int</span> &#123;</span><br><span class="line">        <span class="keyword">if</span> root == <span class="literal">nil</span> &#123; <span class="keyword">return</span> <span class="number">0</span> &#125;</span><br><span class="line">        l := dfs(root.Left)</span><br><span class="line">        <span class="keyword">if</span> root.Left != <span class="literal">nil</span> &amp;&amp; root.Val != root.Left.Val &#123; l = <span class="number">0</span> &#125;</span><br><span class="line">        r := dfs(root.Right)</span><br><span class="line">        <span class="keyword">if</span> root.Right != <span class="literal">nil</span> &amp;&amp; root.Val != root.Right.Val &#123; r = <span class="number">0</span> &#125;</span><br><span class="line">        longestSz = max(longestSz, <span class="number">1</span> + l + r)</span><br><span class="line">        <span class="keyword">return</span> <span class="number">1</span> + max(l, r)</span><br><span class="line">    &#125;</span><br><span class="line">    dfs(root)</span><br><span class="line">    <span class="keyword">return</span> longestSz - <span class="number">1</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="700-Search-in-a-Binary-Search-Tree-Tree"><a href="#700-Search-in-a-Binary-Search-Tree-Tree" class="headerlink" title="700. Search in a Binary Search Tree [Tree]"></a><a target="_blank" rel="noopener" href="https://leetcode.com/problems/search-in-a-binary-search-tree/">700. Search in a Binary Search Tree</a> [Tree]</h2>
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          
+          <div class="post-tags">
+              <a href="/tags/leetcode/" rel="tag"><i class="fa fa-tag"></i> leetcode</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/1989/06/04/algorithm/lc.201-250/" rel="prev" title="LeetCode 201-250">
+      <i class="fa fa-chevron-left"></i> LeetCode 201-250
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/1989/06/04/algorithm/lc.251-300/" rel="next" title="LeetCode 251-300">
+      LeetCode 251-300 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#501-Find-Mode-in-Binary-Search-Tree-Tree"><span class="nav-number">1.</span> <span class="nav-text">501. Find Mode in Binary Search Tree [Tree]</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#503-Next-Greater-Element-II-Mono-Stack"><span class="nav-number">2.</span> <span class="nav-text">503. Next Greater Element II [Mono Stack]</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#508-Most-Frequent-Subtree-Sum"><span class="nav-number">3.</span> <span class="nav-text">508. Most Frequent Subtree Sum</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#C"><span class="nav-number">3.0.1.</span> <span class="nav-text">C++</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Go"><span class="nav-number">3.0.2.</span> <span class="nav-text">Go</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#509-Fibonacci-Number-DP"><span class="nav-number">4.</span> <span class="nav-text">509. Fibonacci Number [DP]</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#513-Find-Bottom-Left-Tree-Value-Tree"><span class="nav-number">5.</span> <span class="nav-text">513. Find Bottom Left Tree Value [Tree]</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#515-Find-Largest-Value-in-Each-Tree-Row-Tree"><span class="nav-number">6.</span> <span class="nav-text">515. Find Largest Value in Each Tree Row [Tree]</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#516-Longest-Palindromic-Subsequence-DP-Sub"><span class="nav-number">7.</span> <span class="nav-text">516. Longest Palindromic Subsequence [DP-Sub]</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#518-Coin-Change-II-DP-Knapsack"><span class="nav-number">8.</span> <span class="nav-text">518. Coin Change II [DP-Knapsack]</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#530-Minimum-Absolute-Difference-in-BST-Tree"><span class="nav-number">9.</span> <span class="nav-text">530. Minimum Absolute Difference in BST [Tree]</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#538-Convert-BST-to-Greater-Tree-Tree"><span class="nav-number">10.</span> <span class="nav-text">538. Convert BST to Greater Tree [Tree]</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#539-Minimum-Time-Difference"><span class="nav-number">11.</span> <span class="nav-text">539. Minimum Time Difference</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#Java"><span class="nav-number">11.0.0.0.1.</span> <span class="nav-text">Java</span></a></li></ol></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#541-Reverse-String-II-String"><span class="nav-number">12.</span> <span class="nav-text">541. Reverse String II [String]</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#543-Diameter-of-Binary-Tree"><span class="nav-number">13.</span> <span class="nav-text">543. Diameter of Binary Tree</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Java-1"><span class="nav-number">13.0.1.</span> <span class="nav-text">Java</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#C-1"><span class="nav-number">13.0.2.</span> <span class="nav-text">C++</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#559-Maximum-Depth-of-N-ary-Tree"><span class="nav-number">14.</span> <span class="nav-text">559. Maximum Depth of N-ary Tree</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#563-Binary-Tree-Tilt"><span class="nav-number">15.</span> <span class="nav-text">563. Binary Tree Tilt</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Go-1"><span class="nav-number">15.0.1.</span> <span class="nav-text">Go</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#572-Subtree-of-Another-Tree"><span class="nav-number">16.</span> <span class="nav-text">572. Subtree of Another Tree</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Go-2"><span class="nav-number">16.0.1.</span> <span class="nav-text">Go</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#583-Delete-Operation-for-Two-Strings-DP-Sub"><span class="nav-number">17.</span> <span class="nav-text">583. Delete Operation for Two Strings [DP-Sub]</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#606-Construct-String-from-Binary-Tree"><span class="nav-number">18.</span> <span class="nav-text">606. Construct String from Binary Tree</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#C-2"><span class="nav-number">18.0.1.</span> <span class="nav-text">C++</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Go-3"><span class="nav-number">18.0.2.</span> <span class="nav-text">Go</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#617-Merge-Two-Binary-Trees-Tree"><span class="nav-number">19.</span> <span class="nav-text">617. Merge Two Binary Trees [Tree]</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#623-Add-One-Row-to-Tree"><span class="nav-number">20.</span> <span class="nav-text">623. Add One Row to Tree</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#C-3"><span class="nav-number">20.0.1.</span> <span class="nav-text">C++</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Go-4"><span class="nav-number">20.0.2.</span> <span class="nav-text">Go</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#637-Average-of-Levels-in-Binary-Tree-Tree"><span class="nav-number">21.</span> <span class="nav-text">637. Average of Levels in Binary Tree [Tree]</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#643-Maximum-Average-Subarray-I"><span class="nav-number">22.</span> <span class="nav-text">643. Maximum Average Subarray I</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Go-5"><span class="nav-number">22.0.1.</span> <span class="nav-text">Go</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#647-Palindromic-Substrings-DP-Sub"><span class="nav-number">23.</span> <span class="nav-text">647. Palindromic Substrings [DP-Sub]</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#649-Dota2-Senate-Greedy"><span class="nav-number">24.</span> <span class="nav-text">649. Dota2 Senate [Greedy]</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#654-Maximum-Binary-Tree-Tree"><span class="nav-number">25.</span> <span class="nav-text">654. Maximum Binary Tree [Tree]</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#657-Robot-Return-to-Origin-Simulation"><span class="nav-number">26.</span> <span class="nav-text">657. Robot Return to Origin [Simulation]</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#669-Trim-a-Binary-Search-Tree-Tree"><span class="nav-number">27.</span> <span class="nav-text">669. Trim a Binary Search Tree [Tree]</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#671-Second-Minimum-Node-In-a-Binary-Tree"><span class="nav-number">28.</span> <span class="nav-text">671. Second Minimum Node In a Binary Tree</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Go-6"><span class="nav-number">28.0.1.</span> <span class="nav-text">Go</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#673-Number-of-Longest-Increasing-Subsequence-DP-Sub"><span class="nav-number">29.</span> <span class="nav-text">673. Number of Longest Increasing Subsequence [DP-Sub]</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#674-Longest-Continuous-Increasing-Subsequence-DP-Sub"><span class="nav-number">30.</span> <span class="nav-text">674. Longest Continuous Increasing Subsequence [DP-Sub]</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#687-Longest-Univalue-Path"><span class="nav-number">31.</span> <span class="nav-text">687. Longest Univalue Path</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#C-4"><span class="nav-number">31.0.1.</span> <span class="nav-text">C++</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Go-7"><span class="nav-number">31.0.2.</span> <span class="nav-text">Go</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#700-Search-in-a-Binary-Search-Tree-Tree"><span class="nav-number">32.</span> <span class="nav-text">700. Search in a Binary Search Tree [Tree]</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Perry Yao"
+      src="https://avatars.githubusercontent.com/u/126999663?v=4">
+  <p class="site-author-name" itemprop="name">Perry Yao</p>
+  <div class="site-description" itemprop="description">...</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">56</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">5</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">17</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/PerryYao-GitHub" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;PerryYao-GitHub" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:peiyouyao@gmail.com" title="E-Mail → mailto:peiyouyao@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2025</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Perry Yao</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://pisces.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a>
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>
