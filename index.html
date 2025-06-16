@@ -27,7 +27,7 @@
 <meta property="og:site_name" content="Perry&#39;s Blog">
 <meta property="og:description" content="...">
 <meta property="og:locale" content="en_US">
-<meta property="article:author" content="Perry Yao">
+<meta property="article:author" content="peiyouyao">
 <meta name="twitter:card" content="summary">
 
 <link rel="canonical" href="http://example.com/">
@@ -97,7 +97,7 @@
       <h1 class="site-title">Perry's Blog</h1>
       <span class="logo-line-after"><i></i></span>
     </a>
-      <p class="site-subtitle" itemprop="description">tech & muse & sleep</p>
+      <p class="site-subtitle" itemprop="description">tech / muse / painting / reading</p>
   </div>
 
   <div class="site-nav-right">
@@ -168,125 +168,11 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2025/06/07/tech/swagger/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="https://avatars.githubusercontent.com/u/126999663?v=4">
-      <meta itemprop="name" content="Perry Yao">
-      <meta itemprop="description" content="...">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Perry's Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2025/06/07/tech/swagger/" class="post-title-link" itemprop="url">Untitled</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2025-06-07 16:56:19" itemprop="dateCreated datePublished" datetime="2025-06-07T16:56:19+08:00">2025-06-07</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2025-05-04 21:37:02" itemprop="dateModified" datetime="2025-05-04T21:37:02+08:00">2025-05-04</time>
-              </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="📝-Swagger-双登录模式调试操作笔记（Cookie-JWT）"><a href="#📝-Swagger-双登录模式调试操作笔记（Cookie-JWT）" class="headerlink" title="📝 Swagger 双登录模式调试操作笔记（Cookie + JWT）"></a>📝 Swagger 双登录模式调试操作笔记（Cookie + JWT）</h1><h2 id="✅-一、配置-Swagger-支持-Cookie-和-JWT"><a href="#✅-一、配置-Swagger-支持-Cookie-和-JWT" class="headerlink" title="✅ 一、配置 Swagger 支持 Cookie 和 JWT"></a>✅ 一、配置 Swagger 支持 Cookie 和 JWT</h2><p>在你的 Spring Boot 项目中添加如下配置类：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.example.config;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> io.swagger.v3.oas.models.Components;</span><br><span class="line"><span class="keyword">import</span> io.swagger.v3.oas.models.OpenAPI;</span><br><span class="line"><span class="keyword">import</span> io.swagger.v3.oas.models.info.Info;</span><br><span class="line"><span class="keyword">import</span> io.swagger.v3.oas.models.security.SecurityRequirement;</span><br><span class="line"><span class="keyword">import</span> io.swagger.v3.oas.models.security.SecurityScheme;</span><br><span class="line"><span class="keyword">import</span> org.springframework.context.annotation.Bean;</span><br><span class="line"><span class="keyword">import</span> org.springframework.context.annotation.Configuration;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Configuration</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">SwaggerConfig</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Bean</span></span><br><span class="line">    <span class="keyword">public</span> OpenAPI <span class="title function_">customOpenAPI</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="comment">// Cookie 认证：JSESSIONID</span></span><br><span class="line">        <span class="type">SecurityScheme</span> <span class="variable">cookieScheme</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">SecurityScheme</span>()</span><br><span class="line">                .type(SecurityScheme.Type.APIKEY)</span><br><span class="line">                .in(SecurityScheme.In.COOKIE)</span><br><span class="line">                .name(<span class="string">&quot;JSESSIONID&quot;</span>);</span><br><span class="line"></span><br><span class="line">        <span class="comment">// JWT Bearer Token 认证</span></span><br><span class="line">        <span class="type">SecurityScheme</span> <span class="variable">bearerScheme</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">SecurityScheme</span>()</span><br><span class="line">                .type(SecurityScheme.Type.HTTP)</span><br><span class="line">                .scheme(<span class="string">&quot;bearer&quot;</span>)</span><br><span class="line">                .bearerFormat(<span class="string">&quot;JWT&quot;</span>);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> <span class="title class_">OpenAPI</span>()</span><br><span class="line">                .info(<span class="keyword">new</span> <span class="title class_">Info</span>().title(<span class="string">&quot;PYOJ 后台接口文档&quot;</span>).version(<span class="string">&quot;v1.0&quot;</span>))</span><br><span class="line">                .components(<span class="keyword">new</span> <span class="title class_">Components</span>()</span><br><span class="line">                        .addSecuritySchemes(<span class="string">&quot;cookieAuth&quot;</span>, cookieScheme)</span><br><span class="line">                        .addSecuritySchemes(<span class="string">&quot;bearerAuth&quot;</span>, bearerScheme))</span><br><span class="line">                .addSecurityItem(<span class="keyword">new</span> <span class="title class_">SecurityRequirement</span>()</span><br><span class="line">                        .addList(<span class="string">&quot;cookieAuth&quot;</span>)</span><br><span class="line">                        .addList(<span class="string">&quot;bearerAuth&quot;</span>));</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<hr>
-<h2 id="✅-二、登录接口准备"><a href="#✅-二、登录接口准备" class="headerlink" title="✅ 二、登录接口准备"></a>✅ 二、登录接口准备</h2><p>你的项目中应该有类似以下两个登录接口：</p>
-<ul>
-<li><p><strong>Session 登录接口</strong>（设置 Cookie）：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">POST /api/user/login</span><br></pre></td></tr></table></figure>
-</li>
-<li><p><strong>JWT 登录接口</strong>（返回 token）：</p>
-<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="punctuation">&#123;</span></span><br><span class="line">  <span class="attr">&quot;token&quot;</span><span class="punctuation">:</span> <span class="string">&quot;eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...&quot;</span></span><br><span class="line"><span class="punctuation">&#125;</span></span><br></pre></td></tr></table></figure></li>
-</ul>
-<hr>
-<h2 id="✅-三、Swagger-调试操作步骤"><a href="#✅-三、Swagger-调试操作步骤" class="headerlink" title="✅ 三、Swagger 调试操作步骤"></a>✅ 三、Swagger 调试操作步骤</h2><h3 id="🍪-方式一：使用-Cookie-登录"><a href="#🍪-方式一：使用-Cookie-登录" class="headerlink" title="🍪 方式一：使用 Cookie 登录"></a>🍪 方式一：使用 Cookie 登录</h3><ol>
-<li><p>打开 Swagger 页面（如 <a target="_blank" rel="noopener" href="http://localhost:8080/swagger-ui.html%EF%BC%89">http://localhost:8080/swagger-ui.html）</a></p>
-</li>
-<li><p>调用 <code>/api/user/login</code> 成功后，复制响应头中的 <code>Set-Cookie</code>，如：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Set-Cookie: JSESSIONID=xxxxxxx; Path=/; HttpOnly</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>点击页面右上角 <strong>Authorize</strong> 按钮</p>
-</li>
-<li><p>在 cookie 输入框中填入：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">JSESSIONID=xxxxxxx</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>点击 <strong>Authorize → Close</strong></p>
-</li>
-<li><p>接下来请求所有需要登录状态的接口（如 <code>/user/update</code>）就会自动带上 cookie</p>
-</li>
-</ol>
-<hr>
-<h3 id="🔐-方式二：使用-JWT-登录"><a href="#🔐-方式二：使用-JWT-登录" class="headerlink" title="🔐 方式二：使用 JWT 登录"></a>🔐 方式二：使用 JWT 登录</h3><ol>
-<li><p>调用 <code>/api/user/jwt-login</code> 获取 token：</p>
-<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="punctuation">&#123;</span> <span class="attr">&quot;token&quot;</span><span class="punctuation">:</span> <span class="string">&quot;eyJhbGciOi...&quot;</span> <span class="punctuation">&#125;</span></span><br></pre></td></tr></table></figure>
-</li>
-<li><p>点击 Swagger 页面右上角 <strong>Authorize</strong></p>
-</li>
-<li><p>在 Bearer Token 框中填入：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Bearer eyJhbGciOi...</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>点击 <strong>Authorize → Close</strong></p>
-</li>
-<li><p>所有需要认证的接口会自动携带：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Authorization: Bearer eyJhbGciOi...</span><br></pre></td></tr></table></figure></li>
-</ol>
-<hr>
-<h2 id="✅-四、建议实践"><a href="#✅-四、建议实践" class="headerlink" title="✅ 四、建议实践"></a>✅ 四、建议实践</h2><ul>
-<li>前期开发可以保留两个接口，便于对比调试</li>
-<li>生产环境建议选择一种登录方式并统一认证逻辑</li>
-<li>Swagger UI 本身不会自动保存 Cookie，开发中调试需手动复制</li>
-</ul>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
     <link itemprop="mainEntityOfPage" href="http://example.com/2025/05/20/tech/apidoc_in_microservice/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="https://avatars.githubusercontent.com/u/126999663?v=4">
-      <meta itemprop="name" content="Perry Yao">
+      <meta itemprop="name" content="peiyouyao">
       <meta itemprop="description" content="...">
     </span>
 
@@ -313,7 +199,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2025-05-23 21:32:04" itemprop="dateModified" datetime="2025-05-23T21:32:04+08:00">2025-05-23</time>
+                <time title="Modified: 2025-05-23 21:32:03" itemprop="dateModified" datetime="2025-05-23T21:32:03+08:00">2025-05-23</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -417,7 +303,7 @@
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="https://avatars.githubusercontent.com/u/126999663?v=4">
-      <meta itemprop="name" content="Perry Yao">
+      <meta itemprop="name" content="peiyouyao">
       <meta itemprop="description" content="...">
     </span>
 
@@ -444,7 +330,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2025-06-07 16:52:56" itemprop="dateModified" datetime="2025-06-07T16:52:56+08:00">2025-06-07</time>
+                <time title="Modified: 2025-06-16 09:43:13" itemprop="dateModified" datetime="2025-06-16T09:43:13+08:00">2025-06-16</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -494,7 +380,7 @@
 </li>
 </ul>
 <hr>
-<h2 id="🌐-步骤二：在-WSL-中设置-Clash-代理"><a href="#🌐-步骤二：在-WSL-中设置-Clash-代理" class="headerlink" title="🌐 步骤二：在 WSL 中设置 Clash 代理"></a>🌐 步骤二：在 WSL 中设置 Clash 代理</h2><h3 id="1-添加以下函数到-bashrc"><a href="#1-添加以下函数到-bashrc" class="headerlink" title="1. 添加以下函数到 ~/.bashrc"></a>1. 添加以下函数到 <code>~/.bashrc</code></h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 获取 Windows 主机 IP</span></span><br><span class="line"><span class="function"><span class="title">get_proxy_host</span></span>() &#123;</span><br><span class="line">  ip route | grep default | awk <span class="string">&#x27;&#123;print $3&#125;&#x27;</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment"># 开启代理</span></span><br><span class="line"><span class="function"><span class="title">proxy_on</span></span>() &#123;</span><br><span class="line">  WIN_PROXY_HOST=$(get_proxy_host)</span><br><span class="line">  WIN_PROXY_PORT=7890</span><br><span class="line">  <span class="built_in">export</span> http_proxy=http://<span class="variable">$&#123;WIN_PROXY_HOST&#125;</span>:<span class="variable">$&#123;WIN_PROXY_PORT&#125;</span></span><br><span class="line">  <span class="built_in">export</span> https_proxy=http://<span class="variable">$&#123;WIN_PROXY_HOST&#125;</span>:<span class="variable">$&#123;WIN_PROXY_PORT&#125;</span></span><br><span class="line">  <span class="built_in">export</span> all_proxy=socks5://<span class="variable">$&#123;WIN_PROXY_HOST&#125;</span>:<span class="variable">$&#123;WIN_PROXY_PORT&#125;</span></span><br><span class="line">  <span class="built_in">echo</span> <span class="string">&quot;⚠️  Make sure Clash is running in Windows first.&quot;</span></span><br><span class="line">  <span class="built_in">echo</span> <span class="string">&quot;✅ Proxy set to <span class="variable">$WIN_PROXY_HOST</span>:<span class="variable">$WIN_PROXY_PORT</span>&quot;</span></span><br><span class="line">  <span class="built_in">echo</span> <span class="string">&quot;----------------------------------------&quot;</span></span><br><span class="line">  curl -s cip.cc || <span class="built_in">echo</span> <span class="string">&quot;❌ curl failed. Clash may not be running or port is blocked.&quot;</span></span><br><span class="line">  <span class="built_in">echo</span> <span class="string">&quot;----------------------------------------&quot;</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment"># 关闭代理</span></span><br><span class="line"><span class="function"><span class="title">proxy_off</span></span>() &#123;</span><br><span class="line">  <span class="built_in">unset</span> http_proxy</span><br><span class="line">  <span class="built_in">unset</span> https_proxy</span><br><span class="line">  <span class="built_in">unset</span> all_proxy</span><br><span class="line">  <span class="built_in">echo</span> <span class="string">&quot;Proxy disabled&quot;</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="🌐-步骤二：在-WSL-中设置-Clash-代理"><a href="#🌐-步骤二：在-WSL-中设置-Clash-代理" class="headerlink" title="🌐 步骤二：在 WSL 中设置 Clash 代理"></a>🌐 步骤二：在 WSL 中设置 Clash 代理</h2><h3 id="1-添加以下函数到-bashrc"><a href="#1-添加以下函数到-bashrc" class="headerlink" title="1. 添加以下函数到 ~/.bashrc"></a>1. 添加以下函数到 <code>~/.bashrc</code></h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 获取代理地址</span></span><br><span class="line"><span class="function"><span class="title">get_proxy_host</span></span>() &#123;</span><br><span class="line">  ip route | grep default | awk <span class="string">&#x27;&#123;print $3&#125;&#x27;</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment"># 获取代理端口（默认 7890，可通过 PROXY_PORT 环境变量覆盖）</span></span><br><span class="line"><span class="function"><span class="title">get_proxy_port</span></span>() &#123;</span><br><span class="line">  <span class="built_in">echo</span> <span class="string">&quot;<span class="variable">$&#123;PROXY_PORT:-7890&#125;</span>&quot;</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment"># 启用代理</span></span><br><span class="line"><span class="function"><span class="title">proxy_on</span></span>() &#123;</span><br><span class="line">  WIN_PROXY_HOST=$(get_proxy_host)</span><br><span class="line">  WIN_PROXY_PORT=$(get_proxy_port)</span><br><span class="line">  <span class="built_in">export</span> http_proxy=<span class="string">&quot;http://<span class="variable">$&#123;WIN_PROXY_HOST&#125;</span>:<span class="variable">$&#123;WIN_PROXY_PORT&#125;</span>&quot;</span></span><br><span class="line">  <span class="built_in">export</span> https_proxy=<span class="string">&quot;http://<span class="variable">$&#123;WIN_PROXY_HOST&#125;</span>:<span class="variable">$&#123;WIN_PROXY_PORT&#125;</span>&quot;</span></span><br><span class="line">  <span class="built_in">export</span> all_proxy=<span class="string">&quot;socks5://<span class="variable">$&#123;WIN_PROXY_HOST&#125;</span>:<span class="variable">$&#123;WIN_PROXY_PORT&#125;</span>&quot;</span></span><br><span class="line">  <span class="built_in">echo</span> <span class="string">&quot;⚠️ Make sure Clash is running in Windows first.&quot;</span></span><br><span class="line">  <span class="built_in">echo</span> <span class="string">&quot;✅ Proxy set to <span class="variable">$WIN_PROXY_HOST</span>:<span class="variable">$WIN_PROXY_PORT</span>&quot;</span></span><br><span class="line">  <span class="built_in">echo</span> <span class="string">&quot;----------------------------------------&quot;</span></span><br><span class="line">  curl -s cip.cc || <span class="built_in">echo</span> <span class="string">&quot;❌ curl failed. Clash may not be running or port is blocked.&quot;</span></span><br><span class="line">  <span class="built_in">echo</span> <span class="string">&quot;----------------------------------------&quot;</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment"># 关闭代理</span></span><br><span class="line"><span class="function"><span class="title">proxy_off</span></span>() &#123;</span><br><span class="line">  <span class="built_in">unset</span> http_proxy</span><br><span class="line">  <span class="built_in">unset</span> https_proxy</span><br><span class="line">  <span class="built_in">unset</span> all_proxy</span><br><span class="line">  <span class="built_in">echo</span> <span class="string">&quot;Proxy disabled&quot;</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <h3 id="2-启用代理"><a href="#2-启用代理" class="headerlink" title="2. 启用代理"></a>2. 启用代理</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">source</span> ~/.bashrc</span><br><span class="line">proxy_on</span><br></pre></td></tr></table></figure>
 
@@ -572,7 +458,7 @@
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="https://avatars.githubusercontent.com/u/126999663?v=4">
-      <meta itemprop="name" content="Perry Yao">
+      <meta itemprop="name" content="peiyouyao">
       <meta itemprop="description" content="...">
     </span>
 
@@ -593,7 +479,7 @@
               <span class="post-meta-item-text">Posted on</span>
               
 
-              <time title="Created: 2025-04-23 00:00:00 / Modified: 13:10:26" itemprop="dateCreated datePublished" datetime="2025-04-23T00:00:00+08:00">2025-04-23</time>
+              <time title="Created: 2025-04-23 00:00:00 / Modified: 13:10:24" itemprop="dateCreated datePublished" datetime="2025-04-23T00:00:00+08:00">2025-04-23</time>
             </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -742,7 +628,7 @@
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="https://avatars.githubusercontent.com/u/126999663?v=4">
-      <meta itemprop="name" content="Perry Yao">
+      <meta itemprop="name" content="peiyouyao">
       <meta itemprop="description" content="...">
     </span>
 
@@ -769,7 +655,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2025-04-17 18:17:26" itemprop="dateModified" datetime="2025-04-17T18:17:26+08:00">2025-04-17</time>
+                <time title="Modified: 2025-04-17 18:17:25" itemprop="dateModified" datetime="2025-04-17T18:17:25+08:00">2025-04-17</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -900,7 +786,7 @@
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="https://avatars.githubusercontent.com/u/126999663?v=4">
-      <meta itemprop="name" content="Perry Yao">
+      <meta itemprop="name" content="peiyouyao">
       <meta itemprop="description" content="...">
     </span>
 
@@ -921,7 +807,7 @@
               <span class="post-meta-item-text">Posted on</span>
               
 
-              <time title="Created: 2025-04-12 00:00:00 / Modified: 20:49:56" itemprop="dateCreated datePublished" datetime="2025-04-12T00:00:00+08:00">2025-04-12</time>
+              <time title="Created: 2025-04-12 00:00:00 / Modified: 20:49:54" itemprop="dateCreated datePublished" datetime="2025-04-12T00:00:00+08:00">2025-04-12</time>
             </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -1099,7 +985,7 @@
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="https://avatars.githubusercontent.com/u/126999663?v=4">
-      <meta itemprop="name" content="Perry Yao">
+      <meta itemprop="name" content="peiyouyao">
       <meta itemprop="description" content="...">
     </span>
 
@@ -1120,7 +1006,7 @@
               <span class="post-meta-item-text">Posted on</span>
               
 
-              <time title="Created: 2025-04-12 00:00:00 / Modified: 20:53:18" itemprop="dateCreated datePublished" datetime="2025-04-12T00:00:00+08:00">2025-04-12</time>
+              <time title="Created: 2025-04-12 00:00:00 / Modified: 20:53:17" itemprop="dateCreated datePublished" datetime="2025-04-12T00:00:00+08:00">2025-04-12</time>
             </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -1244,7 +1130,7 @@
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="https://avatars.githubusercontent.com/u/126999663?v=4">
-      <meta itemprop="name" content="Perry Yao">
+      <meta itemprop="name" content="peiyouyao">
       <meta itemprop="description" content="...">
     </span>
 
@@ -1271,7 +1157,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2025-04-12 19:54:52" itemprop="dateModified" datetime="2025-04-12T19:54:52+08:00">2025-04-12</time>
+                <time title="Modified: 2025-06-16 09:25:47" itemprop="dateModified" datetime="2025-06-16T09:25:47+08:00">2025-06-16</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -1297,7 +1183,7 @@
           <hr>
 <blockquote>
 <p>In this blog, I will give an elaborate instruction to the process of how to construct a whole RPC framework with Java. </p>
-<p>It is also a record of project <a target="_blank" rel="noopener" href="https://github.com/PerryYao-GitHub/demo-pyrpc">demo-pyrpc</a> and <a target="_blank" rel="noopener" href="https://github.com/PerryYao-GitHub/demo-rpc">demo-rpc</a>, the former one is an update on the last one.</p>
+<p>It is also a record of project <a target="_blank" rel="noopener" href="https://github.com/peiyouyao/demo-pyrpc">demo-pyrpc</a> and <a target="_blank" rel="noopener" href="https://github.com/peiyouyao/demo-rpc">demo-rpc</a>, the former one is an update on the last one.</p>
 </blockquote>
 <h1 id="pyRPC-Framework"><a href="#pyRPC-Framework" class="headerlink" title="pyRPC Framework"></a>pyRPC Framework</h1><h2 id="What-is-RPC"><a href="#What-is-RPC" class="headerlink" title="What is RPC?"></a>What is RPC?</h2><p>RPC (Remote Procedure Call) 远程过程调用, 是一种计算机通信协议, 允许程序在不同计算机之间通信和交互, 就像本地调用一样.</p>
 <h2 id="Consumer-Provider-Model"><a href="#Consumer-Provider-Model" class="headerlink" title="Consumer &#x2F; Provider Model"></a>Consumer &#x2F; Provider Model</h2><p>RPC 框架本身不是一个独立运行的服务, 而是一个被 Consumer (调用方) 和 Provider (服务提供方) 引入的库 (SDK). RPC 框架的主要作用是为开发者提供远程服务调用的能力; 同时抽象网络通信, 序列化&#x2F;反序列化等底层细节. </p>
@@ -1551,7 +1437,7 @@
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="https://avatars.githubusercontent.com/u/126999663?v=4">
-      <meta itemprop="name" content="Perry Yao">
+      <meta itemprop="name" content="peiyouyao">
       <meta itemprop="description" content="...">
     </span>
 
@@ -1578,7 +1464,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2025-04-12 19:54:52" itemprop="dateModified" datetime="2025-04-12T19:54:52+08:00">2025-04-12</time>
+                <time title="Modified: 2025-04-12 19:54:51" itemprop="dateModified" datetime="2025-04-12T19:54:51+08:00">2025-04-12</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -1642,7 +1528,7 @@
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="https://avatars.githubusercontent.com/u/126999663?v=4">
-      <meta itemprop="name" content="Perry Yao">
+      <meta itemprop="name" content="peiyouyao">
       <meta itemprop="description" content="...">
     </span>
 
@@ -1669,7 +1555,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2025-04-12 19:54:52" itemprop="dateModified" datetime="2025-04-12T19:54:52+08:00">2025-04-12</time>
+                <time title="Modified: 2025-04-12 19:54:51" itemprop="dateModified" datetime="2025-04-12T19:54:51+08:00">2025-04-12</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -1798,6 +1684,200 @@
   
   
 
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2024/09/13/algorithm/15.bitwise/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="https://avatars.githubusercontent.com/u/126999663?v=4">
+      <meta itemprop="name" content="peiyouyao">
+      <meta itemprop="description" content="...">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Perry's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2024/09/13/algorithm/15.bitwise/" class="post-title-link" itemprop="url">Bitwise Operate</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2024-09-13 00:00:00" itemprop="dateCreated datePublished" datetime="2024-09-13T00:00:00+08:00">2024-09-13</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2025-02-02 15:19:10" itemprop="dateModified" datetime="2025-02-02T15:19:10+08:00">2025-02-02</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/algorithm/" itemprop="url" rel="index"><span itemprop="name">algorithm</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <hr>
+<h1 id="基本概念"><a href="#基本概念" class="headerlink" title="基本概念"></a>基本概念</h1><p>Java 中的 <code>int</code> 类型是一个 32 位的有符号整数，使用补码（two’s complement）表示法来存储。了解 <code>int</code> 类型的 bit 表示和位运算是深入理解 Java 中整数操作的重要基础。</p>
+<h3 id="1-int-类型的二进制表示"><a href="#1-int-类型的二进制表示" class="headerlink" title="1. int 类型的二进制表示"></a>1. <code>int</code> 类型的二进制表示</h3><p>在 Java 中，<code>int</code> 类型是一个 32 位的有符号整数，存储范围从 <code>-2^31</code> 到 <code>2^31 - 1</code>，即从 <code>-2147483648</code> 到 <code>2147483647</code>。具体的二进制表示是使用 <strong>补码</strong> 方式。补码表示法的特点是负数的表示是其绝对值的二进制表示取反加一。</p>
+<h4 id="正数的二进制表示"><a href="#正数的二进制表示" class="headerlink" title="正数的二进制表示"></a>正数的二进制表示</h4><ul>
+<li><p>正数的二进制表示就是它的绝对值的二进制形式，最高位为 0（表示正数）。</p>
+<p>例如，5 在 32 位的二进制表示为：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">00000000 00000000 00000000 00000101</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h4 id="负数的二进制表示"><a href="#负数的二进制表示" class="headerlink" title="负数的二进制表示"></a>负数的二进制表示</h4><ul>
+<li><p>负数的二进制表示是其绝对值的二进制表示取反再加一，最高位为 1（表示负数）。</p>
+<p>例如，-5 的补码表示：</p>
+<ol>
+<li>先写出 <code>5</code> 的二进制： <code>00000000 00000000 00000000 00000101</code></li>
+<li>取反： <code>11111111 11111111 11111111 11111010</code></li>
+<li>加一： <code>11111111 11111111 11111111 11111011</code>，即 <code>-5</code> 的补码表示：</li>
+</ol>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">11111111 11111111 11111111 11111011</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h4 id="特殊值："><a href="#特殊值：" class="headerlink" title="特殊值："></a>特殊值：</h4><ul>
+<li><p>0 的二进制表示为：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">00000000 00000000 00000000 00000000</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>最大值 2147483647 (2^31 - 1) 的二进制表示为：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">01111111 11111111 11111111 11111111</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>最小值 -2147483648 (-2^31) 的二进制表示为：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">10000000 00000000 00000000 00000000</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h3 id="2-位运算"><a href="#2-位运算" class="headerlink" title="2. 位运算"></a>2. 位运算</h3><p>位运算是直接对整数的二进制位进行操作的运算，常见的位运算包括 AND (<code>&amp;</code>)、OR (<code>|</code>)、XOR (<code>^</code>)、NOT (<code>~</code>)、左移 (<code>&lt;&lt;</code>)、右移 (<code>&gt;&gt;</code>)、无符号右移 (<code>&gt;&gt;&gt;</code>) 等。</p>
+<h4 id="2-1-位与运算"><a href="#2-1-位与运算" class="headerlink" title="2.1. 位与运算 (&amp;)"></a>2.1. 位与运算 (<code>&amp;</code>)</h4><ul>
+<li><p><code>&amp;</code> 是按位与运算符，两个对应的二进制位都为 <code>1</code> 时，结果才为 <code>1</code>，否则为 <code>0</code>。</p>
+<p>例如：<code>5 &amp; 3</code>：</p>
+<ul>
+<li><code>5</code> 的二进制： <code>00000000 00000000 00000000 00000101</code></li>
+<li><code>3</code> 的二进制： <code>00000000 00000000 00000000 00000011</code></li>
+<li>结果： <code>00000000 00000000 00000000 00000001</code>（即 <code>1</code>）</li>
+</ul>
+</li>
+</ul>
+<h4 id="2-2-位或运算"><a href="#2-2-位或运算" class="headerlink" title="2.2. 位或运算 (|)"></a>2.2. 位或运算 (<code>|</code>)</h4><ul>
+<li><p><code>|</code> 是按位或运算符，两个对应的二进制位至少有一个为 <code>1</code> 时，结果为 <code>1</code>。</p>
+<p>例如：<code>5 | 3</code>：</p>
+<ul>
+<li><code>5</code> 的二进制： <code>00000000 00000000 00000000 00000101</code></li>
+<li><code>3</code> 的二进制： <code>00000000 00000000 00000000 00000011</code></li>
+<li>结果： <code>00000000 00000000 00000000 00000111</code>（即 <code>7</code>）</li>
+</ul>
+</li>
+</ul>
+<h4 id="2-3-位异或运算"><a href="#2-3-位异或运算" class="headerlink" title="2.3. 位异或运算 (^)"></a>2.3. 位异或运算 (<code>^</code>)</h4><ul>
+<li><p><code>^</code> 是按位异或运算符，两个对应的二进制位相异时，结果为 <code>1</code>，否则为 <code>0</code>。</p>
+<p>例如：<code>5 ^ 3</code>：</p>
+<ul>
+<li><code>5</code> 的二进制： <code>00000000 00000000 00000000 00000101</code></li>
+<li><code>3</code> 的二进制： <code>00000000 00000000 00000000 00000011</code></li>
+<li>结果： <code>00000000 00000000 00000000 00000110</code>（即 <code>6</code>）</li>
+</ul>
+</li>
+</ul>
+<h4 id="2-4-位取反运算"><a href="#2-4-位取反运算" class="headerlink" title="2.4. 位取反运算 (~)"></a>2.4. 位取反运算 (<code>~</code>)</h4><ul>
+<li><p><code>~</code> 是按位取反运算符，0 变成 1，1 变成 0。</p>
+<p>例如：<code>~5</code>：</p>
+<ul>
+<li><code>5</code> 的二进制： <code>00000000 00000000 00000000 00000101</code></li>
+<li>结果： <code>11111111 11111111 11111111 11111010</code>（即 <code>-6</code>）</li>
+</ul>
+</li>
+</ul>
+<h4 id="2-5-左移运算"><a href="#2-5-左移运算" class="headerlink" title="2.5. 左移运算 (&lt;&lt;)"></a>2.5. 左移运算 (<code>&lt;&lt;</code>)</h4><ul>
+<li><p><code>&lt;&lt;</code> 是左移运算符，操作数的每一位都会向左移动指定的位数，右侧空出的位置用 <code>0</code> 填充。</p>
+<p>例如：<code>5 &lt;&lt; 1</code>：</p>
+<ul>
+<li><code>5</code> 的二进制： <code>00000000 00000000 00000000 00000101</code></li>
+<li>结果： <code>00000000 00000000 00000000 00001010</code>（即 <code>10</code>）</li>
+</ul>
+</li>
+</ul>
+<h4 id="2-6-右移运算"><a href="#2-6-右移运算" class="headerlink" title="2.6. 右移运算 (&gt;&gt;)"></a>2.6. 右移运算 (<code>&gt;&gt;</code>)</h4><ul>
+<li><p><code>&gt;&gt;</code> 是算术右移运算符，操作数的每一位都会向右移动指定的位数，左侧的空位根据符号位填充（如果是正数，用 <code>0</code> 填充；如果是负数，用 <code>1</code> 填充）。</p>
+<p>例如：<code>5 &gt;&gt; 1</code>：</p>
+<ul>
+<li><code>5</code> 的二进制： <code>00000000 00000000 00000000 00000101</code></li>
+<li>结果： <code>00000000 00000000 00000000 00000010</code>（即 <code>2</code>）</li>
+</ul>
+</li>
+</ul>
+<h4 id="2-7-无符号右移运算"><a href="#2-7-无符号右移运算" class="headerlink" title="2.7. 无符号右移运算 (&gt;&gt;&gt;)"></a>2.7. 无符号右移运算 (<code>&gt;&gt;&gt;</code>)</h4><ul>
+<li><p><code>&gt;&gt;&gt;</code> 是无符号右移运算符，操作数的每一位都会向右移动指定的位数，左侧空位总是填充 <code>0</code>，即使是负数，也不使用符号扩展。</p>
+<p>例如：<code>-5 &gt;&gt;&gt; 1</code>：</p>
+<ul>
+<li><code>-5</code> 的二进制补码表示为： <code>11111111 11111111 11111111 11111011</code></li>
+<li>结果： <code>01111111 11111111 11111111 11111101</code>（即 <code>2147483642</code>）</li>
+</ul>
+</li>
+</ul>
+<h3 id="3-位运算应用"><a href="#3-位运算应用" class="headerlink" title="3. 位运算应用"></a>3. 位运算应用</h3><p>位运算常常用于高效的数值计算和一些优化问题中，以下是几个常见的应用：</p>
+<h4 id="3-1-检查一个数的奇偶性"><a href="#3-1-检查一个数的奇偶性" class="headerlink" title="3.1. 检查一个数的奇偶性"></a>3.1. 检查一个数的奇偶性</h4><p>通过检查最低位来判断一个数是否为偶数或奇数：</p>
+<ul>
+<li><code>n &amp; 1 == 0</code> 表示 <code>n</code> 是偶数</li>
+<li><code>n &amp; 1 == 1</code> 表示 <code>n</code> 是奇数</li>
+</ul>
+<h4 id="3-2-设置、清除、切换某一位"><a href="#3-2-设置、清除、切换某一位" class="headerlink" title="3.2. 设置、清除、切换某一位"></a>3.2. 设置、清除、切换某一位</h4><ul>
+<li>设置某一位：<code>n |= (1 &lt;&lt; k)</code>，将第 <code>k</code> 位设置为 1。</li>
+<li>清除某一位：<code>n &amp;= ~(1 &lt;&lt; k)</code>，将第 <code>k</code> 位设置为 0。</li>
+<li>切换某一位：<code>n ^= (1 &lt;&lt; k)</code>，将第 <code>k</code> 位的值取反。</li>
+</ul>
+<h4 id="3-3-判断一个数是否为-2-的幂"><a href="#3-3-判断一个数是否为-2-的幂" class="headerlink" title="3.3. 判断一个数是否为 2 的幂"></a>3.3. 判断一个数是否为 2 的幂</h4><ul>
+<li>一个数是 2 的幂当且仅当它的二进制表示只有一个 <code>1</code>，可以使用 <code>(n &amp; (n - 1)) == 0</code> 来判断。</li>
+</ul>
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>位运算在 Java 中非常高效，因为它直接操作二进制位，通常比常规的算术运算和逻辑运算更快。理解 <code>int</code> 的二进制表示和位运算的知识对于解决很多编程问题，特别是算法和优化问题非常有帮助。</p>
+<h1 id="常用方法"><a href="#常用方法" class="headerlink" title="常用方法"></a>常用方法</h1><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">左移( &lt;&lt; )</span><br><span class="line">右移( &gt;&gt; )  // 正数用 0 补位, 负数用 1 补位</span><br><span class="line">无符号右移( &gt;&gt;&gt; )  // 不管正数负数, 统统用 0 补位</span><br><span class="line">位与( &amp; )</span><br><span class="line">位或( | )</span><br><span class="line">位非( ~ )</span><br><span class="line">位异或( ^ )</span><br><span class="line">除了位非( ~ )是一元操作符外, 其它的都是二元操作符. </span><br><span class="line">对于 int n, n != 0, n 与 -n 的 1 之和为 33</span><br></pre></td></tr></table></figure>
+
+
+
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">BitOperation</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">        <span class="type">Solution</span> <span class="variable">s</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Solution</span>();</span><br><span class="line">        System.out.println(s.showBits(<span class="number">5</span>));</span><br><span class="line">        System.out.println(s.showBits(-<span class="number">5</span>));</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> String <span class="title function_">showBits</span><span class="params">(<span class="type">int</span> num)</span> &#123;</span><br><span class="line">        <span class="type">StringBuilder</span> <span class="variable">sb</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">StringBuilder</span>();</span><br><span class="line">        <span class="keyword">while</span> (num != <span class="number">0</span>) &#123;</span><br><span class="line">            sb.append(num &amp; <span class="number">1</span>);</span><br><span class="line">            num &gt;&gt;&gt;= <span class="number">1</span>;  <span class="comment">// 这里必须使用无符号右移</span></span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> sb.reverse().toString();  <span class="comment">// 记得翻转</span></span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">private</span> <span class="type">int</span> <span class="title function_">countBits</span><span class="params">(<span class="type">int</span> num)</span> &#123;</span><br><span class="line">        <span class="type">int</span> <span class="variable">cnt</span> <span class="operator">=</span> <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">while</span> (num != <span class="number">0</span>) &#123;</span><br><span class="line">            <span class="keyword">if</span> ((num &amp; <span class="number">1</span>) <span class="comment">/* &amp; 运算的括号不能少 */</span> == <span class="number">1</span>) cnt ++;</span><br><span class="line">            num &gt;&gt;&gt;=<span class="number">1</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> cnt;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">private</span> <span class="type">int</span> <span class="title function_">countBits1</span><span class="params">(<span class="type">int</span> num)</span> &#123;</span><br><span class="line">        <span class="type">int</span> <span class="variable">cnt</span> <span class="operator">=</span> <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">while</span> (num != <span class="number">0</span>) &#123;</span><br><span class="line">            num &amp;= (num - <span class="number">1</span>);  <span class="comment">// 清除最低位的 1</span></span><br><span class="line">            cnt ++;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> cnt;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h1 id="例题"><a href="#例题" class="headerlink" title="例题"></a>例题</h1><h2 id="1356-Sort-Integers-by-The-Number-of-1-Bits"><a href="#1356-Sort-Integers-by-The-Number-of-1-Bits" class="headerlink" title="1356. Sort Integers by The Number of 1 Bits"></a><a target="_blank" rel="noopener" href="https://leetcode.com/problems/sort-integers-by-the-number-of-1-bits/">1356. Sort Integers by The Number of 1 Bits</a></h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="type">int</span>[] sortByBits(<span class="type">int</span>[] arr) &#123;</span><br><span class="line">        Integer[] arr1 = Arrays.stream(arr).boxed().toArray(Integer[]::<span class="keyword">new</span>);</span><br><span class="line">        Arrays.sort(arr1, (x, y) -&gt; &#123;</span><br><span class="line">            <span class="type">int</span> <span class="variable">xbs</span> <span class="operator">=</span> cntBits(x), ybs = cntBits(y);</span><br><span class="line">            <span class="keyword">if</span> (xbs != ybs) <span class="keyword">return</span> xbs - ybs;</span><br><span class="line">            <span class="keyword">return</span> x - y;</span><br><span class="line">        &#125;);</span><br><span class="line">        <span class="keyword">return</span> Arrays.stream(arr1).mapToInt(Integer::intValue).toArray();</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">private</span> <span class="type">int</span> <span class="title function_">cntBits</span><span class="params">(<span class="type">int</span> n)</span> &#123;</span><br><span class="line">        <span class="type">int</span> <span class="variable">cnt</span> <span class="operator">=</span> <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">while</span> (n &gt; <span class="number">0</span>) &#123;</span><br><span class="line">            cnt += (n &amp; <span class="number">1</span>);</span><br><span class="line">            n &gt;&gt;= <span class="number">1</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> cnt;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><code>Arrays.sort()</code> 若要使用 Lambda 表达式, 必须先装箱</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
 
   
   <nav class="pagination">
@@ -1859,9 +1939,9 @@
 
       <div class="site-overview-wrap sidebar-panel">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
-    <img class="site-author-image" itemprop="image" alt="Perry Yao"
+    <img class="site-author-image" itemprop="image" alt="peiyouyao"
       src="https://avatars.githubusercontent.com/u/126999663?v=4">
-  <p class="site-author-name" itemprop="name">Perry Yao</p>
+  <p class="site-author-name" itemprop="name">peiyouyao</p>
   <div class="site-description" itemprop="description">...</div>
 </div>
 <div class="site-state-wrap motion-element">
@@ -1869,7 +1949,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">56</span>
+          <span class="site-state-item-count">55</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
@@ -1889,7 +1969,7 @@
 </div>
   <div class="links-of-author motion-element">
       <span class="links-of-author-item">
-        <a href="https://github.com/PerryYao-GitHub" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;PerryYao-GitHub" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+        <a href="https://github.com/peiyouyao" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;peiyouyao" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
       </span>
       <span class="links-of-author-item">
         <a href="mailto:peiyouyao@gmail.com" title="E-Mail → mailto:peiyouyao@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
@@ -1921,7 +2001,7 @@
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>
-  <span class="author" itemprop="copyrightHolder">Perry Yao</span>
+  <span class="author" itemprop="copyrightHolder">peiyouyao</span>
 </div>
   <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://pisces.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a>
   </div>
